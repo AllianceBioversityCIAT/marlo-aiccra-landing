@@ -1,0 +1,57 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches: [dev, staging, main,staging-sonar]
+
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Set up JDK 17
+      - name: Set up JDK 17 for SonarCloud analysis
+        uses: actions/setup-java@v2
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      # Step 2: Verify Java version
+      - name: Verify Java version
+        run: java -version
+
+      # Step 3: Set JAVA_HOME and SONAR_JAVA_HOME
+      - name: Set JAVA_HOME and SONAR_JAVA_HOME
+        run: |
+          echo "JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))" >> $GITHUB_ENV
+          echo "SONAR_JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
+
+      # Step 4: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v2    
+
+      # Step 6: Install Angular dependencies
+      - name: Install dependencies
+        run: |
+          npm install
+        working-directory: ./
+
+      # Step 8: Install SonarScanner
+      - name: Install SonarScanner
+        run: npm install -g sonar-scanner
+
+      # Step 9: Run SonarCloud analysis
+      - name: Run SonarCloud analysis
+        run: |
+          java -version
+          npm run build
+          sonar-scanner \
+            -Dsonar.projectKey=AllianceBioversityCIAT_marlo-aiccra-landing \
+            -Dsonar.organization=alliancebioversityciat \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.exclusions=**/environments/**,**/*.spec.ts,**/*.mock.ts \
+            -Dsonar.coverage.exclusions=**
+        working-directory: ./research-indicators
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

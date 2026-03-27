@@ -52,6 +52,6 @@ jobs:
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.exclusions=**/environments/**,**/*.spec.ts,**/*.mock.ts \
             -Dsonar.coverage.exclusions=**
-        working-directory: ./research-indicators
+        working-directory: ./
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

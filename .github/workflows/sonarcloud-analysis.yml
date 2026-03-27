@@ -2,7 +2,7 @@ name: SonarCloud Analysis
 
 on:
   push:
-    branches: [dev, staging, main,staging-sonar]
+    branches: [dev, staging, main]
 
 jobs:
   sonarcloud:

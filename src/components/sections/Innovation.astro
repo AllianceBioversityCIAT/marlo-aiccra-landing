@@ -1,0 +1,131 @@
+---
+const features = [
+  {
+    icon: `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/>`,
+    iconColor: '#0d9488',
+    iconBg: 'rgba(13,148,136,0.1)',
+    badge: 'Documentation',
+    badgeColor: '#0d9488',
+    badgeBg: 'rgba(13,148,136,0.1)',
+    title: 'Structured Innovation Documentation',
+    desc: 'Capture key attributes, maturity level, geographic relevance, and partners for every innovation in the portfolio.',
+  },
+  {
+    icon: `<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>`,
+    iconColor: '#2563eb',
+    iconBg: 'rgba(37,99,235,0.1)',
+    badge: 'Storytelling',
+    badgeColor: '#2563eb',
+    badgeBg: 'rgba(37,99,235,0.1)',
+    title: 'Outcome Case Studies',
+    desc: 'Generate compelling narratives demonstrating innovation use and scaling for donor reporting and strategic communication.',
+  },
+  {
+    icon: `<polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/>`,
+    iconColor: '#059669',
+    iconBg: 'rgba(5,150,105,0.1)',
+    badge: 'Tracking',
+    badgeColor: '#059669',
+    badgeBg: 'rgba(5,150,105,0.1)',
+    title: 'Cross-Phase Tracking',
+    desc: 'Monitor innovation progression across reporting cycles — from pilot to scaling — with full historical traceability.',
+  },
+  {
+    icon: `<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>`,
+    iconColor: '#7c3aed',
+    iconBg: 'rgba(124,58,237,0.1)',
+    badge: 'Evidence',
+    badgeColor: '#7c3aed',
+    badgeBg: 'rgba(124,58,237,0.1)',
+    title: 'Evidence-Based Storytelling',
+    desc: 'Support synthesis for donor reporting and strategic communication with structured data and narrative tools.',
+  },
+];
+---
+
+<section id="innovation" style="background: #f3f4f6;" class="py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+      <div>
+        <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+          Innovation &amp; Impact Focus
+        </p>
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4" style="color: #111827;">
+          Designed for Innovation-Driven Portfolios
+        </h2>
+      </div>
+      <div class="flex flex-col justify-center gap-4">
+        <p class="text-sm leading-relaxed" style="color: #4b5563;">
+          MARLO AICCRA is tailored to strengthen innovation tracking and impact evidence across climate research portfolios — from drought-tolerant seeds in Ghana to solar irrigation in Zambia.
+        </p>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg self-start" style="background: white; border: 1px solid #e5e7eb;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span class="text-sm font-semibold" style="color: #1a3a5c;">9M+ people reached with validated innovations (2021–2025)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left image card -->
+      <div class="relative rounded-2xl overflow-hidden min-h-72 lg:min-h-full" style="background: linear-gradient(135deg, #1a3a5c, #0d9488);">
+        <!-- Agriculture image overlay using CSS gradient as placeholder -->
+        <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(26,58,92,0.3) 0%, rgba(26,58,92,0.8) 100%);">
+          <!-- Decorative crop pattern -->
+          <div class="w-full h-full flex items-center justify-center opacity-20">
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+              <rect x="10" y="60" width="8" height="30" fill="white"/>
+              <ellipse cx="14" cy="55" rx="8" ry="12" fill="white" opacity="0.6"/>
+              <rect x="25" y="55" width="8" height="35" fill="white"/>
+              <ellipse cx="29" cy="48" rx="8" ry="14" fill="white" opacity="0.6"/>
+              <rect x="40" y="58" width="8" height="32" fill="white"/>
+              <ellipse cx="44" cy="52" rx="8" ry="12" fill="white" opacity="0.6"/>
+              <rect x="55" y="52" width="8" height="38" fill="white"/>
+              <ellipse cx="59" cy="44" rx="9" ry="15" fill="white" opacity="0.6"/>
+              <rect x="70" y="57" width="8" height="33" fill="white"/>
+              <ellipse cx="74" cy="50" rx="8" ry="13" fill="white" opacity="0.6"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Overlay content -->
+        <div class="absolute bottom-0 left-0 right-0 p-6">
+          <p class="text-xs font-semibold tracking-widest uppercase mb-2" style="color: rgba(255,255,255,0.6);">
+            AICCRA Innovation Portfolio
+          </p>
+          <h3 class="text-2xl font-bold text-white mb-1">24 Validated Technology Packages</h3>
+          <p class="text-sm" style="color: rgba(255,255,255,0.7);">33% above target · 6 countries</p>
+        </div>
+      </div>
+
+      <!-- Right 2x2 feature cards -->
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {features.map(({ icon, iconColor, iconBg, badge, badgeColor, badgeBg, title, desc }) => (
+          <div class="bg-white rounded-2xl p-6 flex flex-col gap-4" style="border: 1px solid #e5e7eb;">
+            <div class="flex items-start justify-between">
+              <div
+                class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                style={`background: ${iconBg};`}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <Fragment set:html={icon} />
+                </svg>
+              </div>
+              <span
+                class="text-[11px] font-semibold px-2 py-0.5 rounded"
+                style={`background: ${badgeBg}; color: ${badgeColor};`}
+              >
+                {badge}
+              </span>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold mb-1.5" style="color: #111827;">{title}</h3>
+              <p class="text-xs leading-relaxed" style="color: #6b7280;">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,153 @@
+---
+const archLayers = [
+  {
+    label: 'Presentation',
+    items: [
+      { name: 'Web App', color: '#93c5fd', bg: 'rgba(147,197,253,0.15)' },
+      { name: 'API', color: '#93c5fd', bg: 'rgba(147,197,253,0.15)' },
+    ],
+  },
+  {
+    label: 'Application',
+    items: [
+      { name: 'Java EE Core', color: '#6ee7b7', bg: 'rgba(110,231,183,0.15)' },
+      { name: 'AI Module', color: '#6ee7b7', bg: 'rgba(110,231,183,0.15)' },
+    ],
+  },
+  {
+    label: 'Data',
+    items: [
+      { name: 'MySQL DB', color: '#fcd34d', bg: 'rgba(252,211,77,0.15)' },
+      { name: 'CGSpace TIP', color: '#fcd34d', bg: 'rgba(252,211,77,0.15)' },
+    ],
+  },
+  {
+    label: 'Infrastructure',
+    items: [
+      { name: 'AWS Prod', color: '#fca5a5', bg: 'rgba(252,165,165,0.15)' },
+      { name: 'Azure Analytics', color: '#fca5a5', bg: 'rgba(252,165,165,0.15)' },
+    ],
+  },
+];
+
+const features = [
+  {
+    icon: `<polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/>`,
+    iconColor: '#2563eb',
+    iconBg: 'rgba(37,99,235,0.1)',
+    badge: 'Open Source',
+    badgeColor: '#1d4ed8',
+    badgeBg: 'rgba(37,99,235,0.1)',
+    title: 'Open-Source Foundation',
+    desc: 'Built on a Java Enterprise architecture to ensure long-term sustainability and modularity.',
+  },
+  {
+    icon: `<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>`,
+    iconColor: '#0d9488',
+    iconBg: 'rgba(13,148,136,0.1)',
+    badge: 'AWS · Azure',
+    badgeColor: '#0d9488',
+    badgeBg: 'rgba(13,148,136,0.1)',
+    title: 'Multi-Cloud Infrastructure',
+    desc: 'Production hosted on AWS. Testing environments on-premise. Analytics via Azure and Power BI integration.',
+  },
+  {
+    icon: `<rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>`,
+    iconColor: '#7c3aed',
+    iconBg: 'rgba(124,58,237,0.1)',
+    badge: 'AI-Assisted',
+    badgeColor: '#7c3aed',
+    badgeBg: 'rgba(124,58,237,0.1)',
+    title: 'AI Integration',
+    desc: 'Supports narrative drafting, information retrieval, and structured reporting assistance through integrated AI tools.',
+  },
+  {
+    icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+    iconColor: '#ca8a04',
+    iconBg: 'rgba(202,138,4,0.1)',
+    badge: 'RBAC · Secure',
+    badgeColor: '#ca8a04',
+    badgeBg: 'rgba(202,138,4,0.1)',
+    title: 'Data Governance',
+    desc: 'Role-based access control, secure portfolio-level consolidation, and compliance-ready documentation structure.',
+  },
+];
+---
+
+<section id="technology" style="background: #f3f4f6;" class="py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+      <div>
+        <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+          Technology &amp; Governance
+        </p>
+        <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+          Robust, Sustainable Architecture
+        </h2>
+      </div>
+      <div class="flex items-center">
+        <p class="text-sm leading-relaxed" style="color: #4b5563;">
+          MARLO is built for institutional resilience — open-source foundations, multi-cloud deployments, and AI-assisted workflows that scale with CGIAR's research ambitions.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Architecture diagram card -->
+      <div class="rounded-2xl p-8 flex flex-col gap-5" style="background: #1a3a5c;">
+        <p class="text-xs font-semibold tracking-widest uppercase" style="color: rgba(255,255,255,0.5);">
+          System Architecture
+        </p>
+        {archLayers.map(({ label, items }) => (
+          <div>
+            <p class="text-xs mb-2" style="color: rgba(255,255,255,0.4);">{label}</p>
+            <div class="grid grid-cols-2 gap-2">
+              {items.map(({ name, color, bg }) => (
+                <div
+                  class="px-3 py-2 rounded-lg text-xs font-semibold text-center"
+                  style={`background: ${bg}; color: ${color}; border: 1px solid ${color}22;`}
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+        <!-- Status indicator -->
+        <div class="flex items-center gap-2 mt-auto pt-4" style="border-top: 1px solid rgba(255,255,255,0.08);">
+          <div class="w-2 h-2 rounded-full" style="background: #10b981;"></div>
+          <span class="text-xs" style="color: rgba(255,255,255,0.6);">All systems operational</span>
+        </div>
+      </div>
+
+      <!-- Feature cards 2x2 -->
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {features.map(({ icon, iconColor, iconBg, badge, badgeColor, badgeBg, title, desc }) => (
+          <div class="bg-white rounded-2xl p-6 flex flex-col gap-4" style="border: 1px solid #e5e7eb;">
+            <div class="flex items-start justify-between">
+              <div
+                class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                style={`background: ${iconBg};`}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <Fragment set:html={icon} />
+                </svg>
+              </div>
+              <span
+                class="text-[11px] font-semibold px-2 py-0.5 rounded"
+                style={`background: ${badgeBg}; color: ${badgeColor};`}
+              >
+                {badge}
+              </span>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold mb-1.5" style="color: #111827;">{title}</h3>
+              <p class="text-xs leading-relaxed" style="color: #6b7280;">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

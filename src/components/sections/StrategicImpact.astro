@@ -1,0 +1,111 @@
+---
+const impactCards = [
+  {
+    icon: `<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>`,
+    iconColor: '#2563eb',
+    iconBg: 'rgba(37,99,235,0.1)',
+    title: 'Evidence-Based Decision Support',
+    desc: 'Provides leadership with consolidated portfolio insights to guide funding, scaling, and strategic adjustments — backed by structured data, not anecdote.',
+    tags: ['Portfolio Insights', 'Funding Guidance', 'Scaling Decisions'],
+    tagColor: '#1d4ed8',
+    tagBg: 'rgba(37,99,235,0.08)',
+  },
+  {
+    icon: `<line x1="3" y1="22" x2="3" y2="2"/><path d="M17 22V5a2 2 0 0 0-2-2H7v20"/><rect x="7" y="10" width="4" height="12"/>`,
+    iconColor: '#0d9488',
+    iconBg: 'rgba(13,148,136,0.1)',
+    title: 'Institutional Reliability',
+    desc: 'Reduces duplication of effort, minimizes manual error, and preserves structured historical records across project phases — building lasting institutional memory.',
+    tags: ['Error Reduction', 'Historical Records', 'Institutional Memory'],
+    tagColor: '#0d9488',
+    tagBg: 'rgba(13,148,136,0.08)',
+  },
+];
+
+const stats = [
+  { value: '9M+', label: 'People Reached', icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>` },
+  { value: '6', label: 'Country Teams', icon: `<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>` },
+  { value: '24', label: 'Validated Innovations', icon: `<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>` },
+  { value: '$60M', label: 'World Bank Portfolio', icon: `<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>` },
+];
+---
+
+<section id="impact" class="bg-white py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+        Strategic Impact
+      </p>
+      <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+        From Administration to Strategic Asset
+      </h2>
+    </div>
+
+    <!-- Quote highlight -->
+    <div
+      class="relative rounded-2xl p-10 lg:p-14 text-center mb-10 overflow-hidden"
+      style="background: linear-gradient(135deg, #ecfdf5, #d1fae5); border: 1px solid rgba(5,150,105,0.15);"
+    >
+      <!-- Decorative icons -->
+      <div class="absolute top-6 left-8 opacity-15">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.5">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <div class="absolute bottom-6 right-8 opacity-10">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.5">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </div>
+
+      <p class="text-xl lg:text-2xl font-semibold max-w-2xl mx-auto leading-relaxed" style="color: #111827;">
+        Turning research management into{' '}
+        <em style="color: #0d9488;">evidence-based institutional intelligence.</em>
+      </p>
+    </div>
+
+    <!-- Impact cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+      {impactCards.map(({ icon, iconColor, iconBg, title, desc, tags, tagColor, tagBg }) => (
+        <div class="rounded-2xl p-8 bg-white flex flex-col gap-5" style="border: 1px solid #e5e7eb;">
+          <div
+            class="w-12 h-12 rounded-xl flex items-center justify-center"
+            style={`background: ${iconBg};`}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <Fragment set:html={icon} />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2" style="color: #111827;">{title}</h3>
+            <p class="text-sm leading-relaxed mb-4" style="color: #6b7280;">{desc}</p>
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  class="text-xs font-medium px-2.5 py-1 rounded-full"
+                  style={`background: ${tagBg}; color: ${tagColor};`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Stats bar -->
+    <div class="rounded-2xl p-8 grid grid-cols-2 lg:grid-cols-4 gap-8" style="background: #1a3a5c;">
+      {stats.map(({ value, label, icon }) => (
+        <div class="flex flex-col items-center text-center gap-2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <Fragment set:html={icon} />
+          </svg>
+          <span class="text-3xl font-bold text-white">{value}</span>
+          <span class="text-xs" style="color: rgba(255,255,255,0.5);">{label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,94 @@
+---
+import { ListChecks, Users, Database, FileText } from '@lucide/astro';
+
+const features = [
+  {
+    Icon: ListChecks,
+    iconColor: '#2563eb',
+    iconBg: 'rgba(37,99,235,0.1)',
+    badge: 'Workflows',
+    badgeColor: '#2563eb',
+    badgeBg: 'rgba(37,99,235,0.08)',
+    title: 'Structured Workflows',
+    desc: 'Define and manage reporting processes step by step, ensuring consistency across all projects and reporting cycles.',
+  },
+  {
+    Icon: Users,
+    iconColor: '#0d9488',
+    iconBg: 'rgba(13,148,136,0.1)',
+    badge: 'Access',
+    badgeColor: '#0d9488',
+    badgeBg: 'rgba(13,148,136,0.08)',
+    title: 'Role-Based Access',
+    desc: 'Assign roles and responsibilities to ensure accountability and proper data validation across your team.',
+  },
+  {
+    Icon: Database,
+    iconColor: '#059669',
+    iconBg: 'rgba(5,150,105,0.1)',
+    badge: 'Data',
+    badgeColor: '#059669',
+    badgeBg: 'rgba(5,150,105,0.08)',
+    title: 'Centralized Data Management',
+    desc: 'Store all reporting data in one place — accessible, organized, and ready for analysis at any time.',
+  },
+  {
+    Icon: FileText,
+    iconColor: '#7c3aed',
+    iconBg: 'rgba(124,58,237,0.1)',
+    badge: 'Reporting',
+    badgeColor: '#7c3aed',
+    badgeBg: 'rgba(124,58,237,0.08)',
+    title: 'End-to-End Reporting',
+    desc: 'From data entry to validation, aggregation, and reporting — all in one integrated platform.',
+  },
+];
+---
+
+<section id="features" class="bg-white py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+      <div>
+        <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+          Core Features
+        </p>
+        <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+          A platform designed for<br />structured reporting
+        </h2>
+      </div>
+      <div class="flex flex-col justify-center">
+        <p class="text-sm leading-relaxed" style="color: #4b5563;">
+          MARLO brings together the tools your team needs to standardize reporting, ensure data
+          quality, and make information accessible across your entire program portfolio.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature cards 2×2 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {features.map(({ Icon, iconColor, iconBg, badge, badgeColor, badgeBg, title, desc }) => (
+        <div class="rounded-2xl p-6 flex flex-col gap-4" style="border: 1px solid #e5e7eb;">
+          <div class="flex items-start justify-between">
+            <div
+              class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+              style={`background: ${iconBg};`}
+            >
+              <Icon size={18} color={iconColor} />
+            </div>
+            <span
+              class="text-[11px] font-semibold px-2 py-0.5 rounded"
+              style={`background: ${badgeBg}; color: ${badgeColor};`}
+            >
+              {badge}
+            </span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold mb-2" style="color: #111827;">{title}</h3>
+            <p class="text-sm leading-relaxed" style="color: #6b7280;">{desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

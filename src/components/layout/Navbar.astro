@@ -1,5 +1,6 @@
 ---
 import { navLinks } from '../../data/navigation';
+import { Layers, Menu } from '@lucide/astro';
 ---
 
 <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
@@ -7,9 +8,7 @@ import { navLinks } from '../../data/navigation';
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 shrink-0">
       <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #1a3a5c, #2563eb);">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <Layers size={18} color="white" />
       </div>
       <div class="flex flex-col leading-none">
         <span class="text-base font-bold" style="color: #1a3a5c;">
@@ -42,13 +41,13 @@ import { navLinks } from '../../data/navigation';
         Documentation
       </a>
       <a
-        href="#"
+        href="#contact"
         class="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
         style="background-color: #2563eb;"
         onmouseover="this.style.backgroundColor='#1d4ed8'"
         onmouseout="this.style.backgroundColor='#2563eb'"
       >
-        Access MARLO
+        Request a Demo
       </a>
 
       <!-- Mobile hamburger -->
@@ -57,11 +56,7 @@ import { navLinks } from '../../data/navigation';
         class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100"
         aria-label="Open menu"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
+        <Menu size={20} />
       </button>
     </div>
   </nav>

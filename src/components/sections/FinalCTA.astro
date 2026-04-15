@@ -1,4 +1,5 @@
 ---
+import { Activity, ArrowRight, MessageSquare } from '@lucide/astro';
 ---
 
 <section class="bg-white py-24">
@@ -19,64 +20,41 @@
           class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold"
           style="background: rgba(37,99,235,0.2); color: #93c5fd; border: 1px solid rgba(37,99,235,0.3);"
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 11.5a2.5 2.5 0 0 0 5 0V5a2.5 2.5 0 0 0-5 0v6.5z"/><path d="M17.5 12a5.5 5.5 0 0 1-11 0"/>
-          </svg>
-          MARLO AICCRA PLATFORM
+          <Activity size={12} />
+          MARLO PLATFORM
         </div>
 
         <!-- Heading -->
         <h2 class="text-3xl lg:text-4xl font-bold text-white max-w-lg leading-tight">
-          Ready to Manage Research for Impact?
+          Improve your reporting processes today
         </h2>
 
         <p class="text-sm leading-relaxed max-w-md" style="color: rgba(255,255,255,0.7);">
-          Access MARLO to plan strategically, report effectively, and strengthen innovation visibility across your portfolio.
+          Start transforming your reporting into a strategic advantage.
         </p>
 
         <!-- Buttons -->
         <div class="flex flex-wrap gap-4 justify-center">
           <a
-            href="#"
+            href="#contact"
             class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all"
             style="background: white; color: #1a3a5c;"
             onmouseover="this.style.backgroundColor='#f0f9ff'"
             onmouseout="this.style.backgroundColor='white'"
           >
-            Access MARLO
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Request a Demo
+            <ArrowRight size={16} />
           </a>
           <a
-            href="#"
+            href="#contact"
             class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all"
             style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3);"
             onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'"
             onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'"
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-            Contact Support
+            <MessageSquare size={15} />
+            Contact Us
           </a>
-        </div>
-
-        <!-- Stats badges -->
-        <div class="flex flex-wrap justify-center gap-3 mt-2">
-          {[
-            { icon: `<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>`, label: 'World Bank IDA Funded' },
-            { icon: `<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`, label: '6 Country Teams' },
-            { icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`, label: '9M+ People Reached' },
-          ].map(({ icon, label }) => (
-            <div
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs"
-              style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.12);"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <Fragment set:html={icon} />
-              </svg>
-              {label}
-            </div>
-          ))}
         </div>
       </div>
     </div>

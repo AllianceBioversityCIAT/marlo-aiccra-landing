@@ -3,14 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import Hero from '../components/sections/Hero.astro';
-import WhatIsMarlo from '../components/sections/WhatIsMarlo.astro';
+import Partners from '../components/sections/Partners.astro';
+import Impact from '../components/sections/Impact.astro';
 import StrategicChallenge from '../components/sections/StrategicChallenge.astro';
-import PlatformCapabilities from '../components/sections/PlatformCapabilities';
-import Innovation from '../components/sections/Innovation.astro';
-import PlatformLifecycle from '../components/sections/PlatformLifecycle.astro';
-import TechnologyGovernance from '../components/sections/TechnologyGovernance.astro';
-import StrategicImpact from '../components/sections/StrategicImpact.astro';
-import ResourcesAccess from '../components/sections/ResourcesAccess.astro';
+import Features from '../components/sections/Features.astro';
+import BIIntelligence from '../components/sections/BIIntelligence.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import FAQs from '../components/sections/FAQs.astro';
 import FinalCTA from '../components/sections/FinalCTA.astro';
 ---
 
@@ -18,14 +17,13 @@ import FinalCTA from '../components/sections/FinalCTA.astro';
   <Navbar />
   <main>
     <Hero />
-    <WhatIsMarlo />
+    <Partners />
+    <Impact />
     <StrategicChallenge />
-    <PlatformCapabilities client:load />
-    <Innovation />
-    <PlatformLifecycle />
-    <TechnologyGovernance />
-    <StrategicImpact />
-    <ResourcesAccess />
+    <Features />
+    <BIIntelligence />
+    <Testimonials />
+    <FAQs />
     <FinalCTA />
   </main>
   <Footer />

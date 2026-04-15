@@ -1,0 +1,40 @@
+---
+const partners = [
+  { name: 'Alliance of Bioversity & CIAT', src: '/logos/alliance.png' },
+  { name: 'CGIAR', src: '/logos/cgiar.svg' },
+  { name: 'World Bank', src: '/logos/world-bank.png' },
+  { name: 'Mastercard Foundation', src: '/logos/mastercard-foundation.png' },
+];
+---
+
+<section class="bg-white py-14" style="border-bottom: 1px solid #e5e7eb;">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+        Trusted Partners
+      </p>
+      <h2 class="text-2xl lg:text-3xl font-bold mb-3" style="color: #111827;">
+        Trusted in complex program environments
+      </h2>
+      <p class="text-sm leading-relaxed max-w-2xl mx-auto" style="color: #6b7280;">
+        MARLO is designed for international organizations, research programs, and multi-country
+        initiatives working with distributed teams and complex reporting needs.
+      </p>
+    </div>
+
+    <!-- Partner logos -->
+    <div class="flex flex-wrap items-center justify-center gap-10 lg:gap-16">
+      {partners.map(({ name, src }) => (
+        <div class="flex items-center justify-center">
+          <img
+            src={src}
+            alt={name}
+            class="object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+            style="height: 80px; width: auto;"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

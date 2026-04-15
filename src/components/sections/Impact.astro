@@ -1,0 +1,71 @@
+---
+import { Activity, CheckCircle, BarChart2, ShieldCheck } from '@lucide/astro';
+
+const stats = [
+  {
+    Icon: Activity,
+    iconColor: '#2563eb',
+    iconBg: 'rgba(37,99,235,0.1)',
+    stat: '50%',
+    label: 'Faster Reporting Cycles',
+    desc: 'Reporting cycles completed faster, freeing teams to focus on what matters most.',
+  },
+  {
+    Icon: CheckCircle,
+    iconColor: '#0d9488',
+    iconBg: 'rgba(13,148,136,0.1)',
+    stat: '↑ High',
+    label: 'Data Consistency',
+    desc: 'Improved data consistency across projects with standardized reporting structures.',
+  },
+  {
+    Icon: BarChart2,
+    iconColor: '#059669',
+    iconBg: 'rgba(5,150,105,0.1)',
+    stat: 'Live',
+    label: 'Real-Time Visibility',
+    desc: 'Continuous visibility into program performance without manual consolidation.',
+  },
+  {
+    Icon: ShieldCheck,
+    iconColor: '#7c3aed',
+    iconBg: 'rgba(124,58,237,0.1)',
+    stat: '↓ Few',
+    label: 'Reporting Errors',
+    desc: 'Significant reduction in reporting errors through structured workflows and validation.',
+  },
+];
+---
+
+<section id="impact" style="background: #f3f4f6;" class="py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+        Impact
+      </p>
+      <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+        Impact across reporting and management
+      </h2>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {stats.map(({ Icon, iconColor, iconBg, stat, label, desc }) => (
+        <div class="bg-white rounded-2xl p-6 flex flex-col gap-4" style="border: 1px solid #e5e7eb;">
+          <div
+            class="w-11 h-11 rounded-xl flex items-center justify-center"
+            style={`background: ${iconBg};`}
+          >
+            <Icon size={20} color={iconColor} />
+          </div>
+          <div>
+            <div class="text-3xl font-bold mb-1" style={`color: ${iconColor};`}>{stat}</div>
+            <h3 class="text-sm font-bold mb-2" style="color: #111827;">{label}</h3>
+            <p class="text-xs leading-relaxed" style="color: #6b7280;">{desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,7 +1,9 @@
 ---
+import { Activity, CheckCircle, BarChart2, ShieldCheck } from '@lucide/astro';
+
 const stats = [
   {
-    icon: `<polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>`,
+    Icon: Activity,
     iconColor: '#2563eb',
     iconBg: 'rgba(37,99,235,0.1)',
     stat: '50%',
@@ -9,7 +11,7 @@ const stats = [
     desc: 'Reporting cycles completed faster, freeing teams to focus on what matters most.',
   },
   {
-    icon: `<polyline points="20,6 9,17 4,12"/>`,
+    Icon: CheckCircle,
     iconColor: '#0d9488',
     iconBg: 'rgba(13,148,136,0.1)',
     stat: '↑ High',
@@ -17,7 +19,7 @@ const stats = [
     desc: 'Improved data consistency across projects with standardized reporting structures.',
   },
   {
-    icon: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
+    Icon: BarChart2,
     iconColor: '#059669',
     iconBg: 'rgba(5,150,105,0.1)',
     stat: 'Live',
@@ -25,7 +27,7 @@ const stats = [
     desc: 'Continuous visibility into program performance without manual consolidation.',
   },
   {
-    icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+    Icon: ShieldCheck,
     iconColor: '#7c3aed',
     iconBg: 'rgba(124,58,237,0.1)',
     stat: '↓ Few',
@@ -49,15 +51,13 @@ const stats = [
 
     <!-- Stat cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {stats.map(({ icon, iconColor, iconBg, stat, label, desc }) => (
+      {stats.map(({ Icon, iconColor, iconBg, stat, label, desc }) => (
         <div class="bg-white rounded-2xl p-6 flex flex-col gap-4" style="border: 1px solid #e5e7eb;">
           <div
             class="w-11 h-11 rounded-xl flex items-center justify-center"
             style={`background: ${iconBg};`}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <Fragment set:html={icon} />
-            </svg>
+            <Icon size={20} color={iconColor} />
           </div>
           <div>
             <div class="text-3xl font-bold mb-1" style={`color: ${iconColor};`}>{stat}</div>

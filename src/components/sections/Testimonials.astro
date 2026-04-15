@@ -1,4 +1,6 @@
 ---
+import { Quote } from '@lucide/astro';
+
 const testimonials = [
   {
     quote:
@@ -48,12 +50,8 @@ const testimonials = [
           class="rounded-2xl p-8 flex flex-col gap-6"
           style={`background: ${bg}; border: 1px solid ${border};`}
         >
-          <!-- Quote mark -->
-          <svg width="32" height="32" viewBox="0 0 32 32" fill={color} opacity="0.25">
-            <path d="M9.333 21.333c0 2.209-1.791 4-4 4s-4-1.791-4-4c0-1.174.508-2.229 1.316-2.963L6.667 8h4l-2.764 9.601A3.99 3.99 0 0 1 9.333 21.333zm18.667 0c0 2.209-1.791 4-4 4s-4-1.791-4-4c0-1.174.508-2.229 1.316-2.963L25.333 8h4l-2.764 9.601A3.99 3.99 0 0 1 28 21.333z"/>
-          </svg>
+          <Quote size={32} color={color} style="opacity: 0.25;" />
 
-          <!-- Quote text -->
           <p class="text-base leading-relaxed font-medium flex-1" style="color: #111827;">
             "{quote}"
           </p>

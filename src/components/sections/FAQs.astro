@@ -1,4 +1,6 @@
 ---
+import { ChevronDown, ArrowRight } from '@lucide/astro';
+
 const faqs = [
   {
     question: 'What type of organizations is MARLO designed for?',
@@ -42,19 +44,7 @@ const faqs = [
             style="color: #111827;"
           >
             <span class="text-sm font-semibold">{question}</span>
-            <svg
-              class="shrink-0 transition-transform group-open:rotate-180"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#9ca3af"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="6,9 12,15 18,9"/>
-            </svg>
+            <ChevronDown size={16} color="#9ca3af" class="shrink-0 transition-transform group-open:rotate-180" />
           </summary>
           <div class="px-6 pb-5">
             <p class="text-sm leading-relaxed" style="color: #6b7280;">{answer}</p>
@@ -73,9 +63,7 @@ const faqs = [
         onmouseout="this.style.color='#2563eb'"
       >
         See all questions
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
+        <ArrowRight size={14} />
       </a>
     </div>
   </div>

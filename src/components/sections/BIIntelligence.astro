@@ -1,28 +1,30 @@
 ---
+import { BarChart2, Globe, Bot, Download, MessageSquare } from '@lucide/astro';
+
 const capabilities = [
   {
-    icon: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
+    Icon: BarChart2,
     iconColor: '#2563eb',
     iconBg: 'rgba(37,99,235,0.1)',
     title: 'Real-Time Dashboards',
     desc: 'Continuous program monitoring with up-to-date dashboards across all reporting phases.',
   },
   {
-    icon: `<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`,
+    Icon: Globe,
     iconColor: '#0d9488',
     iconBg: 'rgba(13,148,136,0.1)',
     title: 'Aggregated Insights',
     desc: 'Aggregated insights across projects, regions, and indicators for strategic decision-making.',
   },
   {
-    icon: `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
+    Icon: Bot,
     iconColor: '#7c3aed',
     iconBg: 'rgba(124,58,237,0.1)',
     title: 'AI Chatbot',
     desc: 'Quickly access and explore reporting information through a conversational AI interface.',
   },
   {
-    icon: `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/>`,
+    Icon: Download,
     iconColor: '#059669',
     iconBg: 'rgba(5,150,105,0.1)',
     title: 'Exportable Reports',
@@ -36,15 +38,12 @@ const capabilities = [
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <!-- Left: Dashboard visual -->
       <div class="relative">
-        <!-- Dashboard card -->
         <div class="rounded-3xl overflow-hidden shadow-xl" style="background: white; border: 1px solid #e5e7eb;">
           <!-- Header bar -->
           <div class="px-5 py-4 flex items-center justify-between" style="background: #1a3a5c;">
             <div class="flex items-center gap-3">
               <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background: rgba(255,255,255,0.2);">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-                </svg>
+                <BarChart2 size={13} color="white" />
               </div>
               <div>
                 <div class="text-xs font-semibold text-white">Intelligence Dashboard</div>
@@ -59,7 +58,7 @@ const capabilities = [
 
           <!-- Dashboard body -->
           <div class="p-5 flex flex-col gap-4">
-            <!-- Trend chart placeholder -->
+            <!-- Trend chart -->
             <div>
               <div class="text-[10px] font-semibold mb-3 tracking-wider uppercase" style="color: #9ca3af;">Reporting Progress</div>
               <div class="flex items-end gap-1.5 h-16">
@@ -75,9 +74,7 @@ const capabilities = [
             <!-- AI chatbot hint -->
             <div class="rounded-xl p-3 flex gap-3 items-start" style="background: #f0f9ff; border: 1px solid #bfdbfe;">
               <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background: #2563eb;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
+                <MessageSquare size={12} color="white" />
               </div>
               <div>
                 <div class="text-[10px] font-semibold mb-1" style="color: #1d4ed8;">AI Assistant</div>
@@ -121,15 +118,13 @@ const capabilities = [
 
         <!-- Capability items -->
         <div class="flex flex-col gap-4">
-          {capabilities.map(({ icon, iconColor, iconBg, title, desc }) => (
+          {capabilities.map(({ Icon, iconColor, iconBg, title, desc }) => (
             <div class="flex gap-4 items-start">
               <div
                 class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
                 style={`background: ${iconBg};`}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <Fragment set:html={icon} />
-                </svg>
+                <Icon size={16} color={iconColor} />
               </div>
               <div>
                 <h3 class="text-sm font-bold mb-1" style="color: #111827;">{title}</h3>

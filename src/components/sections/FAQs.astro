@@ -1,0 +1,82 @@
+---
+const faqs = [
+  {
+    question: 'What type of organizations is MARLO designed for?',
+    answer:
+      'MARLO is designed for international programs, research initiatives, NGOs, and organizations managing complex, multi-stakeholder reporting processes.',
+  },
+  {
+    question: 'Can MARLO be adapted to different frameworks?',
+    answer:
+      'Yes, MARLO is flexible and can be aligned with frameworks such as PRMS, donor requirements, and custom reporting structures.',
+  },
+  {
+    question: 'Does MARLO integrate with other systems?',
+    answer:
+      'Yes, MARLO can integrate with existing tools and data sources depending on project needs.',
+  },
+];
+---
+
+<section id="faqs" style="background: #f3f4f6;" class="py-24">
+  <div class="max-w-3xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+        FAQs
+      </p>
+      <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+        Frequently Asked Questions
+      </h2>
+    </div>
+
+    <!-- FAQ items -->
+    <div class="flex flex-col gap-4 mb-10">
+      {faqs.map(({ question, answer }) => (
+        <details
+          class="group bg-white rounded-2xl overflow-hidden"
+          style="border: 1px solid #e5e7eb;"
+        >
+          <summary
+            class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer select-none list-none"
+            style="color: #111827;"
+          >
+            <span class="text-sm font-semibold">{question}</span>
+            <svg
+              class="shrink-0 transition-transform group-open:rotate-180"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#9ca3af"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6,9 12,15 18,9"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5">
+            <p class="text-sm leading-relaxed" style="color: #6b7280;">{answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <!-- Link to extended FAQs -->
+    <div class="text-center">
+      <a
+        href="#"
+        class="inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+        style="color: #2563eb;"
+        onmouseover="this.style.color='#1d4ed8'"
+        onmouseout="this.style.color='#2563eb'"
+      >
+        See all questions
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

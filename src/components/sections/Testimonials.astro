@@ -1,0 +1,78 @@
+---
+const testimonials = [
+  {
+    quote:
+      'MARLO helped us standardize reporting across multiple countries and significantly improve data quality.',
+    role: 'Program Manager',
+    org: 'International Research Program',
+    color: '#2563eb',
+    bg: 'rgba(37,99,235,0.05)',
+    border: 'rgba(37,99,235,0.1)',
+  },
+  {
+    quote:
+      'The platform reduced our reporting time and gave us real-time visibility we never had before.',
+    role: 'Monitoring & Evaluation Lead',
+    org: 'Multi-Country Initiative',
+    color: '#0d9488',
+    bg: 'rgba(13,148,136,0.05)',
+    border: 'rgba(13,148,136,0.1)',
+  },
+  {
+    quote: 'MARLO bridges the gap between data collection and decision-making.',
+    role: 'Data Analyst',
+    org: 'Regional Development Program',
+    color: '#7c3aed',
+    bg: 'rgba(124,58,237,0.05)',
+    border: 'rgba(124,58,237,0.1)',
+  },
+];
+---
+
+<section id="testimonials" class="bg-white py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+        Testimonials
+      </p>
+      <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+        Supporting teams in complex environments
+      </h2>
+    </div>
+
+    <!-- Testimonial cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {testimonials.map(({ quote, role, org, color, bg, border }) => (
+        <div
+          class="rounded-2xl p-8 flex flex-col gap-6"
+          style={`background: ${bg}; border: 1px solid ${border};`}
+        >
+          <!-- Quote mark -->
+          <svg width="32" height="32" viewBox="0 0 32 32" fill={color} opacity="0.25">
+            <path d="M9.333 21.333c0 2.209-1.791 4-4 4s-4-1.791-4-4c0-1.174.508-2.229 1.316-2.963L6.667 8h4l-2.764 9.601A3.99 3.99 0 0 1 9.333 21.333zm18.667 0c0 2.209-1.791 4-4 4s-4-1.791-4-4c0-1.174.508-2.229 1.316-2.963L25.333 8h4l-2.764 9.601A3.99 3.99 0 0 1 28 21.333z"/>
+          </svg>
+
+          <!-- Quote text -->
+          <p class="text-base leading-relaxed font-medium flex-1" style="color: #111827;">
+            "{quote}"
+          </p>
+
+          <!-- Attribution -->
+          <div class="flex items-center gap-3">
+            <div
+              class="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+              style={`background: ${color};`}
+            >
+              {role.charAt(0)}
+            </div>
+            <div>
+              <div class="text-xs font-semibold" style="color: #374151;">{role}</div>
+              <div class="text-xs" style="color: #9ca3af;">{org}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

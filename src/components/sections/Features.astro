@@ -1,0 +1,94 @@
+---
+const features = [
+  {
+    icon: `<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>`,
+    iconColor: '#2563eb',
+    iconBg: 'rgba(37,99,235,0.1)',
+    badge: 'Workflows',
+    badgeColor: '#2563eb',
+    badgeBg: 'rgba(37,99,235,0.08)',
+    title: 'Structured Workflows',
+    desc: 'Define and manage reporting processes step by step, ensuring consistency across all projects and reporting cycles.',
+  },
+  {
+    icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+    iconColor: '#0d9488',
+    iconBg: 'rgba(13,148,136,0.1)',
+    badge: 'Access',
+    badgeColor: '#0d9488',
+    badgeBg: 'rgba(13,148,136,0.08)',
+    title: 'Role-Based Access',
+    desc: 'Assign roles and responsibilities to ensure accountability and proper data validation across your team.',
+  },
+  {
+    icon: `<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>`,
+    iconColor: '#059669',
+    iconBg: 'rgba(5,150,105,0.1)',
+    badge: 'Data',
+    badgeColor: '#059669',
+    badgeBg: 'rgba(5,150,105,0.08)',
+    title: 'Centralized Data Management',
+    desc: 'Store all reporting data in one place — accessible, organized, and ready for analysis at any time.',
+  },
+  {
+    icon: `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>`,
+    iconColor: '#7c3aed',
+    iconBg: 'rgba(124,58,237,0.1)',
+    badge: 'Reporting',
+    badgeColor: '#7c3aed',
+    badgeBg: 'rgba(124,58,237,0.08)',
+    title: 'End-to-End Reporting',
+    desc: 'From data entry to validation, aggregation, and reporting — all in one integrated platform.',
+  },
+];
+---
+
+<section id="features" class="bg-white py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+      <div>
+        <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+          Core Features
+        </p>
+        <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+          A platform designed for<br />structured reporting
+        </h2>
+      </div>
+      <div class="flex flex-col justify-center">
+        <p class="text-sm leading-relaxed" style="color: #4b5563;">
+          MARLO brings together the tools your team needs to standardize reporting, ensure data
+          quality, and make information accessible across your entire program portfolio.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature cards 2×2 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {features.map(({ icon, iconColor, iconBg, badge, badgeColor, badgeBg, title, desc }) => (
+        <div class="rounded-2xl p-6 flex flex-col gap-4" style="border: 1px solid #e5e7eb;">
+          <div class="flex items-start justify-between">
+            <div
+              class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+              style={`background: ${iconBg};`}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <Fragment set:html={icon} />
+              </svg>
+            </div>
+            <span
+              class="text-[11px] font-semibold px-2 py-0.5 rounded"
+              style={`background: ${badgeBg}; color: ${badgeColor};`}
+            >
+              {badge}
+            </span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold mb-2" style="color: #111827;">{title}</h3>
+            <p class="text-sm leading-relaxed" style="color: #6b7280;">{desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

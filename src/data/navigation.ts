@@ -1,15 +1,15 @@
 export const navLinks = [
-  { label: 'Platform', href: '#platform' },
-  { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Innovation', href: '#innovation' },
-  { label: 'Technology', href: '#technology' },
-  { label: 'Resources', href: '#resources' },
+  { label: 'Features', href: '#features' },
+  { label: 'Intelligence', href: '#intelligence' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'FAQs', href: '#faqs' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export const footerLinks = [
-  { label: 'Platform', href: '#platform' },
-  { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Resources', href: '#resources' },
-  { label: 'Privacy', href: '#' },
-  { label: 'Terms', href: '#' },
+  { label: 'About', href: '#' },
+  { label: 'Product', href: '#' },
+  { label: 'Team & Technology', href: '#' },
+  { label: 'Contact', href: '#contact' },
+  { label: 'Legal', href: '#' },
 ];

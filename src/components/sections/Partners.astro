@@ -1,0 +1,43 @@
+---
+const partners = [
+  { name: 'CGIAR', abbr: 'CGIAR' },
+  { name: 'World Bank', abbr: 'World Bank' },
+  { name: 'PRMS', abbr: 'PRMS' },
+  { name: 'Alliance of Bioversity & CIAT', abbr: 'Alliance Bioversity' },
+  { name: 'International Research Initiatives', abbr: 'Intl. Research' },
+  { name: 'Regional Programs', abbr: 'Regional Programs' },
+];
+---
+
+<section class="bg-white py-14" style="border-bottom: 1px solid #e5e7eb;">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+        Trusted Partners
+      </p>
+      <h2 class="text-2xl lg:text-3xl font-bold mb-3" style="color: #111827;">
+        Trusted in complex program environments
+      </h2>
+      <p class="text-sm leading-relaxed max-w-2xl mx-auto" style="color: #6b7280;">
+        MARLO is designed for international organizations, research programs, and multi-country
+        initiatives working with distributed teams and complex reporting needs.
+      </p>
+    </div>
+
+    <!-- Partner logo placeholders -->
+    <div class="flex flex-wrap items-center justify-center gap-4 lg:gap-6">
+      {partners.map(({ name, abbr }) => (
+        <div
+          class="flex items-center justify-center px-6 py-4 rounded-xl transition-all"
+          style="background: #f8f9fa; border: 1px solid #e5e7eb; min-width: 140px;"
+          onmouseover="this.style.borderColor='#d1d5db'; this.style.background='#f3f4f6';"
+          onmouseout="this.style.borderColor='#e5e7eb'; this.style.background='#f8f9fa';"
+          title={name}
+        >
+          <span class="text-sm font-semibold" style="color: #9ca3af;">{abbr}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

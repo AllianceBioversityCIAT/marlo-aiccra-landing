@@ -1,5 +1,14 @@
 ---
-import { Check, ArrowRight, Play, LayoutGrid, CheckCircle, BarChart2, Users, Zap } from '@lucide/astro';
+import {
+  Check,
+  ArrowRight,
+  Play,
+  LayoutGrid,
+  CheckCircle,
+  BarChart2,
+  Users,
+  Zap,
+} from '@lucide/astro';
 ---
 
 <section
@@ -19,33 +28,39 @@ import { Check, ArrowRight, Play, LayoutGrid, CheckCircle, BarChart2, Users, Zap
       <!-- Left content -->
       <div class="flex flex-col gap-8">
         <!-- Headline -->
-        <h1 class="text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight animate-blur-fade-in">
-          Transform reporting<br />
-          into a<br />
+        <h1
+          class="text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight animate-blur-fade-in text-balance"
+        >
+          Transform reporting into a
           <em class="not-italic" style="color: #22D3EE; font-style: italic;">strategic asset</em>
         </h1>
 
         <!-- Description -->
-        <p class="text-base lg:text-lg leading-relaxed animate-blur-fade-in-d1" style="color: rgba(255,255,255,0.75);">
-          MARLO is a structured reporting and performance management platform designed for
-          complex programs. It helps teams improve data quality, streamline reporting processes,
-          and turn data into actionable insights for better decision-making.
+        <p
+          class="text-base lg:text-lg leading-relaxed animate-blur-fade-in-d1"
+          style="color: rgba(255,255,255,0.75);"
+        >
+          MARLO is a structured reporting and performance management platform designed for complex
+          programs. It helps teams improve data quality, streamline reporting processes, and turn
+          data into actionable insights for better decision-making.
         </p>
 
         <!-- Value points -->
         <ul class="flex flex-col gap-2 animate-blur-fade-in-d2">
-          {[
-            'Standardize reporting across multiple projects and teams',
-            'Reduce manual work and reporting errors',
-            'Improve data visibility in real time',
-            'Support evidence-based decision-making',
-            'Align reporting with organizational frameworks (e.g., PRMS, donor requirements)',
-          ].map((point) => (
-            <li class="flex items-start gap-2.5 text-sm" style="color: rgba(255,255,255,0.75);">
-              <Check size={16} color="#22D3EE" class="shrink-0 mt-0.5" />
-              {point}
-            </li>
-          ))}
+          {
+            [
+              'Standardize reporting across multiple projects and teams',
+              'Reduce manual work and reporting errors',
+              'Improve data visibility in real time',
+              'Support evidence-based decision-making',
+              'Align reporting with organizational frameworks (e.g., PRMS, donor requirements)',
+            ].map((point) => (
+              <li class="flex items-start gap-2.5 text-sm" style="color: rgba(255,255,255,0.75);">
+                <Check size={16} color="#22D3EE" class="shrink-0 mt-0.5" />
+                {point}
+              </li>
+            ))
+          }
         </ul>
 
         <!-- CTAs -->
@@ -99,9 +114,12 @@ import { Check, ArrowRight, Play, LayoutGrid, CheckCircle, BarChart2, Users, Zap
               </div>
               <!-- Traffic lights -->
               <div class="flex gap-1.5">
-                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(248,113,113,0.7);"></div>
-                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(250,204,21,0.7);"></div>
-                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(74,222,128,0.7);"></div>
+                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(248,113,113,0.7);">
+                </div>
+                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(250,204,21,0.7);">
+                </div>
+                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(74,222,128,0.7);">
+                </div>
               </div>
             </div>
 
@@ -123,7 +141,9 @@ import { Check, ArrowRight, Play, LayoutGrid, CheckCircle, BarChart2, Users, Zap
                     { label: 'Program D', pct: 95, color: '#2E86C1' },
                   ].map(({ label, pct, color }) => (
                     <div class="flex items-center gap-3 mb-2">
-                      <div class="text-xs w-16 shrink-0" style="color: #6b7280;">{label}</div>
+                      <div class="text-xs w-16 shrink-0" style="color: #6b7280;">
+                        {label}
+                      </div>
                       <div class="flex-1 h-1.5 rounded-full" style="background: #e5e7eb;">
                         <div
                           class="h-1.5 rounded-full"
@@ -148,8 +168,12 @@ import { Check, ArrowRight, Play, LayoutGrid, CheckCircle, BarChart2, Users, Zap
                   ].map(({ label, value, color, Icon }) => (
                     <div class="rounded-xl p-3 text-center" style="background: #f9fafb;">
                       <Icon size={16} color={color} class="mx-auto mb-1" />
-                      <div class="text-lg font-semibold" style="color: #111827;">{value}</div>
-                      <div class="text-[10px]" style="color: #9ca3af;">{label}</div>
+                      <div class="text-lg font-semibold" style="color: #111827;">
+                        {value}
+                      </div>
+                      <div class="text-[10px]" style="color: #9ca3af;">
+                        {label}
+                      </div>
                     </div>
                   ))
                 }
@@ -169,7 +193,8 @@ import { Check, ArrowRight, Play, LayoutGrid, CheckCircle, BarChart2, Users, Zap
               >
                 <Zap size={12} color="#1A7A4A" />
               </div>
-              <span class="text-[11px] font-semibold" style="color: #111827;">Report Submitted</span>
+              <span class="text-[11px] font-semibold" style="color: #111827;">Report Submitted</span
+              >
             </div>
             <p class="text-[10px] leading-snug" style="color: #6b7280;">
               Q3 progress report validated and submitted by Program B
@@ -197,8 +222,12 @@ import { Check, ArrowRight, Play, LayoutGrid, CheckCircle, BarChart2, Users, Zap
                   { label: 'In Review', count: 2, color: '#9A7D0A' },
                 ].map(({ label, count, color }) => (
                   <div class="flex items-center justify-between">
-                    <span class="text-[11px]" style="color: #374151;">{label}</span>
-                    <span class="text-[11px] font-bold" style={`color: ${color};`}>{count}</span>
+                    <span class="text-[11px]" style="color: #374151;">
+                      {label}
+                    </span>
+                    <span class="text-[11px] font-bold" style={`color: ${color};`}>
+                      {count}
+                    </span>
                   </div>
                 ))
               }

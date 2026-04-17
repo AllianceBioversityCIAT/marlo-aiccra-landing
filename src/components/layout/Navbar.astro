@@ -1,35 +1,39 @@
 ---
 import { navLinks } from '../../data/navigation';
-import { Layers, Menu } from '@lucide/astro';
+import { Menu } from '@lucide/astro';
 ---
 
-<header id="main-header" class="sticky top-0 z-50 transition-[background-color,box-shadow,color] duration-300" style="background-color: #012E4A;">
+<header
+  id="main-header"
+  class="sticky top-0 z-50 transition-[background-color,box-shadow,color] duration-300"
+  style="background-color: #012E4A;"
+>
   <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 shrink-0">
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #1a3a5c, #2563eb);">
-        <Layers size={18} color="white" />
-      </div>
+      <img src="/marlo-logo.png" alt="MARLO logo" class="w-8 h-8 object-contain" />
       <div class="flex flex-col leading-none">
         <span id="logo-marlo" class="text-base font-bold text-white transition-colors duration-300">
-          MARLO <span style="color: #2563eb;">AICCRA</span>
+          MARLO
         </span>
-        <span id="logo-sub" class="text-[10px] font-medium text-white/70 transition-colors duration-300">Research Management</span>
+        <!-- <span id="logo-sub" class="text-[10px] font-medium text-white/70 transition-colors duration-300">For reporting & monitoring evaluation</span> -->
       </div>
     </a>
 
     <!-- Desktop Nav -->
     <ul class="hidden lg:flex items-center gap-6">
-      {navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class="nav-link text-sm font-medium text-white hover:text-[#22D3EE] transition-colors duration-300"
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="nav-link text-sm font-medium text-white hover:text-[#22D3EE] transition-colors duration-300"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
 
     <!-- Right Actions -->
@@ -65,15 +69,22 @@ import { Layers, Menu } from '@lucide/astro';
   <!-- Mobile Nav -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-white/20 bg-[#012E4A] px-6 py-4">
     <ul class="flex flex-col gap-3">
-      {navLinks.map((link) => (
-        <li>
-          <a href={link.href} class="mobile-nav-link text-sm font-medium text-white hover:text-[#22D3EE]">
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="mobile-nav-link text-sm font-medium text-white hover:text-[#22D3EE]"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
       <li>
-        <a href="#" class="mobile-nav-link text-sm font-medium text-white hover:text-[#22D3EE]">Documentation</a>
+        <a href="#" class="mobile-nav-link text-sm font-medium text-white hover:text-[#22D3EE]"
+          >Documentation</a
+        >
       </li>
     </ul>
   </div>
@@ -105,7 +116,7 @@ import { Layers, Menu } from '@lucide/astro';
       logoSub?.classList.remove('text-white/70');
       logoSub?.style.setProperty('color', '#6b7280');
 
-      navLinks.forEach(link => {
+      navLinks.forEach((link) => {
         link.classList.remove('text-white', 'hover:text-[#22D3EE]');
         link.classList.add('text-gray-600', 'hover:text-[#1a3a5c]');
       });
@@ -119,7 +130,7 @@ import { Layers, Menu } from '@lucide/astro';
       if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
         mobileMenu.classList.remove('bg-[#012E4A]', 'border-white/20');
         mobileMenu.classList.add('bg-white', 'border-gray-200');
-        mobileMenu.querySelectorAll('.mobile-nav-link').forEach(link => {
+        mobileMenu.querySelectorAll('.mobile-nav-link').forEach((link) => {
           link.classList.remove('text-white', 'hover:text-[#22D3EE]');
           link.classList.add('text-gray-600', 'hover:text-[#1a3a5c]');
         });
@@ -134,7 +145,7 @@ import { Layers, Menu } from '@lucide/astro';
       logoSub?.style.removeProperty('color');
       logoSub?.classList.add('text-white/70');
 
-      navLinks.forEach(link => {
+      navLinks.forEach((link) => {
         link.classList.add('text-white', 'hover:text-[#22D3EE]');
         link.classList.remove('text-gray-600', 'hover:text-[#1a3a5c]');
       });

@@ -1,39 +1,74 @@
 ---
+// Original 3 partners; entries marked "placeholder" will be replaced in a future pass
 const partners = [
   { name: 'Alliance of Bioversity & CIAT', src: '/logos/alliance.png' },
   { name: 'CGIAR', src: '/logos/cgiar.svg' },
   { name: 'World Bank', src: '/logos/world-bank.png' },
+  { name: 'Alliance of Bioversity & CIAT (placeholder)', src: '/logos/alliance.png' },
+  { name: 'CGIAR (placeholder)', src: '/logos/cgiar.svg' },
+  { name: 'World Bank (placeholder)', src: '/logos/world-bank.png' },
+  { name: 'Alliance of Bioversity & CIAT (placeholder)', src: '/logos/alliance.png' },
+  { name: 'CGIAR (placeholder)', src: '/logos/cgiar.svg' },
+  { name: 'World Bank (placeholder)', src: '/logos/world-bank.png' },
 ];
+// Duplicate for seamless infinite loop
+const loopItems = [...partners, ...partners];
 ---
 
-<section class="bg-white py-14" style="border-bottom: 1px solid #e5e7eb;">
-  <div class="max-w-7xl mx-auto px-6">
-    <!-- Header -->
-    <div class="text-center mb-10">
-      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
-        Trusted Partners
-      </p>
-      <h2 class="text-2xl lg:text-3xl font-bold mb-3" style="color: #111827;">
-        Trusted in complex program environments
-      </h2>
-      <p class="text-sm leading-relaxed max-w-2xl mx-auto" style="color: #6b7280;">
-        MARLO is designed for international organizations, research programs, and multi-country
-        initiatives working with distributed teams and complex reporting needs.
-      </p>
-    </div>
+<section class="bg-white py-12" style="border-bottom: 1px solid #e5e7eb;">
+  <div class="max-w-7xl mx-auto px-6 flex items-center gap-10">
+    <!-- Left label -->
+    <p
+      class="shrink-0 w-44 text-xs font-semibold leading-snug tracking-widest uppercase"
+      style="color: #0d9488;"
+    >
+      Trusted Partners in Complex Program Environments
+    </p>
 
-    <!-- Partner logos -->
-    <div class="flex flex-wrap items-center justify-center gap-10 lg:gap-16">
-      {partners.map(({ name, src }) => (
-        <div class="flex items-center justify-center">
-          <img
-            src={src}
-            alt={name}
-            class="object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-            style="height: 80px; width: auto;"
-          />
-        </div>
-      ))}
+    <!-- Carousel -->
+    <div class="carousel-wrapper flex-1 overflow-hidden relative">
+      <!-- Fade edges -->
+      <div
+        class="fade-left pointer-events-none absolute inset-y-0 left-0 z-10"
+        style="width: 80px; background: linear-gradient(to right, white, transparent);"
+      >
+      </div>
+      <div
+        class="fade-right pointer-events-none absolute inset-y-0 right-0 z-10"
+        style="width: 80px; background: linear-gradient(to left, white, transparent);"
+      >
+      </div>
+
+      <div class="marquee-track flex items-center">
+        {
+          loopItems.map(({ name, src }) => (
+            <div class="shrink-0 flex items-center justify-center pr-14">
+              <img
+                src={src}
+                alt={name}
+                class="object-contain grayscale opacity-60"
+                style="height: 60px; width: auto;"
+              />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .marquee-track {
+    animation: marquee 12s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

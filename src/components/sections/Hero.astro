@@ -1,6 +1,5 @@
 ---
 import {
-  Check,
   ArrowRight,
   Play,
   LayoutGrid,
@@ -46,26 +45,8 @@ import {
           better decision-making.
         </p>
 
-        <!-- Value points -->
-        <ul class="flex flex-col gap-2 animate-blur-fade-in-d2">
-          {
-            [
-              'Standardize reporting across multiple projects and teams',
-              'Reduce manual work and reporting errors',
-              'Improve data visibility in real time',
-              'Support evidence-based decision-making',
-              'Align reporting with organizational frameworks (e.g., PRMS, donor requirements)',
-            ].map((point) => (
-              <li class="flex items-start gap-2.5 text-sm" style="color: rgba(255,255,255,0.75);">
-                <Check size={16} color="#22D3EE" class="shrink-0 mt-0.5" />
-                {point}
-              </li>
-            ))
-          }
-        </ul>
-
         <!-- CTAs -->
-        <div class="flex flex-wrap gap-4 animate-blur-fade-in-d3">
+        <div class="flex flex-wrap gap-4 animate-blur-fade-in-d2">
           <a
             href="#contact"
             class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white transition-all"
@@ -90,7 +71,7 @@ import {
       </div>
 
       <!-- Right: Dashboard illustration -->
-      <div class="hidden lg:flex justify-end items-center animate-blur-fade-in-d4">
+      <div class="hidden lg:flex justify-end items-center animate-blur-fade-in-d3">
         <div class="relative w-full max-w-[480px] py-10 px-12 hero-float">
           <!-- Main dashboard card -->
           <div

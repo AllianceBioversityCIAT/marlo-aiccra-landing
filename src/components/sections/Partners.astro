@@ -1,15 +1,12 @@
 ---
-// Original 3 partners; entries marked "placeholder" will be replaced in a future pass
 const partners = [
   { name: 'Alliance of Bioversity & CIAT', src: '/logos/alliance.png' },
   { name: 'CGIAR', src: '/logos/cgiar.svg' },
   { name: 'World Bank', src: '/logos/world-bank.png' },
-  { name: 'Alliance of Bioversity & CIAT (placeholder)', src: '/logos/alliance.png' },
-  { name: 'CGIAR (placeholder)', src: '/logos/cgiar.svg' },
-  { name: 'World Bank (placeholder)', src: '/logos/world-bank.png' },
-  { name: 'Alliance of Bioversity & CIAT (placeholder)', src: '/logos/alliance.png' },
-  { name: 'CGIAR (placeholder)', src: '/logos/cgiar.svg' },
-  { name: 'World Bank (placeholder)', src: '/logos/world-bank.png' },
+  { name: 'IFPRI', src: '/logos/ifpri.svg' },
+  { name: 'ILRI', src: '/logos/ilri.svg', width: '80px' },
+  { name: 'CIMMYT', src: '/logos/cimmyt.png', width: '200px' },
+  { name: 'IITA', src: '/logos/iita.png' },
 ];
 // Duplicate for seamless infinite loop
 const loopItems = [...partners, ...partners];
@@ -41,13 +38,13 @@ const loopItems = [...partners, ...partners];
 
       <div class="marquee-track flex items-center">
         {
-          loopItems.map(({ name, src }) => (
+          loopItems.map(({ name, src, width = 'auto' }) => (
             <div class="shrink-0 flex items-center justify-center pr-14">
               <img
                 src={src}
                 alt={name}
                 class="object-contain grayscale opacity-60"
-                style="height: 60px; width: auto;"
+                style={`height: 50px; width: ${width};`}
               />
             </div>
           ))
@@ -59,16 +56,33 @@ const loopItems = [...partners, ...partners];
 
 <style>
   .marquee-track {
-    animation: marquee 12s linear infinite;
     will-change: transform;
   }
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
 </style>
+
+<script>
+  const track = document.querySelector('.marquee-track') as HTMLElement;
+  if (track) {
+    const SPEED = 60; // px/s
+    let x = 0;
+    let halfWidth = 0;
+    let lastTime: number | null = null;
+
+    const tick = (timestamp: number) => {
+      if (!lastTime) lastTime = timestamp;
+      x -= (SPEED * (timestamp - lastTime)) / 1000;
+      lastTime = timestamp;
+
+      // Seamless reset: position -halfWidth is visually identical to 0
+      if (halfWidth > 0 && x <= -halfWidth) x += halfWidth;
+
+      track.style.transform = `translateX(${x}px)`;
+      requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('load', () => {
+      halfWidth = track.scrollWidth / 2;
+      requestAnimationFrame(tick);
+    });
+  }
+</script>

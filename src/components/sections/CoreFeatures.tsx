@@ -131,7 +131,7 @@ export default function CoreFeatures() {
                 ref={(el) => {
                   panelRefs.current[i] = el;
                 }}
-                className="py-16 h-[600px] flex flex-col items-center justify-center px-8 lg:px-20 text-center"
+                className="py-16 lg:min-h-[80vh] flex flex-col items-center justify-center px-8 lg:px-20 text-center"
               >
                 <div
                   className="w-20 h-20 rounded-3xl flex items-center justify-center mb-6"

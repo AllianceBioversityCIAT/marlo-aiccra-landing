@@ -1,0 +1,115 @@
+---
+import { ChevronDown, ArrowRight, MessageSquare } from '@lucide/astro';
+
+const faqs = [
+  {
+    question: 'What makes MARLO different from other reporting tools?',
+    answer:
+      'MARLO is specifically designed for complex programs, focusing on structured workflows, data quality, and alignment with frameworks like PRMS. Unlike generic tools, it addresses the full lifecycle of program reporting — from planning to outcome tracking — within a single platform.',
+  },
+  {
+    question: 'What type of organizations is MARLO designed for?',
+    answer:
+      'MARLO is designed for international programs, research initiatives, NGOs, and organizations managing complex, multi-stakeholder reporting processes.',
+  },
+  {
+    question: 'Can MARLO support multi-country programs?',
+    answer:
+      'Yes, MARLO is built to manage distributed teams and reporting across regions. It handles multi-country, multi-partner program structures with consistent data standards and centralized oversight.',
+  },
+  {
+    question: 'Can MARLO be adapted to different frameworks?',
+    answer:
+      'Yes, MARLO is flexible and can be aligned with frameworks such as PRMS, donor requirements, and custom reporting structures.',
+  },
+  {
+    question: 'Does MARLO integrate with other systems?',
+    answer:
+      'Yes, MARLO can integrate with existing tools and data sources depending on project needs.',
+  },
+  {
+    question: 'How secure is the platform?',
+    answer:
+      'MARLO includes role-based access control and secure data management practices. Access to data is governed by permissions aligned to each user\'s role within the program, ensuring sensitive information remains protected.',
+  },
+  {
+    question: 'Can the platform scale with program growth?',
+    answer:
+      'Yes, MARLO is designed to scale as programs expand in size and complexity. Whether your program grows in partners, geographies, or reporting requirements, the platform adapts without requiring structural changes.',
+  },
+  {
+    question: 'What kind of support is provided?',
+    answer:
+      'The team provides onboarding, training, and continuous support based on project needs. From initial setup to advanced configuration, the MARLO team works closely with your organization throughout implementation.',
+  },
+];
+---
+
+<section style="background: #f3f4f6;" class="py-24">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="text-center mb-14">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+        FAQs
+      </p>
+      <h1 class="text-3xl lg:text-4xl font-bold mb-4" style="color: #111827;">
+        Frequently Asked Questions
+      </h1>
+      <p class="text-sm leading-relaxed max-w-xl mx-auto" style="color: #6b7280;">
+        Everything you need to know about MARLO. Can't find the answer you're looking for? Reach out to our team.
+      </p>
+    </div>
+
+    <!-- FAQ items -->
+    <div class="flex flex-col gap-4 mb-14">
+      {faqs.map(({ question, answer }) => (
+        <details
+          class="group bg-white rounded-2xl overflow-hidden"
+          style="border: 1px solid #e5e7eb;"
+        >
+          <summary
+            class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer select-none list-none"
+            style="color: #111827;"
+          >
+            <span class="text-sm font-semibold">{question}</span>
+            <ChevronDown size={16} color="#9ca3af" class="shrink-0 transition-transform group-open:rotate-180" />
+          </summary>
+          <div class="px-6 pb-5">
+            <p class="text-sm leading-relaxed" style="color: #6b7280;">{answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div
+      class="rounded-2xl p-8 text-center flex flex-col items-center gap-4"
+      style="background: white; border: 1px solid #e5e7eb;"
+    >
+      <div
+        class="flex items-center justify-center w-11 h-11 rounded-xl"
+        style="background: rgba(13,148,136,0.1);"
+      >
+        <MessageSquare size={20} style="color: #0d9488;" />
+      </div>
+      <div>
+        <p class="text-base font-bold mb-1" style="color: #111827;">Still have questions?</p>
+        <p class="text-sm" style="color: #6b7280;">
+          Can't find what you're looking for? Our team is happy to help.
+        </p>
+      </div>
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all"
+        style="background-color: #2563eb;"
+        onmouseover="this.style.backgroundColor='#1d4ed8'"
+        onmouseout="this.style.backgroundColor='#2563eb'"
+      >
+        Contact us
+        <ArrowRight size={15} />
+      </a>
+    </div>
+
+  </div>
+</section>

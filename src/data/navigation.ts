@@ -9,7 +9,7 @@ export const navLinks = [
 export const footerLinks = [
   { label: 'About', href: '#' },
   { label: 'Product', href: '#' },
-  { label: 'Team & Technology', href: '#' },
+  { label: 'Team & Technology', href: '/team' },
   { label: 'Contact', href: '/contact' },
   { label: 'Legal', href: '#' },
 ];

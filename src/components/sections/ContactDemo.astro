@@ -1,0 +1,164 @@
+---
+import { ArrowRight, CheckCircle, Activity } from '@lucide/astro';
+---
+
+<section
+  class="relative min-h-screen flex flex-col justify-center overflow-hidden py-20"
+  style="background: #012E4A;"
+>
+  <!-- Dot pattern -->
+  <div
+    class="absolute inset-0 opacity-10"
+    style="background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 32px 32px;"
+  ></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+      <!-- Left column -->
+      <div class="flex flex-col gap-8 pt-4">
+        <!-- Badge -->
+        <div
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold w-fit"
+          style="background: rgba(37,99,235,0.2); color: #93c5fd; border: 1px solid rgba(37,99,235,0.3);"
+        >
+          <Activity size={12} />
+          MARLO PLATFORM
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">
+          Book a 1:1 with our<br />
+          <em class="not-italic" style="color: #22D3EE;">program experts</em>
+        </h1>
+
+        <!-- Body -->
+        <p class="text-base lg:text-lg leading-relaxed" style="color: rgba(255,255,255,0.75);">
+          Request a personalized demo to explore how MARLO can support your program. Our team will walk you through the platform and answer your questions.
+        </p>
+
+        <!-- Benefits -->
+        <ul class="flex flex-col gap-4">
+          {[
+            'See how MARLO handles complex multi-level reporting',
+            'Configure indicators, milestones, and evidence workflows',
+            'Explore BI dashboards and outcome reporting tools',
+            'Get answers directly from the team that built it',
+          ].map((benefit) => (
+            <li class="flex items-start gap-3">
+              <CheckCircle size={18} class="shrink-0 mt-0.5" style="color: #22D3EE;" />
+              <span class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.8);">{benefit}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Right column -->
+      <div class="flex flex-col gap-4">
+
+        <!-- Form card -->
+        <div class="bg-white rounded-2xl shadow-2xl p-8 lg:p-10">
+          <div class="flex flex-col gap-1 mb-7">
+            <h2 class="text-xl font-bold" style="color: #0f2a47;">Get a personalized walkthrough</h2>
+            <p class="text-sm" style="color: #6b7280;">
+              Fill in your details so we can tailor the demo to your requirements.
+            </p>
+          </div>
+
+          <form method="POST" action="" class="flex flex-col gap-5" novalidate>
+            <!-- Name -->
+            <div class="flex flex-col gap-1.5">
+              <label for="name" class="text-sm font-semibold" style="color: #374151;">Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Enter your full name"
+                required
+                class="w-full px-4 py-2.5 rounded-lg border text-sm outline-none transition-all"
+                style="border-color: #d1d5db; color: #111827;"
+                onfocus="this.style.borderColor='#2563eb'; this.style.boxShadow='0 0 0 3px rgba(37,99,235,0.12)'"
+                onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none'"
+              />
+            </div>
+
+            <!-- Organization -->
+            <div class="flex flex-col gap-1.5">
+              <label for="organization" class="text-sm font-semibold" style="color: #374151;">Organization</label>
+              <input
+                id="organization"
+                name="organization"
+                type="text"
+                placeholder="Your organization or institution"
+                required
+                class="w-full px-4 py-2.5 rounded-lg border text-sm outline-none transition-all"
+                style="border-color: #d1d5db; color: #111827;"
+                onfocus="this.style.borderColor='#2563eb'; this.style.boxShadow='0 0 0 3px rgba(37,99,235,0.12)'"
+                onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none'"
+              />
+            </div>
+
+            <!-- Email -->
+            <div class="flex flex-col gap-1.5">
+              <label for="email" class="text-sm font-semibold" style="color: #374151;">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Enter your business email"
+                required
+                class="w-full px-4 py-2.5 rounded-lg border text-sm outline-none transition-all"
+                style="border-color: #d1d5db; color: #111827;"
+                onfocus="this.style.borderColor='#2563eb'; this.style.boxShadow='0 0 0 3px rgba(37,99,235,0.12)'"
+                onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none'"
+              />
+            </div>
+
+            <!-- Role -->
+            <div class="flex flex-col gap-1.5">
+              <label for="role" class="text-sm font-semibold" style="color: #374151;">Role</label>
+              <input
+                id="role"
+                name="role"
+                type="text"
+                placeholder="Your role or job title"
+                class="w-full px-4 py-2.5 rounded-lg border text-sm outline-none transition-all"
+                style="border-color: #d1d5db; color: #111827;"
+                onfocus="this.style.borderColor='#2563eb'; this.style.boxShadow='0 0 0 3px rgba(37,99,235,0.12)'"
+                onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none'"
+              />
+            </div>
+
+            <!-- Message -->
+            <div class="flex flex-col gap-1.5">
+              <label for="message" class="text-sm font-semibold" style="color: #374151;">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                placeholder="Tell us what you'd like to explore or any specific questions you have (optional)"
+                class="w-full px-4 py-2.5 rounded-lg border text-sm outline-none transition-all resize-none"
+                style="border-color: #d1d5db; color: #111827;"
+                onfocus="this.style.borderColor='#2563eb'; this.style.boxShadow='0 0 0 3px rgba(37,99,235,0.12)'"
+                onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none'"
+              ></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white transition-all"
+              style="background-color: #2563eb;"
+              onmouseover="this.style.backgroundColor='#1d4ed8'"
+              onmouseout="this.style.backgroundColor='#2563eb'"
+            >
+              Request a Demo
+              <ArrowRight size={16} />
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

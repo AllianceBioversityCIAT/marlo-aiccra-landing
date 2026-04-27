@@ -87,7 +87,10 @@ export default function CoreFeatures() {
           >
             Core Features
           </p>
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ color: '#111827' }}>
+          <h2
+            className="text-3xl lg:text-4xl font-bold mb-4 text-balance"
+            style={{ color: '#111827' }}
+          >
             A platform designed for <br className="hidden lg:block" />
             structured reporting
           </h2>
@@ -128,7 +131,7 @@ export default function CoreFeatures() {
                 ref={(el) => {
                   panelRefs.current[i] = el;
                 }}
-                className="py-16 lg:min-h-screen flex flex-col items-center justify-center px-8 lg:px-20 text-center"
+                className="py-16 h-[600px] flex flex-col items-center justify-center px-8 lg:px-20 text-center"
               >
                 <div
                   className="w-20 h-20 rounded-3xl flex items-center justify-center mb-6"
@@ -157,7 +160,7 @@ export default function CoreFeatures() {
               </div>
               <>
                 {i < features.length - 1 && (
-                  <div className="w-full h-px mt-16 lg:mt-0" style={{ background: '#e5e7eb' }} />
+                  <div className="w-full h-px lg:mt-0" style={{ background: '#e5e7eb' }} />
                 )}
               </>
             </>

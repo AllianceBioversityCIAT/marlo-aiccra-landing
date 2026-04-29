@@ -1,12 +1,12 @@
 import { useState, type ComponentType } from 'react';
 import {
-  Activity,
   ArrowRight,
-  BarChart2,
+  BookOpen,
   Check,
-  CheckCircle,
-  ShieldCheck,
+  Eye,
+  Globe,
   TrendingUp,
+  Zap,
   type LucideProps,
 } from 'lucide-react';
 
@@ -23,7 +23,6 @@ type Stat = {
   Icon: ComponentType<LucideProps>;
   iconColor: string;
   iconBg: string;
-  stat: string;
   label: string;
   desc: string;
   featured?: boolean;
@@ -32,46 +31,41 @@ type Stat = {
 const stats: Stat[] = [
   {
     id: 'faster',
-    Icon: Activity,
+    Icon: Globe,
     iconColor: '#2563eb',
     iconBg: 'rgba(37,99,235,0.1)',
-    stat: '50%',
-    label: 'Faster Reporting Cycles',
-    desc: 'Reporting cycles completed faster, freeing teams to focus on what matters most.',
+    label: 'Proven in Complex Multi-Country Programs',
+    desc: 'MARLO has been used in initiatives like AICCRA to support results management across more than 10 countries and distributed teams, ensuring consistent reporting at scale.',
   },
   {
     id: 'consistency',
-    Icon: CheckCircle,
+    Icon: Eye,
     iconColor: '#0d9488',
     iconBg: 'rgba(13,148,136,0.1)',
-    stat: '↑ High',
-    label: 'Data Consistency',
-    desc: 'Improved data consistency across projects with standardized reporting structures.',
+    label: 'End-to-End Results Visibility',
+    desc: 'The platform supports tracking of thousands of deliverables, innovations, and impact reports, providing clear traceability from activities to results.',
   },
   {
     id: 'realtime',
-    Icon: BarChart2,
+    Icon: Zap,
     iconColor: '#059669',
     iconBg: 'rgba(5,150,105,0.1)',
-    stat: 'Live',
-    label: 'Real-Time Visibility',
-    desc: 'Continuous visibility into program performance without manual consolidation.',
+    label: 'Faster Reporting with AI Support',
+    desc: 'Using AI powered by structured data, teams can move from hours of manual writing to draft reports in minutes, while maintaining consistency and quality.',
   },
   {
     id: 'errors',
-    Icon: ShieldCheck,
+    Icon: BookOpen,
     iconColor: '#7c3aed',
     iconBg: 'rgba(124,58,237,0.1)',
-    stat: '↓ Few',
-    label: 'Reporting Errors',
-    desc: 'Significant reduction in reporting errors through structured workflows and validation.',
+    label: 'Quality and Open Science Standards',
+    desc: 'MARLO supports compliance with FAIR and Open Access principles, helping ensure outputs are reusable, accessible, and aligned with institutional standards.',
   },
   {
     id: 'lifecycle',
     Icon: TrendingUp,
     iconColor: '#0d9488',
     iconBg: 'rgba(13,148,136,0.1)',
-    stat: 'Why MARLO',
     label: 'Transform reporting into a strategic asset',
     desc: 'MARLO is a structured reporting and performance management platform designed for complex programs — improving data quality, streamlining reporting cycles, and turning data into actionable insights.',
     featured: true,
@@ -134,12 +128,6 @@ export default function ImpactAccordion() {
             )}
 
             <div className={s.featured ? '' : 'mt-auto pt-6'}>
-              <div
-                className={`${s.featured ? 'text-xs font-semibold tracking-widest uppercase' : 'text-3xl font-bold'} mb-1`}
-                style={{ color: s.iconColor }}
-              >
-                {s.stat}
-              </div>
               <h3
                 className={`${s.featured ? 'text-lg leading-snug' : 'text-sm'} font-bold mb-2`}
                 style={{ color: '#111827' }}
@@ -192,9 +180,6 @@ export default function ImpactAccordion() {
               >
                 {s.label}
               </span>
-            </div>
-            <div className="text-sm font-bold whitespace-nowrap" style={{ color: s.iconColor }}>
-              {s.stat}
             </div>
           </div>
         );

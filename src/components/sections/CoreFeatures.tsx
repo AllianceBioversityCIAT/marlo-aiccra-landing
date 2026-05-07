@@ -1,5 +1,14 @@
 import { useState, useEffect, useRef, type ComponentType } from 'react';
-import { ListChecks, Users, Database, FileText, type LucideProps } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import {
+  ListChecks,
+  Users,
+  Database,
+  FileText,
+  Maximize2,
+  X,
+  type LucideProps,
+} from 'lucide-react';
 
 type Feature = {
   Icon: ComponentType<LucideProps>;
@@ -62,6 +71,8 @@ const features: Feature[] = [
 function VideoCarousel({ videos }: { videos: string[] }) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [hovering, setHovering] = useState(false);
 
   const goTo = (idx: number) => {
     setVisible(false);
@@ -73,21 +84,51 @@ function VideoCarousel({ videos }: { videos: string[] }) {
 
   const handleEnded = () => goTo((activeIdx + 1) % videos.length);
 
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsFullscreen(false);
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [isFullscreen]);
+
   return (
     <div className="w-full mb-6">
-      <video
-        key={videos[activeIdx]}
-        src={videos[activeIdx]}
-        autoPlay
-        muted
-        playsInline
-        onEnded={handleEnded}
-        className="w-full rounded-2xl shadow-md"
-        style={{
-          opacity: visible ? 1 : 0,
-          transition: 'opacity 300ms ease-in-out',
-        }}
-      />
+      <div
+        className="relative w-full"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+      >
+        <video
+          key={videos[activeIdx]}
+          src={videos[activeIdx]}
+          autoPlay
+          muted
+          playsInline
+          onEnded={handleEnded}
+          className="w-full rounded-2xl shadow-md"
+          style={{
+            opacity: visible ? 1 : 0,
+            transition: 'opacity 300ms ease-in-out',
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => setIsFullscreen(true)}
+          className="absolute bottom-3 right-3 p-1.5 rounded-lg"
+          style={{
+            opacity: hovering ? 1 : 0,
+            transition: 'opacity 200ms ease-in-out',
+            background: 'rgba(0,0,0,0.5)',
+            color: 'white',
+          }}
+          aria-label="Ver en pantalla completa"
+        >
+          <Maximize2 size={16} />
+        </button>
+      </div>
+
       {videos.length > 1 && (
         <div className="flex justify-center gap-2 mt-3">
           {videos.map((_, i) => (
@@ -104,6 +145,58 @@ function VideoCarousel({ videos }: { videos: string[] }) {
           ))}
         </div>
       )}
+
+      {isFullscreen &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            style={{ background: 'rgba(0,0,0,0.85)' }}
+            onClick={(e) => e.target === e.currentTarget && setIsFullscreen(false)}
+          >
+            <div className="relative w-full max-w-5xl mx-4">
+              <button
+                type="button"
+                onClick={() => setIsFullscreen(false)}
+                className="absolute -top-10 right-0 transition-colors"
+                style={{ color: 'rgba(255,255,255,0.8)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'white')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
+                aria-label="Cerrar pantalla completa"
+              >
+                <X size={28} />
+              </button>
+
+              <video
+                key={`fs-${videos[activeIdx]}`}
+                src={videos[activeIdx]}
+                autoPlay
+                muted
+                playsInline
+                controls
+                onEnded={handleEnded}
+                className="w-full rounded-2xl shadow-2xl"
+              />
+
+              {videos.length > 1 && (
+                <div className="flex justify-center gap-2 mt-4">
+                  {videos.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => i !== activeIdx && goTo(i)}
+                      className="w-2.5 h-2.5 rounded-full"
+                      style={{
+                        background: i === activeIdx ? '#2563eb' : 'rgba(255,255,255,0.4)',
+                        transition: 'background 300ms',
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

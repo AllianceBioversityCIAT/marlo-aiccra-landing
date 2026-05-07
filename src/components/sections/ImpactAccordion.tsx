@@ -1,4 +1,4 @@
-import { useState, type ComponentType } from 'react';
+import { useState, useEffect, useRef, type ComponentType } from 'react';
 import {
   ArrowRight,
   BookOpen,
@@ -72,16 +72,44 @@ const stats: Stat[] = [
   },
 ];
 
-const firstInteractiveId = stats.find((s) => !s.featured)!.id;
+const interactiveStats = stats.filter((s) => !s.featured);
+const firstInteractiveId = interactiveStats[0].id;
 
 export default function ImpactAccordion() {
   const [activeId, setActiveId] = useState<string>(firstInteractiveId);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const isHoveringActive = hoveredId === activeId;
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || isHoveringActive) return;
+
+    const timer = setTimeout(() => {
+      const currentIndex = interactiveStats.findIndex((s) => s.id === activeId);
+      const nextIndex = (currentIndex + 1) % interactiveStats.length;
+      setActiveId(interactiveStats[nextIndex].id);
+    }, 12000);
+
+    return () => clearTimeout(timer);
+  }, [activeId, isHoveringActive, isVisible]);
 
   let interactiveIndex = 0;
 
   return (
-    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:h-[440px]">
+    <div ref={containerRef} className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:h-[440px]">
       {stats.map((s) => {
         const isActive = s.featured || activeId === s.id;
         const contentId = `impact-card-${s.id}`;

@@ -261,7 +261,7 @@ export default function CoreFeatures() {
                 className={`text-left pl-4 py-2.5 text-sm transition-all duration-300 border-l-2 ${
                   activeIndex === i
                     ? 'font-semibold'
-                    : 'text-gray-500 border-transparent hover:text-gray-600 hover:border-gray-300'
+                    : 'text-gray-500 hover:text-gray-600 border-gray-300'
                 }`}
                 style={
                   activeIndex === i ? { color: f.iconColor, borderColor: f.iconColor } : undefined

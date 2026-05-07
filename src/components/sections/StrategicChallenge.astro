@@ -33,41 +33,59 @@ const problems = [
 ];
 ---
 
-<section id="challenges" style="background: #f3f4f6;" class="py-24">
-  <div class="max-w-7xl mx-auto px-6">
+<section
+  id="challenges"
+  class="py-24 relative"
+  style="background-image: url('/images/impact-bg.jpg'); background-size: cover; background-position: center;"
+>
+  <div class="absolute inset-0" style="background: rgba(15, 42, 71, 0.78);"></div>
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
     <!-- Header -->
     <div class="mb-12">
-      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #0d9488;">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #60A5FA;">
         The Problem
       </p>
-      <h2 class="text-3xl lg:text-4xl font-bold mb-4" style="color: #111827;">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4" style="color: #ffffff;">
         Reporting is often fragmented<br />and inefficient
       </h2>
-      <p class="text-sm leading-relaxed max-w-2xl" style="color: #6b7280;">
-        Many programs face challenges when managing reporting across multiple teams, countries, and systems:
+      <p class="text-sm leading-relaxed max-w-2xl" style="color: rgba(255,255,255,0.75);">
+        Many programs face challenges when managing reporting across multiple teams, countries, and
+        systems:
       </p>
     </div>
 
     <!-- Problem cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-      {problems.map(({ Icon, iconColor, iconBg, title, desc }) => (
-        <div class="bg-white rounded-2xl p-6 flex gap-4" style="border: 1px solid #e5e7eb;">
+      {
+        problems.map(({ Icon, iconColor, iconBg, title, desc }) => (
           <div
-            class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-            style={`background: ${iconBg};`}
+            class="bg-black/30 backdrop-blur-sm rounded-2xl p-6 flex gap-4"
+            style="border: 1px solid rgba(0,0,0,0.15);"
           >
-            <Icon size={18} color={iconColor} />
+            <div
+              class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+              style={`background: ${iconBg};`}
+            >
+              <Icon size={18} color={iconColor} />
+            </div>
+            <div>
+              <h3 class="text-base font-semibold mb-1.5" style="color: #ffffff;">
+                {title}
+              </h3>
+              <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.75);">
+                {desc}
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 class="text-base font-semibold mb-1.5" style="color: #111827;">{title}</h3>
-            <p class="text-sm leading-relaxed" style="color: #6b7280;">{desc}</p>
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
 
     <!-- Quote highlight -->
-    <div class="rounded-2xl p-10 text-center" style="background: #1a3a5c;">
+    <div
+      class="bg-white/10 backdrop-blur-sm rounded-2xl p-10 text-center"
+      style="border: 1px solid rgba(255,255,255,0.15);"
+    >
       <div class="flex justify-center mb-4">
         <Quote size={28} color="#fbbf24" />
       </div>

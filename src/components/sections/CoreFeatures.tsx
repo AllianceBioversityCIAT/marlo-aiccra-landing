@@ -10,6 +10,7 @@ type Feature = {
   badgeBg: string;
   title: string;
   desc: string;
+  video?: string;
 };
 
 const features: Feature[] = [
@@ -22,6 +23,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(37,99,235,0.08)',
     title: 'Structured Workflows',
     desc: 'Define and manage reporting processes step by step, ensuring consistency across all projects and reporting cycles.',
+    video: '/videos/structured-workflows2.mov',
   },
   {
     Icon: Users,
@@ -32,6 +34,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(13,148,136,0.08)',
     title: 'Role-Based Access',
     desc: 'Assign roles and responsibilities to ensure accountability and proper data validation across your team.',
+    video: '/videos/role-based-access.mov',
   },
   {
     Icon: Database,
@@ -42,6 +45,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(5,150,105,0.08)',
     title: 'Centralized Data Management',
     desc: 'Store all reporting data in one place — accessible, organized, and ready for analysis at any time.',
+    video: '/videos/centralized-data-management.mov',
   },
   {
     Icon: FileText,
@@ -80,7 +84,7 @@ export default function CoreFeatures() {
     <div className="max-w-7xl mx-auto px-6">
       <div className="flex flex-col lg:flex-row">
         {/* Left column — sticky */}
-        <div className="lg:w-[38%] lg:sticky lg:top-24 lg:self-start py-16 lg:py-24 flex flex-col justify-center lg:pr-12">
+        <div className="lg:w-[37%] lg:sticky lg:top-24 lg:self-start py-16 lg:py-24 flex flex-col justify-center lg:pr-12">
           <p
             className="text-xs font-semibold tracking-widest uppercase mb-4"
             style={{ color: '#0d9488' }}
@@ -123,7 +127,7 @@ export default function CoreFeatures() {
         </div>
 
         {/* Right column — scrollable panels */}
-        <div className="lg:w-[62%]">
+        <div className="lg:w-[63%]">
           {features.map((f, i) => (
             <>
               <div
@@ -131,14 +135,25 @@ export default function CoreFeatures() {
                 ref={(el) => {
                   panelRefs.current[i] = el;
                 }}
-                className="py-16 lg:min-h-[80vh] flex flex-col items-center justify-center px-8 lg:px-20 text-center"
+                className="py-16 lg:min-h-[80vh] flex flex-col items-center justify-center px-8 text-center"
               >
-                <div
-                  className="w-20 h-20 rounded-3xl flex items-center justify-center mb-6"
-                  style={{ background: f.iconBg }}
-                >
-                  <f.Icon size={36} color={f.iconColor} />
-                </div>
+                {f.video ? (
+                  <video
+                    src={f.video}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full rounded-2xl mb-6 shadow-md"
+                  />
+                ) : (
+                  <div
+                    className="w-20 h-20 rounded-3xl flex items-center justify-center mb-6"
+                    style={{ background: f.iconBg }}
+                  >
+                    <f.Icon size={36} color={f.iconColor} />
+                  </div>
+                )}
 
                 <span
                   className="text-[11px] font-semibold px-3 py-1 rounded-full mb-5 inline-block"

@@ -79,7 +79,11 @@ export default function ImpactAccordion() {
   const [activeId, setActiveId] = useState<string>(firstInteractiveId);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [barKey, setBarKey] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const accumulatedElapsedRef = useRef(0);
+  const lastRunStartRef = useRef(Date.now());
+  const hasHoveredRef = useRef(false);
 
   const isHoveringActive = hoveredId === activeId;
 
@@ -95,13 +99,32 @@ export default function ImpactAccordion() {
   }, []);
 
   useEffect(() => {
+    accumulatedElapsedRef.current = 0;
+    lastRunStartRef.current = Date.now();
+    hasHoveredRef.current = false;
+    setBarKey((k) => k + 1);
+  }, [activeId]);
+
+  useEffect(() => {
+    if (isHoveringActive) {
+      hasHoveredRef.current = true;
+      accumulatedElapsedRef.current += Date.now() - lastRunStartRef.current;
+    } else if (hasHoveredRef.current) {
+      hasHoveredRef.current = false;
+      lastRunStartRef.current = Date.now();
+      setBarKey((k) => k + 1);
+    }
+  }, [isHoveringActive]);
+
+  useEffect(() => {
     if (!isVisible || isHoveringActive) return;
 
+    const remaining = Math.max(0, 12000 - accumulatedElapsedRef.current);
     const timer = setTimeout(() => {
       const currentIndex = interactiveStats.findIndex((s) => s.id === activeId);
       const nextIndex = (currentIndex + 1) % interactiveStats.length;
       setActiveId(interactiveStats[nextIndex].id);
-    }, 12000);
+    }, remaining);
 
     return () => clearTimeout(timer);
   }, [activeId, isHoveringActive, isVisible]);
@@ -250,6 +273,18 @@ export default function ImpactAccordion() {
               {isActive ? expandedContent : collapsedContent}
             </div>
             <div className="sm:hidden">{expandedContent}</div>
+            {isActive && (
+              <div
+                key={barKey}
+                className="absolute bottom-0 left-0 right-0 h-[3px] origin-left"
+                style={{
+                  background: s.iconColor,
+                  animation: 'progress-countdown 12s linear forwards',
+                  animationDelay: `-${accumulatedElapsedRef.current}ms`,
+                  animationPlayState: isHoveringActive ? 'paused' : 'running',
+                }}
+              />
+            )}
           </button>
         );
       })}

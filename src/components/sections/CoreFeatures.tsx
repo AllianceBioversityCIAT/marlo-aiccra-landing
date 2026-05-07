@@ -69,7 +69,7 @@ const features: Feature[] = [
   },
 ];
 
-function VideoCarousel({ videos }: { videos: string[] }) {
+function VideoCarousel({ videos, title }: { videos: string[]; title: string }) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -108,6 +108,7 @@ function VideoCarousel({ videos }: { videos: string[] }) {
           muted
           playsInline
           onEnded={handleEnded}
+          title={title}
           className="w-full rounded-2xl shadow-md"
           style={{
             opacity: visible ? 1 : 0,
@@ -124,7 +125,7 @@ function VideoCarousel({ videos }: { videos: string[] }) {
             background: 'rgba(0,0,0,0.5)',
             color: 'white',
           }}
-          aria-label="Ver en pantalla completa"
+          aria-label="View fullscreen"
         >
           <Maximize2 size={16} />
         </button>
@@ -137,6 +138,7 @@ function VideoCarousel({ videos }: { videos: string[] }) {
               key={i}
               type="button"
               onClick={() => i !== activeIdx && goTo(i)}
+              aria-label={`Go to video ${i + 1}`}
               className="w-2 h-2 rounded-full"
               style={{
                 background: i === activeIdx ? '#2563eb' : '#d1d5db',
@@ -162,7 +164,7 @@ function VideoCarousel({ videos }: { videos: string[] }) {
                 style={{ color: 'rgba(255,255,255,0.8)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'white')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
-                aria-label="Cerrar pantalla completa"
+                aria-label="Close fullscreen"
               >
                 <X size={28} />
               </button>
@@ -175,6 +177,7 @@ function VideoCarousel({ videos }: { videos: string[] }) {
                 playsInline
                 controls
                 onEnded={handleEnded}
+                title={title}
                 className="w-full rounded-2xl shadow-2xl"
               />
 
@@ -185,6 +188,7 @@ function VideoCarousel({ videos }: { videos: string[] }) {
                       key={i}
                       type="button"
                       onClick={() => i !== activeIdx && goTo(i)}
+                      aria-label={`Go to video ${i + 1}`}
                       className="w-2.5 h-2.5 rounded-full"
                       style={{
                         background: i === activeIdx ? '#2563eb' : 'rgba(255,255,255,0.4)',
@@ -257,7 +261,7 @@ export default function CoreFeatures() {
                 className={`text-left pl-4 py-2.5 text-sm transition-all duration-300 border-l-2 ${
                   activeIndex === i
                     ? 'font-semibold'
-                    : 'text-gray-400 border-transparent hover:text-gray-600 hover:border-gray-300'
+                    : 'text-gray-500 border-transparent hover:text-gray-600 hover:border-gray-300'
                 }`}
                 style={
                   activeIndex === i ? { color: f.iconColor, borderColor: f.iconColor } : undefined
@@ -281,7 +285,7 @@ export default function CoreFeatures() {
                 className="py-16 lg:min-h-screen flex flex-col items-center justify-center px-8 text-center"
               >
                 {f.videos?.length ? (
-                  <VideoCarousel videos={f.videos} />
+                  <VideoCarousel videos={f.videos} title={f.title} />
                 ) : (
                   <div
                     className="w-20 h-20 rounded-3xl flex items-center justify-center mb-6"

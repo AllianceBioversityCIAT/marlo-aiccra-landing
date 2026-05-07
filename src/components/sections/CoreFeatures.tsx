@@ -234,7 +234,7 @@ export default function CoreFeatures() {
         <div className="lg:w-[37%] lg:sticky lg:top-24 lg:self-start py-16 lg:py-24 flex flex-col justify-center lg:pr-12">
           <p
             className="text-xs font-semibold tracking-widest uppercase mb-4"
-            style={{ color: '#0d9488' }}
+            style={{ color: '#60A5FA' }}
           >
             Core Features
           </p>

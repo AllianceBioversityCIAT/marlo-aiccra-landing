@@ -65,6 +65,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(124,58,237,0.08)',
     title: 'End-to-End Reporting',
     desc: 'From data entry to validation, aggregation, and reporting — all in one integrated platform.',
+    videos: ['/videos/end-to-end-reporting.mp4'],
   },
 ];
 
@@ -277,7 +278,7 @@ export default function CoreFeatures() {
                 ref={(el) => {
                   panelRefs.current[i] = el;
                 }}
-                className="py-16 lg:min-h-[80vh] flex flex-col items-center justify-center px-8 text-center"
+                className="py-16 lg:min-h-screen flex flex-col items-center justify-center px-8 text-center"
               >
                 {f.videos?.length ? (
                   <VideoCarousel videos={f.videos} />

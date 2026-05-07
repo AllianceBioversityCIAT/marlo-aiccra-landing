@@ -12,5 +12,5 @@ export const footerLinks = [
   { label: 'Product', href: '#' },
   { label: 'Team & Technology', href: '/team' },
   { label: 'Contact', href: '/contact' },
-  { label: 'Legal', href: '#' },
+  { label: 'Legal', href: 'https://github.com/CCAFS/MARLO/blob/AICCRA/LICENSE' },
 ];

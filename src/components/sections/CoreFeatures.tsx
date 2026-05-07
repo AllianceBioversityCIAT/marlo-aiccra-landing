@@ -10,7 +10,7 @@ type Feature = {
   badgeBg: string;
   title: string;
   desc: string;
-  video?: string;
+  videos?: string[];
 };
 
 const features: Feature[] = [
@@ -23,7 +23,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(37,99,235,0.08)',
     title: 'Structured Workflows',
     desc: 'Define and manage reporting processes step by step, ensuring consistency across all projects and reporting cycles.',
-    video: '/videos/structured-workflows2.mov',
+    videos: ['/videos/structured-workflows.mov', '/videos/structured-workflows2.mov'],
   },
   {
     Icon: Users,
@@ -34,7 +34,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(13,148,136,0.08)',
     title: 'Role-Based Access',
     desc: 'Assign roles and responsibilities to ensure accountability and proper data validation across your team.',
-    video: '/videos/role-based-access.mov',
+    videos: ['/videos/role-based-access.mov'],
   },
   {
     Icon: Database,
@@ -45,7 +45,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(5,150,105,0.08)',
     title: 'Centralized Data Management',
     desc: 'Store all reporting data in one place — accessible, organized, and ready for analysis at any time.',
-    video: '/videos/centralized-data-management.mov',
+    videos: ['/videos/centralized-data-management.mov'],
   },
   {
     Icon: FileText,
@@ -58,6 +58,55 @@ const features: Feature[] = [
     desc: 'From data entry to validation, aggregation, and reporting — all in one integrated platform.',
   },
 ];
+
+function VideoCarousel({ videos }: { videos: string[] }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  const goTo = (idx: number) => {
+    setVisible(false);
+    setTimeout(() => {
+      setActiveIdx(idx);
+      setVisible(true);
+    }, 300);
+  };
+
+  const handleEnded = () => goTo((activeIdx + 1) % videos.length);
+
+  return (
+    <div className="w-full mb-6">
+      <video
+        key={videos[activeIdx]}
+        src={videos[activeIdx]}
+        autoPlay
+        muted
+        playsInline
+        onEnded={handleEnded}
+        className="w-full rounded-2xl shadow-md"
+        style={{
+          opacity: visible ? 1 : 0,
+          transition: 'opacity 300ms ease-in-out',
+        }}
+      />
+      {videos.length > 1 && (
+        <div className="flex justify-center gap-2 mt-3">
+          {videos.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => i !== activeIdx && goTo(i)}
+              className="w-2 h-2 rounded-full"
+              style={{
+                background: i === activeIdx ? '#2563eb' : '#d1d5db',
+                transition: 'background 300ms ease-in-out',
+              }}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function CoreFeatures() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -137,15 +186,8 @@ export default function CoreFeatures() {
                 }}
                 className="py-16 lg:min-h-[80vh] flex flex-col items-center justify-center px-8 text-center"
               >
-                {f.video ? (
-                  <video
-                    src={f.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full rounded-2xl mb-6 shadow-md"
-                  />
+                {f.videos?.length ? (
+                  <VideoCarousel videos={f.videos} />
                 ) : (
                   <div
                     className="w-20 h-20 rounded-3xl flex items-center justify-center mb-6"

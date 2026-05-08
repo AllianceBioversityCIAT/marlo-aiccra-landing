@@ -324,15 +324,11 @@ function ReleaseCard({
   );
 }
 
-const PROJECTS = ['All', 'AICCRA', 'MARLO-CRP'] as const;
-type ProjectFilter = (typeof PROJECTS)[number];
-
 export default function WhatsNew() {
   const [releases, setReleases] = useState<ReleaseNote[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [activeProject, setActiveProject] = useState<ProjectFilter>('All');
 
   async function fetchReleases() {
     setLoading(true);
@@ -353,8 +349,7 @@ export default function WhatsNew() {
     fetchReleases();
   }, []);
 
-  const filtered =
-    activeProject === 'All' ? releases : releases.filter((r) => r.projects.includes(activeProject));
+  const filtered = releases;
 
   return (
     <section style={{ background: '#f3f4f6' }} className="min-h-screen">
@@ -389,27 +384,6 @@ export default function WhatsNew() {
       </div>
 
       <div className="max-w-3xl mx-auto px-6 py-12">
-        {/* Project filter */}
-        <div className="flex gap-2 mb-8 flex-wrap">
-          {PROJECTS.map((project) => {
-            const isActive = activeProject === project;
-            return (
-              <button
-                key={project}
-                onClick={() => setActiveProject(project)}
-                className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150"
-                style={
-                  isActive
-                    ? { background: '#1a3a5c', color: '#fff' }
-                    : { background: '#fff', color: '#4b5563', border: '1px solid #e5e7eb' }
-                }
-              >
-                {project}
-              </button>
-            );
-          })}
-        </div>
-
         {/* Loading state */}
         {loading && (
           <div className="space-y-4">
@@ -439,10 +413,7 @@ export default function WhatsNew() {
         {/* Empty state */}
         {!loading && !error && filtered.length === 0 && (
           <div className="bg-white rounded-2xl border border-gray-200 p-10 text-center">
-            <p className="text-gray-500 font-medium">
-              No releases found for{' '}
-              <span className="font-semibold text-gray-700">{activeProject}</span>.
-            </p>
+            <p className="text-gray-500 font-medium">No releases found.</p>
           </div>
         )}
 

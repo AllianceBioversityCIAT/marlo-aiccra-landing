@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/layout/Navbar.astro';
+import Footer from '../components/layout/Footer.astro';
+import WhatsNewSection from '../components/sections/WhatsNew';
+---
+
+<Layout
+  title="What's New | MARLO"
+  description="Stay up to date with the latest features, improvements, and fixes in the MARLO platform."
+>
+  <Navbar />
+  <main>
+    <WhatsNewSection client:load />
+  </main>
+  <Footer />
+</Layout>

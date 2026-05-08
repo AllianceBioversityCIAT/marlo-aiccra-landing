@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
-  ChevronDown,
   ExternalLink,
   Calendar,
-  Users,
-  Tag,
-  Link2,
   RefreshCw,
   Sparkles,
 } from 'lucide-react';
@@ -55,6 +51,7 @@ interface ReleaseNote {
   evidenceLink: string | null;
   notionUrl: string | null;
   lastEdited: string;
+  coverImage: string | null;
 }
 
 interface NotionRichText {
@@ -80,6 +77,10 @@ interface NotionPageProperties {
 }
 interface NotionPage {
   id: string;
+  cover?:
+    | { type: 'external'; external: { url: string } }
+    | { type: 'file'; file: { url: string; expiry_time: string } }
+    | null;
   properties: NotionPageProperties;
   public_url: string | null;
   last_edited_time: string;
@@ -91,27 +92,26 @@ function parseReleases(results: NotionPage[]): ReleaseNote[] {
       const props = result.properties;
 
       const title = (props.Name?.title ?? []).map((t) => t.plain_text).join('') || 'Untitled';
-
       const description = (props['Brief description']?.rich_text ?? [])
         .map((t) => t.plain_text)
         .join('');
-
       const date = props['Released date']?.date?.start ?? null;
-
       const statusRaw = props.Status?.status;
       const status = statusRaw ? { name: statusRaw.name, color: statusRaw.color } : null;
-
       const tag = props.Tags?.select?.name ?? null;
-
       const projects = (props.Projects?.multi_select ?? []).map((p) => p.name);
-
       const developers = (props.Developers?.people ?? []).map((p) => ({
         id: p.id,
         name: p.name ?? 'Unknown',
         avatar_url: p.avatar_url,
       }));
-
       const evidenceLink = props['Evidence link']?.url ?? null;
+      const coverImage =
+        result.cover?.type === 'external'
+          ? result.cover.external.url
+          : result.cover?.type === 'file'
+            ? result.cover.file.url
+            : null;
 
       return {
         id: result.id,
@@ -125,6 +125,7 @@ function parseReleases(results: NotionPage[]): ReleaseNote[] {
         evidenceLink,
         notionUrl: result.public_url ?? null,
         lastEdited: result.last_edited_time,
+        coverImage,
       };
     })
     .sort((a, b) => {
@@ -143,192 +144,226 @@ function formatDate(dateStr: string): string {
   });
 }
 
-function DeveloperAvatar({ dev }: { dev: Developer }) {
+function DeveloperAvatar({ dev, size = 'sm' }: { dev: Developer; size?: 'sm' | 'md' }) {
   const initials = dev.name
     .split(' ')
     .slice(0, 2)
     .map((n) => n[0])
     .join('')
     .toUpperCase();
+  const dim = size === 'md' ? 'w-8 h-8 text-xs' : 'w-6 h-6 text-[10px]';
 
-  return (
-    <div className="flex items-center gap-1.5">
-      {dev.avatar_url ? (
-        <img src={dev.avatar_url} alt={dev.name} className="w-6 h-6 rounded-full object-cover" />
-      ) : (
-        <div
-          className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0"
-          style={{ background: '#1a3a5c' }}
-        >
-          {initials}
-        </div>
-      )}
-      <span className="text-xs text-gray-600">{dev.name}</span>
+  return dev.avatar_url ? (
+    <img
+      src={dev.avatar_url}
+      alt={dev.name}
+      title={dev.name}
+      className={`${dim} rounded-full object-cover ring-2 ring-white`}
+    />
+  ) : (
+    <div
+      className={`${dim} rounded-full flex items-center justify-center text-white font-bold ring-2 ring-white flex-shrink-0`}
+      style={{ background: '#1a3a5c' }}
+      title={dev.name}
+    >
+      {initials}
     </div>
   );
 }
 
-function SkeletonCard() {
+function ProjectBadge({ name }: { name: string }) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 animate-pulse">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 space-y-3">
-          <div className="flex gap-2">
-            <div className="h-5 w-20 bg-gray-200 rounded-full" />
-            <div className="h-5 w-16 bg-gray-200 rounded-full" />
-          </div>
-          <div className="h-5 w-3/4 bg-gray-200 rounded-lg" />
-          <div className="h-4 w-full bg-gray-100 rounded-lg" />
-          <div className="h-4 w-2/3 bg-gray-100 rounded-lg" />
+    <span
+      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+      style={{ background: 'rgba(13,148,136,0.08)', color: '#0d9488' }}
+    >
+      {name}
+    </span>
+  );
+}
+
+function StatusBadge({ status }: { status: { name: string; color: string } }) {
+  const color = STATUS_COLOR[status.color] ?? '#6b7280';
+  const bg = STATUS_BG[status.color] ?? 'rgba(107,114,128,0.1)';
+  return (
+    <span
+      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold"
+      style={{ color, background: bg }}
+    >
+      {status.name}
+    </span>
+  );
+}
+
+// ── Featured card (with cover image) ─────────────────────────────────────────
+
+function FeaturedCard({ release }: { release: ReleaseNote }) {
+  return (
+    <a
+      href={release.notionUrl ?? release.evidenceLink ?? '#'}
+      target={release.notionUrl || release.evidenceLink ? '_blank' : undefined}
+      rel="noopener noreferrer"
+      className="bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col transition-shadow duration-200 hover:shadow-md group"
+    >
+      {/* Cover image */}
+      <div className="aspect-video w-full overflow-hidden bg-gray-100 flex-shrink-0">
+        {release.coverImage ? (
+          <img
+            src={release.coverImage}
+            alt={release.title}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div
+            className="w-full h-full"
+            style={{
+              background: 'linear-gradient(135deg, #0f2a47 0%, #1a3a5c 60%, #0d9488 100%)',
+            }}
+          />
+        )}
+      </div>
+
+      {/* Card body */}
+      <div className="p-4 flex flex-col gap-2 flex-1">
+        {/* Dot + date */}
+        <div className="flex items-center gap-2">
+          <div
+            className="w-5 h-5 rounded-full flex-shrink-0"
+            style={{
+              background: 'linear-gradient(135deg, #f97316 0%, #db2777 100%)',
+            }}
+          />
+          {release.date && (
+            <span className="text-xs text-gray-500 font-medium">{formatDate(release.date)}</span>
+          )}
         </div>
-        <div className="h-5 w-5 bg-gray-200 rounded mt-1 flex-shrink-0" />
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5">
+          {release.status && <StatusBadge status={release.status} />}
+          {release.projects.map((p) => (
+            <ProjectBadge key={p} name={p} />
+          ))}
+        </div>
+
+        {/* Title */}
+        <h3 className="text-sm font-semibold text-gray-900 leading-snug line-clamp-2">
+          {release.title}
+        </h3>
+      </div>
+    </a>
+  );
+}
+
+// ── List item (for remaining releases) ───────────────────────────────────────
+
+function ReleaseListItem({ release }: { release: ReleaseNote }) {
+  return (
+    <div className="flex items-center gap-4 px-5 py-4">
+      {/* Title */}
+      <div className="flex-1 min-w-0">
+        <a
+          href={release.notionUrl ?? release.evidenceLink ?? '#'}
+          target={release.notionUrl || release.evidenceLink ? '_blank' : undefined}
+          rel="noopener noreferrer"
+          className="text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors leading-snug line-clamp-2"
+        >
+          {release.title}
+        </a>
+      </div>
+
+      {/* Tags */}
+      <div className="flex flex-wrap gap-1.5 w-64 flex-shrink-0">
+        {release.status && <StatusBadge status={release.status} />}
+        {release.projects.map((p) => (
+          <ProjectBadge key={p} name={p} />
+        ))}
+      </div>
+
+      {/* Date */}
+      <div className="flex items-center gap-1 text-xs text-gray-400 whitespace-nowrap w-24 flex-shrink-0 justify-end">
+        <Calendar size={11} />
+        {release.date ? formatDate(release.date) : '—'}
+      </div>
+
+      {/* Developer avatars */}
+      <div className="flex items-center flex-shrink-0 w-16 justify-end">
+        {release.developers.slice(0, 3).map((dev, i) => (
+          <div key={dev.id} style={{ marginLeft: i === 0 ? 0 : -8, zIndex: 3 - i }}>
+            <DeveloperAvatar dev={dev} />
+          </div>
+        ))}
+        {release.developers.length === 0 && (
+          <div
+            className="w-6 h-6 rounded-full ring-2 ring-white"
+            style={{
+              background: 'linear-gradient(135deg, #f97316 0%, #db2777 100%)',
+            }}
+          />
+        )}
+      </div>
+
+      {/* External link */}
+      {(release.notionUrl || release.evidenceLink) && (
+        <a
+          href={release.notionUrl ?? release.evidenceLink ?? '#'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-300 hover:text-blue-500 transition-colors flex-shrink-0"
+          aria-label="Open release"
+        >
+          <ExternalLink size={14} />
+        </a>
+      )}
+    </div>
+  );
+}
+
+// ── Skeletons ─────────────────────────────────────────────────────────────────
+
+function SkeletonFeaturedCard() {
+  return (
+    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden animate-pulse">
+      <div className="aspect-video bg-gray-200 w-full" />
+      <div className="p-4 space-y-2">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-full bg-gray-200" />
+          <div className="h-3 w-20 bg-gray-200 rounded" />
+        </div>
+        <div className="flex gap-1.5">
+          <div className="h-4 w-16 bg-gray-200 rounded-full" />
+          <div className="h-4 w-20 bg-gray-200 rounded-full" />
+        </div>
+        <div className="h-4 w-full bg-gray-200 rounded" />
+        <div className="h-4 w-3/4 bg-gray-200 rounded" />
       </div>
     </div>
   );
 }
 
-function ReleaseCard({
-  release,
-  expanded,
-  onToggle,
-}: {
-  release: ReleaseNote;
-  expanded: boolean;
-  onToggle: () => void;
-}) {
-  const statusColor = release.status
-    ? (STATUS_COLOR[release.status.color] ?? '#6b7280')
-    : '#6b7280';
-  const statusBg = release.status
-    ? (STATUS_BG[release.status.color] ?? 'rgba(107,114,128,0.1)')
-    : 'rgba(107,114,128,0.1)';
-
-  const shortDesc =
-    release.description.length > 140
-      ? release.description.slice(0, 140).trimEnd() + '…'
-      : release.description;
-
+function SkeletonListItem() {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden transition-shadow duration-200 hover:shadow-md">
-      <button
-        onClick={onToggle}
-        className="w-full text-left p-6 flex items-start justify-between gap-4 focus:outline-none"
-        aria-expanded={expanded}
-      >
-        <div className="flex-1 min-w-0 space-y-2.5">
-          {/* Badges row */}
-          <div className="flex flex-wrap items-center gap-2">
-            {release.date && (
-              <span className="inline-flex items-center gap-1 text-xs text-gray-500 font-medium">
-                <Calendar size={11} />
-                {formatDate(release.date)}
-              </span>
-            )}
-            {release.status && (
-              <span
-                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold"
-                style={{ color: statusColor, background: statusBg }}
-              >
-                {release.status.name}
-              </span>
-            )}
-            {release.tag && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
-                <Tag size={10} />
-                {release.tag}
-              </span>
-            )}
-            {release.projects.map((p) => (
-              <span
-                key={p}
-                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{
-                  background: 'rgba(13,148,136,0.08)',
-                  color: '#0d9488',
-                }}
-              >
-                {p}
-              </span>
-            ))}
-          </div>
-
-          {/* Title */}
-          <h3 className="text-base font-semibold text-gray-900 leading-snug">{release.title}</h3>
-
-          {/* Short description (collapsed) */}
-          {!expanded && release.description && (
-            <p className="text-sm text-gray-500 leading-relaxed">{shortDesc}</p>
-          )}
-        </div>
-
-        <ChevronDown
-          size={18}
-          className="flex-shrink-0 mt-0.5 text-gray-400 transition-transform duration-300"
-          style={{ transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
-        />
-      </button>
-
-      {/* Expanded content */}
-      {expanded && (
-        <div className="px-6 pb-6 space-y-4 border-t border-gray-100 pt-4">
-          {release.description && (
-            <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-              {release.description}
-            </p>
-          )}
-
-          {release.developers.length > 0 && (
-            <div className="space-y-1.5">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest flex items-center gap-1">
-                <Users size={11} />
-                Developers
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {release.developers.map((dev) => (
-                  <DeveloperAvatar key={dev.id} dev={dev} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="flex flex-wrap gap-3 pt-1">
-            {release.evidenceLink && (
-              <a
-                href={release.evidenceLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors duration-150"
-                style={{ background: '#2563eb' }}
-                onMouseOver={(e) => (e.currentTarget.style.background = '#1d4ed8')}
-                onMouseOut={(e) => (e.currentTarget.style.background = '#2563eb')}
-              >
-                <Link2 size={14} />
-                Evidence
-              </a>
-            )}
-            {release.notionUrl && (
-              <a
-                href={release.notionUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 text-gray-700 bg-white transition-colors duration-150 hover:bg-gray-50"
-              >
-                <ExternalLink size={14} />
-                View in Notion
-              </a>
-            )}
-          </div>
-        </div>
-      )}
+    <div className="flex items-center gap-4 px-5 py-4 animate-pulse">
+      <div className="flex-1 space-y-1.5">
+        <div className="h-4 w-3/4 bg-gray-200 rounded" />
+        <div className="h-3 w-1/2 bg-gray-100 rounded" />
+      </div>
+      <div className="flex gap-1.5 w-64 flex-shrink-0">
+        <div className="h-4 w-20 bg-gray-200 rounded-full" />
+        <div className="h-4 w-24 bg-gray-200 rounded-full" />
+      </div>
+      <div className="h-3 w-20 bg-gray-200 rounded w-24 flex-shrink-0" />
+      <div className="w-6 h-6 rounded-full bg-gray-200 flex-shrink-0" />
     </div>
   );
 }
+
+// ── Main component ────────────────────────────────────────────────────────────
 
 export default function WhatsNew() {
   const [releases, setReleases] = useState<ReleaseNote[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   async function fetchReleases() {
     setLoading(true);
@@ -349,7 +384,8 @@ export default function WhatsNew() {
     fetchReleases();
   }, []);
 
-  const filtered = releases;
+  const featured = releases.slice(0, 5);
+  const rest = releases.slice(5);
 
   return (
     <section style={{ background: '#f3f4f6' }} className="min-h-screen">
@@ -360,7 +396,7 @@ export default function WhatsNew() {
           background: 'linear-gradient(135deg, #0f2a47 0%, #1a3a5c 60%, #0d9488 100%)',
         }}
       >
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <div
             className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
             style={{ background: 'rgba(255,255,255,0.1)', color: '#7dd3fc' }}
@@ -377,19 +413,33 @@ export default function WhatsNew() {
           </p>
           {!loading && !error && (
             <p className="mt-4 text-sm text-blue-200">
-              {filtered.length} release{filtered.length !== 1 ? 's' : ''}
+              {releases.length} release{releases.length !== 1 ? 's' : ''}
             </p>
           )}
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Loading state */}
         {loading && (
           <div className="space-y-4">
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <SkeletonFeaturedCard />
+              <SkeletonFeaturedCard />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <SkeletonFeaturedCard />
+              <SkeletonFeaturedCard />
+              <SkeletonFeaturedCard />
+            </div>
+            <div className="mt-10">
+              <div className="h-6 w-40 bg-gray-200 rounded animate-pulse mb-4" />
+              <div className="bg-white rounded-2xl border border-gray-200 divide-y divide-gray-100">
+                {[...Array(4)].map((_, i) => (
+                  <SkeletonListItem key={i} />
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
@@ -411,23 +461,42 @@ export default function WhatsNew() {
         )}
 
         {/* Empty state */}
-        {!loading && !error && filtered.length === 0 && (
+        {!loading && !error && releases.length === 0 && (
           <div className="bg-white rounded-2xl border border-gray-200 p-10 text-center">
             <p className="text-gray-500 font-medium">No releases found.</p>
           </div>
         )}
 
-        {/* Release list */}
-        {!loading && !error && filtered.length > 0 && (
+        {/* Featured grid */}
+        {!loading && !error && featured.length > 0 && (
           <div className="space-y-4">
-            {filtered.map((release) => (
-              <ReleaseCard
-                key={release.id}
-                release={release}
-                expanded={expandedId === release.id}
-                onToggle={() => setExpandedId(expandedId === release.id ? null : release.id)}
-              />
-            ))}
+            {/* Row 1: first 2 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {featured.slice(0, 2).map((r) => (
+                <FeaturedCard key={r.id} release={r} />
+              ))}
+            </div>
+
+            {/* Row 2: next 3 */}
+            {featured.length > 2 && (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {featured.slice(2, 5).map((r) => (
+                  <FeaturedCard key={r.id} release={r} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* "More from the team" list */}
+        {!loading && !error && rest.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">More from the team</h2>
+            <div className="bg-white rounded-2xl border border-gray-200 divide-y divide-gray-100">
+              {rest.map((r) => (
+                <ReleaseListItem key={r.id} release={r} />
+              ))}
+            </div>
           </div>
         )}
       </div>

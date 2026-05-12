@@ -54,9 +54,9 @@ export const POST: APIRoute = async ({ request }) => {
       password: clientSecret,
     },
     data: {
-      from: { email: emailSender, name: 'Marlo AICCRA' },
+      from: { email: emailSender },
       emailBody: {
-        subject: `New Demo Request – ${name} (${organization})`,
+        subject: `New Contact Request`,
         to: [teamEmail],
         cc: [],
         bcc: [],

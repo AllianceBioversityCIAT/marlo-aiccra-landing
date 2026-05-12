@@ -26,6 +26,14 @@ export default [
       ...tsPlugin.configs.recommended.rules,
     },
   },
+  {
+    files: ['src/pages/api/**/*.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
   ...astroPlugin.configs.recommended,
   {
     ignores: ['dist/**', 'node_modules/**', '.astro/**'],

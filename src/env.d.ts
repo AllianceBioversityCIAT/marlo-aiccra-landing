@@ -1,6 +1,9 @@
 /// <reference types="astro/client" />
 
-declare module '@lucide/astro';
+declare module '@lucide/astro/icons/*' {
+  const icon: import('astro/runtime/server/index.js').AstroComponentFactory;
+  export default icon;
+}
 
 interface ImportMetaEnv {
   readonly SECRET_NAME?: string;

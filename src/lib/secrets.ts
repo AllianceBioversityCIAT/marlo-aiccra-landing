@@ -2,9 +2,10 @@ import {
   GetSecretValueCommand,
   SecretsManagerClient,
 } from '@aws-sdk/client-secrets-manager';
+import { runtimeEnv } from './env';
 
 const client = new SecretsManagerClient({
-  region: import.meta.env.AWS_REGION ?? 'us-east-1',
+  region: runtimeEnv('AWS_REGION') ?? 'us-east-1',
 });
 
 let cachedSecrets: Record<string, string> | null = null;
@@ -12,7 +13,7 @@ let cachedSecrets: Record<string, string> | null = null;
 export async function getAppSecrets(): Promise<Record<string, string>> {
   if (cachedSecrets) return cachedSecrets;
 
-  const secretName = import.meta.env.SECRET_NAME;
+  const secretName = runtimeEnv('SECRET_NAME');
   if (!secretName) {
     throw new Error('SECRET_NAME is not configured');
   }

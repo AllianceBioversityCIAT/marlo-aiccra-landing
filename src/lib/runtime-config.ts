@@ -1,4 +1,5 @@
 import { getAppSecrets } from './secrets';
+import { runtimeEnv } from './env';
 
 export interface AppConfig {
   rabbitmqUrl: string;
@@ -20,12 +21,12 @@ const SECRET_KEYS = {
 
 function fromEnv(): AppConfig {
   return {
-    rabbitmqUrl: import.meta.env.RABBITMQ_URL ?? '',
-    clientId: import.meta.env.NOTIFICATION_CLIENT_ID ?? '',
-    clientSecret: import.meta.env.NOTIFICATION_CLIENT_SECRET ?? '',
-    teamEmail: import.meta.env.MARLO_TEAM_EMAIL ?? '',
-    emailQueue: import.meta.env.EMAIL_QUEUE ?? '',
-    emailSender: import.meta.env.EMAIL_SENDER ?? '',
+    rabbitmqUrl: runtimeEnv('RABBITMQ_URL') ?? '',
+    clientId: runtimeEnv('NOTIFICATION_CLIENT_ID') ?? '',
+    clientSecret: runtimeEnv('NOTIFICATION_CLIENT_SECRET') ?? '',
+    teamEmail: runtimeEnv('MARLO_TEAM_EMAIL') ?? '',
+    emailQueue: runtimeEnv('EMAIL_QUEUE') ?? '',
+    emailSender: runtimeEnv('EMAIL_SENDER') ?? '',
   };
 }
 
@@ -45,7 +46,7 @@ function fromSecretStore(secrets: Record<string, string>): AppConfig {
  * Local dev / static rollback: reads from import.meta.env (.env file).
  */
 export async function getAppConfig(): Promise<AppConfig> {
-  if (import.meta.env.SECRET_NAME) {
+  if (runtimeEnv('SECRET_NAME')) {
     const secrets = await getAppSecrets();
     return fromSecretStore(secrets);
   }

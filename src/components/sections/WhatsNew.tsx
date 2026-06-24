@@ -6,8 +6,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-const API_URL =
-  'https://release-notes.prms.cgiar.org/api/notion/databases/035e13d090ff4251acb12f8e5e2171f4/query?projects=AICCRA, MARLO-CRP';
+const API_URL = '/api/release-notes';
 
 const STATUS_COLOR: Record<string, string> = {
   green: '#059669',

@@ -6,7 +6,9 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
+RUN npm run build && \
+    test -f dist/client/marlo-logo.png && \
+    test -d dist/client/videos
 
 FROM public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 AS adapter
 
@@ -19,11 +21,13 @@ ENV HOST=0.0.0.0
 ENV PORT=4321
 ENV AWS_LWA_PORT=4321
 ENV AWS_LWA_READINESS_CHECK_PATH=/
-ENV AWS_LWA_READINESS_CHECK_TIMEOUT=10000
+ENV AWS_LWA_READINESS_CHECK_TIMEOUT=30000
+ENV AWS_LWA_INVOKE_MODE=response_stream
+ENV NODE_OPTIONS=--max-old-space-size=768
 
 COPY --from=adapter /lambda-adapter /opt/extensions/lambda-adapter
 
-# Standalone output still resolves some packages from node_modules at runtime.
+# Standalone still resolves some packages from node_modules at runtime.
 COPY --from=build /app/package.json /app/package-lock.json ./
 RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist

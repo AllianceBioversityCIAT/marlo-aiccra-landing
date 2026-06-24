@@ -59,7 +59,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(5,150,105,0.08)',
     title: 'Centralized Data Management',
     desc: 'Store all reporting data in one place — accessible, organized, and ready for analysis at any time.',
-    videos: ['/videos/centralized-data-management.mov'],
+    videos: ['centralized-data-management.mov'],
   },
   {
     Icon: FileText,

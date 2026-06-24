@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import amqp from 'amqplib';
+import { getAppConfig, validateAppConfig } from '../../lib/runtime-config';
 
 export const prerender = false;
 
@@ -24,19 +25,29 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const rabbitmqUrl = import.meta.env.RABBITMQ_URL;
-  const clientId = import.meta.env.NOTIFICATION_CLIENT_ID;
-  const clientSecret = import.meta.env.NOTIFICATION_CLIENT_SECRET;
-  const teamEmail = import.meta.env.MARLO_TEAM_EMAIL;
-  const emailQueue = import.meta.env.EMAIL_QUEUE;
-  const emailSender = import.meta.env.EMAIL_SENDER;
-
-  if (!rabbitmqUrl || !clientId || !clientSecret || !teamEmail || !emailQueue || !emailSender) {
-    return new Response(JSON.stringify({ error: 'Server misconfiguration: missing env vars' }), {
+  let config;
+  try {
+    config = await getAppConfig();
+  } catch (err) {
+    console.error('[contact] Config error:', err instanceof Error ? err.message : err);
+    return new Response(JSON.stringify({ error: 'Server misconfiguration: unable to load config' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
   }
+
+  const missingKey = validateAppConfig(config);
+  if (missingKey) {
+    return new Response(
+      JSON.stringify({ error: `Server misconfiguration: missing ${missingKey}` }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
+  }
+
+  const { rabbitmqUrl, clientId, clientSecret, teamEmail, emailQueue, emailSender } = config;
 
   const text = [
     `Name: ${name}`,

@@ -9,6 +9,11 @@ import {
   X,
   type LucideProps,
 } from 'lucide-react';
+import { resolveVideoSrc } from '../../lib/video-url';
+
+type CoreFeaturesProps = {
+  videosBaseUrl?: string;
+};
 
 type Feature = {
   Icon: ComponentType<LucideProps>;
@@ -32,7 +37,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(37,99,235,0.08)',
     title: 'Structured Workflows',
     desc: 'Define and manage reporting processes step by step, ensuring consistency across all projects and reporting cycles.',
-    videos: ['/videos/structured-workflows.mov', '/videos/structured-workflows2.mov'],
+    videos: ['structured-workflows.mov', 'structured-workflows2.mov'],
   },
   {
     Icon: Users,
@@ -43,7 +48,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(13,148,136,0.08)',
     title: 'Role-Based Access',
     desc: 'Assign roles and responsibilities to ensure accountability and proper data validation across your team.',
-    videos: ['/videos/role-based-access.mov'],
+    videos: ['role-based-access.mov'],
   },
   {
     Icon: Database,
@@ -54,7 +59,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(5,150,105,0.08)',
     title: 'Centralized Data Management',
     desc: 'Store all reporting data in one place — accessible, organized, and ready for analysis at any time.',
-    videos: ['/videos/centralized-data-management.mov'],
+    videos: ['centralized-data-management.mov'],
   },
   {
     Icon: FileText,
@@ -65,7 +70,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(124,58,237,0.08)',
     title: 'End-to-End Reporting',
     desc: 'From data entry to validation, aggregation, and reporting — all in one integrated platform.',
-    videos: ['/videos/end-to-end-reporting.mp4'],
+    videos: ['end-to-end-reporting.mp4'],
   },
 ];
 
@@ -206,7 +211,7 @@ function VideoCarousel({ videos, title }: { videos: string[]; title: string }) {
   );
 }
 
-export default function CoreFeatures() {
+export default function CoreFeatures({ videosBaseUrl = '' }: CoreFeaturesProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -285,7 +290,10 @@ export default function CoreFeatures() {
                 className="py-16 lg:min-h-screen flex flex-col items-center justify-center px-8 text-center"
               >
                 {f.videos?.length ? (
-                  <VideoCarousel videos={f.videos} title={f.title} />
+                  <VideoCarousel
+                    videos={f.videos.map((v) => resolveVideoSrc(v, videosBaseUrl))}
+                    title={f.title}
+                  />
                 ) : (
                   <div
                     className="w-20 h-20 rounded-3xl flex items-center justify-center mb-6"

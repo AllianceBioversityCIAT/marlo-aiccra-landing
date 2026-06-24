@@ -18,9 +18,6 @@ const shared = {
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      noExternal: ['@lucide/astro'],
-    },
   },
 };
 

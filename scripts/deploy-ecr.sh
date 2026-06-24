@@ -10,6 +10,7 @@
 #   IMAGE_TAG              defaults to BUILD_NUMBER or latest
 #   AWS_REGION             defaults to us-east-1
 #   CLOUDFRONT_DISTRIBUTION_ID
+#   PUBLIC_VIDEOS_BASE_URL S3/CloudFront base URL for Core Features videos
 
 set -euo pipefail
 
@@ -22,7 +23,9 @@ IMAGE_TAG="${IMAGE_TAG:-${BUILD_NUMBER:-latest}}"
 IMAGE_URI="${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}"
 
 echo "Building image: ${IMAGE_URI}"
-docker build -t "${IMAGE_URI}" .
+docker build \
+  --build-arg "PUBLIC_VIDEOS_BASE_URL=${PUBLIC_VIDEOS_BASE_URL:-}" \
+  -t "${IMAGE_URI}" .
 
 echo "Logging in to ECR..."
 aws ecr get-login-password --region "${AWS_REGION}" | \

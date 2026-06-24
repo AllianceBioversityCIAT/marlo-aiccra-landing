@@ -2,6 +2,9 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
+ARG PUBLIC_VIDEOS_BASE_URL
+ENV PUBLIC_VIDEOS_BASE_URL=$PUBLIC_VIDEOS_BASE_URL
+
 COPY package.json package-lock.json ./
 RUN npm ci
 

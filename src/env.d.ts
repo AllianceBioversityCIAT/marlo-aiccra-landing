@@ -1,7 +1,7 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly SECRET_ARN?: string;
+  readonly SECRET_NAME?: string;
   readonly AWS_REGION?: string;
   readonly RABBITMQ_URL?: string;
   readonly NOTIFICATION_CLIENT_ID?: string;

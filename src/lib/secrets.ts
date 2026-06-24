@@ -12,12 +12,12 @@ let cachedSecrets: Record<string, string> | null = null;
 export async function getAppSecrets(): Promise<Record<string, string>> {
   if (cachedSecrets) return cachedSecrets;
 
-  const secretArn = import.meta.env.SECRET_ARN;
-  if (!secretArn) {
-    throw new Error('SECRET_ARN is not configured');
+  const secretName = import.meta.env.SECRET_NAME;
+  if (!secretName) {
+    throw new Error('SECRET_NAME is not configured');
   }
 
-  const response = await client.send(new GetSecretValueCommand({ SecretId: secretArn }));
+  const response = await client.send(new GetSecretValueCommand({ SecretId: secretName }));
 
   if (!response.SecretString) {
     throw new Error('Secret value is empty or not a string');

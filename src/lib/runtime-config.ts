@@ -41,11 +41,11 @@ function fromSecretStore(secrets: Record<string, string>): AppConfig {
 }
 
 /**
- * Lambda: reads from AWS Secrets Manager when SECRET_ARN is set.
+ * Lambda: reads from AWS Secrets Manager when SECRET_NAME is set.
  * Local dev / static rollback: reads from import.meta.env (.env file).
  */
 export async function getAppConfig(): Promise<AppConfig> {
-  if (import.meta.env.SECRET_ARN) {
+  if (import.meta.env.SECRET_NAME) {
     const secrets = await getAppSecrets();
     return fromSecretStore(secrets);
   }

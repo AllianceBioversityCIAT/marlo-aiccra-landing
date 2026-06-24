@@ -19,8 +19,13 @@ ENV HOST=0.0.0.0
 ENV PORT=4321
 ENV AWS_LWA_PORT=4321
 ENV AWS_LWA_READINESS_CHECK_PATH=/
+ENV AWS_LWA_READINESS_CHECK_TIMEOUT=10000
 
 COPY --from=adapter /lambda-adapter /opt/extensions/lambda-adapter
+
+# Standalone output still resolves some packages from node_modules at runtime.
+COPY --from=build /app/package.json /app/package-lock.json ./
+RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist
 
 EXPOSE 4321

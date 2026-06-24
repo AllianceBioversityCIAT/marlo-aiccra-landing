@@ -22,12 +22,10 @@ ENV PORT=4321
 ENV AWS_LWA_PORT=4321
 ENV AWS_LWA_READINESS_CHECK_PATH=/
 ENV AWS_LWA_READINESS_CHECK_TIMEOUT=30000
-ENV AWS_LWA_INVOKE_MODE=response_stream
 ENV NODE_OPTIONS=--max-old-space-size=768
 
 COPY --from=adapter /lambda-adapter /opt/extensions/lambda-adapter
 
-# Standalone still resolves some packages from node_modules at runtime.
 COPY --from=build /app/package.json /app/package-lock.json ./
 RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist

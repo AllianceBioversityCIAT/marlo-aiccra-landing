@@ -24,8 +24,7 @@ const shared = {
 /** @type {import('astro').AstroUserConfig} */
 const staticConfig = {
   ...shared,
-  // hybrid: pre-render pages to S3; API routes stay server-only (not deployed in static rollback)
-  output: 'hybrid',
+  output: 'static',
   adapter: (await import('@astrojs/node')).default({ mode: 'standalone' }),
 };
 

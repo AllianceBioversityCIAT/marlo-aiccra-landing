@@ -1,5 +1,7 @@
 /// <reference types="astro/client" />
 
+declare module '@lucide/astro';
+
 interface ImportMetaEnv {
   readonly SECRET_NAME?: string;
   readonly AWS_REGION?: string;

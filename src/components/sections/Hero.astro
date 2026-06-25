@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, LogIn, LayoutGrid, CheckCircle, BarChart2, Users, Zap } from '@lucide/astro';
+import { ArrowRight, LogIn, Zap } from '@lucide/astro';
 ---
 
 <section
@@ -64,95 +64,18 @@ import { ArrowRight, LogIn, LayoutGrid, CheckCircle, BarChart2, Users, Zap } fro
 
       <!-- Right: Dashboard illustration -->
       <div class="flex justify-center lg:justify-end items-center animate-blur-fade-in-d3">
-        <div class="relative w-full max-w-[480px] py-10 px-12 hero-float">
-          <!-- Main dashboard card -->
+        <div class="relative w-full max-w-[600px] p-6 hero-float">
+          <!-- Main dashboard image -->
           <div
             class="rounded-3xl overflow-hidden shadow-2xl"
-            style="background: white; border: 1px solid rgba(255,255,255,0.2);"
+            style="border: 1px solid rgba(255,255,255,0.2);"
           >
-            <!-- Header bar -->
-            <div class="px-5 py-4 flex items-center justify-between" style="background: #1a3a5c;">
-              <div class="flex items-center gap-3">
-                <div
-                  class="w-7 h-7 rounded-lg flex items-center justify-center"
-                  style="background: rgba(255,255,255,0.2);"
-                >
-                  <LayoutGrid size={13} color="white" />
-                </div>
-                <div>
-                  <div class="text-xs font-semibold text-white">MARLO Reporting Dashboard</div>
-                  <div class="text-[10px]" style="color: rgba(255,255,255,0.6);">
-                    Annual Reporting Cycle · 2025
-                  </div>
-                </div>
-              </div>
-              <!-- Traffic lights -->
-              <div class="flex gap-1.5">
-                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(248,113,113,0.7);">
-                </div>
-                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(250,204,21,0.7);">
-                </div>
-                <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(74,222,128,0.7);">
-                </div>
-              </div>
-            </div>
-
-            <!-- Dashboard body -->
-            <div class="bg-white p-5 flex flex-col gap-4">
-              <!-- Portfolio progress bars -->
-              <div>
-                <div
-                  class="text-[10px] font-semibold mb-3 tracking-wider uppercase"
-                  style="color: #9ca3af;"
-                >
-                  Portfolio Completion
-                </div>
-                {
-                  [
-                    { label: 'Program A', pct: 87, color: '#2E86C1' },
-                    { label: 'Program B', pct: 92, color: '#1A7A4A' },
-                    { label: 'Program C', pct: 78, color: '#9A7D0A' },
-                    { label: 'Program D', pct: 95, color: '#2E86C1' },
-                  ].map(({ label, pct, color }) => (
-                    <div class="flex items-center gap-3 mb-2">
-                      <div class="text-xs w-16 shrink-0" style="color: #6b7280;">
-                        {label}
-                      </div>
-                      <div class="flex-1 h-1.5 rounded-full" style="background: #e5e7eb;">
-                        <div
-                          class="h-1.5 rounded-full"
-                          style={`width: ${pct}%; background: ${color};`}
-                        />
-                      </div>
-                      <div class="text-xs font-semibold w-8 text-right" style="color: #111827;">
-                        {pct}%
-                      </div>
-                    </div>
-                  ))
-                }
-              </div>
-
-              <!-- Mini stats grid -->
-              <div class="grid grid-cols-3 gap-2">
-                {
-                  [
-                    { label: 'Reports', value: '142', color: '#2E86C1', Icon: CheckCircle },
-                    { label: 'Indicators', value: '64', color: '#1A7A4A', Icon: BarChart2 },
-                    { label: 'Teams', value: '12', color: '#9A7D0A', Icon: Users },
-                  ].map(({ label, value, color, Icon }) => (
-                    <div class="rounded-xl p-3 text-center" style="background: #f9fafb;">
-                      <Icon size={16} color={color} class="mx-auto mb-1" />
-                      <div class="text-lg font-semibold" style="color: #111827;">
-                        {value}
-                      </div>
-                      <div class="text-[10px]" style="color: #9ca3af;">
-                        {label}
-                      </div>
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
+            <img
+              src="/images/dashboard.webp"
+              alt="MARLO Reporting Dashboard"
+              class="w-full h-auto block"
+              loading="eager"
+            />
           </div>
 
           <!-- Floating card 1: Report submitted (top-right) -->

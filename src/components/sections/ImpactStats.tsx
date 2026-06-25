@@ -12,28 +12,28 @@ const stats: Stat[] = [
   {
     icon: Users,
     title: 'Registered Users',
-    value: '12,000+',
+    value: '1,380+',
     description:
       'Researchers, policymakers, and agricultural specialists actively using MARLO to track and report program outcomes.',
   },
   {
     icon: Globe,
     title: 'Countries',
-    value: '50+',
+    value: '145+',
     description:
       'Countries represented across CGIAR programs, spanning Africa, Asia, Latin America, and beyond.',
   },
   {
     icon: Building2,
     title: 'Organizations',
-    value: '200+',
+    value: '2,035',
     description:
       'Partner institutions, research centers, and implementing organizations collaborating through the platform.',
   },
   {
     icon: BookOpen,
     title: 'Programs',
-    value: '30+',
+    value: 'CGIAR, CRP & AICCRA',
     description:
       'Active CGIAR research programs and initiatives managed and monitored within MARLO.',
   },

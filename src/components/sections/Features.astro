@@ -1,7 +1,13 @@
 ---
 import CoreFeatures from './CoreFeatures.tsx';
+import { runtimeEnv } from '../../lib/env';
+
+const videosBaseUrl =
+  import.meta.env.PUBLIC_VIDEOS_BASE_URL ??
+  runtimeEnv('PUBLIC_VIDEOS_BASE_URL') ??
+  '';
 ---
 
 <section id="features" class="bg-white">
-  <CoreFeatures client:visible />
+  <CoreFeatures client:load videosBaseUrl={videosBaseUrl} />
 </section>

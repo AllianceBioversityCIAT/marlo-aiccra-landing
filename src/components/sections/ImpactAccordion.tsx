@@ -12,6 +12,10 @@ type Stat = {
   desc: string;
 };
 
+type ImpactAccordionProps = {
+  videosBaseUrl: string;
+};
+
 const stats: Stat[] = [
   {
     id: 'faster',
@@ -49,7 +53,7 @@ const stats: Stat[] = [
 
 const firstId = stats[0].id;
 
-export default function ImpactAccordion() {
+export default function ImpactAccordion({ videosBaseUrl }: ImpactAccordionProps) {
   const [activeId, setActiveId] = useState<string>(firstId);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -221,7 +225,10 @@ export default function ImpactAccordion() {
       </div>
 
       <div className="flex items-center justify-center w-full">
-        <VideoPlayer src="/videos/marlo-introduction.mp4" className="rounded-2xl shadow-2xl" />
+        <VideoPlayer
+          src={`${videosBaseUrl}/marlo-introduction.mp4`}
+          className="rounded-2xl shadow-2xl"
+        />
       </div>
     </div>
   );

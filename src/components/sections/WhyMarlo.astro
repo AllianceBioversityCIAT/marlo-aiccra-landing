@@ -1,8 +1,14 @@
 ---
 import ImpactAccordion from './ImpactAccordion.tsx';
+import { runtimeEnv } from '../../lib/env';
+
+const videosBaseUrl =
+  import.meta.env.PUBLIC_VIDEOS_BASE_URL ??
+  runtimeEnv('PUBLIC_VIDEOS_BASE_URL') ??
+  '';
 ---
 
-<section id="impact" style="background: #f3f4f6;" class="py-24">
+<section style="background: #f3f4f6;" class="py-24">
   <div class="max-w-[1200px] mx-auto px-6">
     <!-- Header -->
     <div class="text-center mb-12">
@@ -12,6 +18,6 @@ import ImpactAccordion from './ImpactAccordion.tsx';
       <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">Why MARLO?</h2>
     </div>
 
-    <ImpactAccordion client:load />
+    <ImpactAccordion client:load videosBaseUrl={videosBaseUrl} />
   </div>
 </section>

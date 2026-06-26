@@ -26,7 +26,7 @@ const stats: Stat[] = [
   {
     icon: Building2,
     title: 'Organizations',
-    value: '2,035',
+    value: '2,035+',
     description:
       'Partner institutions, research centers, and implementing organizations collaborating through the platform.',
   },

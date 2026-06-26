@@ -1,22 +1,7 @@
 import { useState, useEffect, useRef, type ComponentType } from 'react';
-import {
-  ArrowRight,
-  BookOpen,
-  Check,
-  Eye,
-  Globe,
-  TrendingUp,
-  Zap,
-  type LucideProps,
-} from 'lucide-react';
+import { ArrowRight, BookOpen, Eye, Globe, Zap, type LucideProps } from 'lucide-react';
 
-const featuredBullets = [
-  'Standardize reporting across multiple projects and teams',
-  'Reduce manual work and reporting errors',
-  'Improve data visibility in real time',
-  'Support evidence-based decision-making',
-  'Align reporting with organizational frameworks (e.g., PRMS, donor requirements)',
-];
+import VideoPlayer from '@/components/ui/VideoPlayer';
 
 type Stat = {
   id: string;
@@ -25,7 +10,6 @@ type Stat = {
   iconBg: string;
   label: string;
   desc: string;
-  featured?: boolean;
 };
 
 const stats: Stat[] = [
@@ -61,22 +45,12 @@ const stats: Stat[] = [
     label: 'Quality and Open Science Standards',
     desc: 'MARLO supports compliance with FAIR and Open Access principles, helping ensure outputs are reusable, accessible, and aligned with institutional standards.',
   },
-  {
-    id: 'lifecycle',
-    Icon: TrendingUp,
-    iconColor: '#0d9488',
-    iconBg: 'rgba(13,148,136,0.1)',
-    label: 'Transform reporting into a strategic asset',
-    desc: 'MARLO is a structured reporting and performance management platform designed for complex programs — improving data quality, streamlining reporting cycles, and turning data into actionable insights.',
-    featured: true,
-  },
 ];
 
-const interactiveStats = stats.filter((s) => !s.featured);
-const firstInteractiveId = interactiveStats[0].id;
+const firstId = stats[0].id;
 
 export default function ImpactAccordion() {
-  const [activeId, setActiveId] = useState<string>(firstInteractiveId);
+  const [activeId, setActiveId] = useState<string>(firstId);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [barKey, setBarKey] = useState(0);
@@ -90,10 +64,9 @@ export default function ImpactAccordion() {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.3 }
-    );
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), {
+      threshold: 0.3,
+    });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -121,9 +94,9 @@ export default function ImpactAccordion() {
 
     const remaining = Math.max(0, 12000 - accumulatedElapsedRef.current);
     const timer = setTimeout(() => {
-      const currentIndex = interactiveStats.findIndex((s) => s.id === activeId);
-      const nextIndex = (currentIndex + 1) % interactiveStats.length;
-      setActiveId(interactiveStats[nextIndex].id);
+      const currentIndex = stats.findIndex((s) => s.id === activeId);
+      const nextIndex = (currentIndex + 1) % stats.length;
+      setActiveId(stats[nextIndex].id);
     }, remaining);
 
     return () => clearTimeout(timer);
@@ -132,27 +105,27 @@ export default function ImpactAccordion() {
   let interactiveIndex = 0;
 
   return (
-    <div ref={containerRef} className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:h-[440px]">
-      {stats.map((s) => {
-        const isActive = s.featured || activeId === s.id;
-        const contentId = `impact-card-${s.id}`;
-        const isHovered = hoveredId === s.id;
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_550px] gap-8 lg:gap-10 xl:gap-16">
+      <div ref={containerRef} className="flex flex-col gap-3 h-[440px]">
+        {stats.map((s) => {
+          const isActive = activeId === s.id;
+          const contentId = `impact-card-${s.id}`;
+          const isHovered = hoveredId === s.id;
+          const number = String(++interactiveIndex).padStart(2, '0');
 
-        const number = !s.featured ? String(++interactiveIndex).padStart(2, '0') : null;
-        const arrowActive = !s.featured && (isActive || isHovered);
-        const arrowStyle = {
-          color: arrowActive ? s.iconColor : '#9ca3af',
-          transform: arrowActive ? 'rotate(-45deg)' : 'rotate(0deg)',
-        } as const;
+          const arrowActive = isActive || isHovered;
+          const arrowStyle = {
+            color: arrowActive ? s.iconColor : '#9ca3af',
+            transform: arrowActive ? 'rotate(-45deg)' : 'rotate(0deg)',
+          } as const;
 
-        const expandedContent = (
-          <div
-            id={contentId}
-            role="region"
-            key={`expanded-${s.id}-${isActive ? 'a' : 'b'}`}
-            className={`flex flex-col h-full p-6 text-left impact-animate-in ${s.featured ? 'justify-center' : ''}`}
-          >
-            {!s.featured && (
+          const expandedContent = (
+            <div
+              id={contentId}
+              role="region"
+              key={`expanded-${s.id}-${isActive ? 'a' : 'b'}`}
+              className="flex flex-col h-full p-6 text-left impact-animate-in"
+            >
               <div className="flex items-start justify-between">
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center"
@@ -160,134 +133,96 @@ export default function ImpactAccordion() {
                 >
                   <s.Icon size={20} color={s.iconColor} />
                 </div>
-                {number && (
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="text-xs font-semibold tracking-widest"
-                      style={{ color: '#9ca3af' }}
-                    >
-                      {number}
-                    </span>
-                    <ArrowRight
-                      size={16}
-                      className="transition-all duration-300 ease-out"
-                      style={arrowStyle}
-                    />
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <span
+                    className="text-xs font-semibold tracking-widest"
+                    style={{ color: '#9ca3af' }}
+                  >
+                    {number}
+                  </span>
+                  <ArrowRight
+                    size={16}
+                    className="transition-all duration-300 ease-out"
+                    style={arrowStyle}
+                  />
+                </div>
               </div>
-            )}
 
-            <div className={s.featured ? '' : 'mt-auto pt-6'}>
-              <h3
-                className={`${s.featured ? 'text-lg leading-snug' : 'text-sm'} font-bold mb-2`}
-                style={{ color: '#111827' }}
-              >
-                {s.label}
-              </h3>
-              <p className="text-xs leading-relaxed" style={{ color: '#6b7280' }}>
-                {s.desc}
-              </p>
-              {s.featured && (
-                <ul className="flex flex-col gap-1.5 mt-4">
-                  {featuredBullets.map((b) => (
-                    <li
-                      key={b}
-                      className="flex items-start gap-2 text-[11px] leading-snug"
-                      style={{ color: '#374151' }}
-                    >
-                      <Check size={13} color={s.iconColor} className="shrink-0 mt-0.5" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        );
-
-        const collapsedContent = (
-          <div className="flex flex-col items-center h-full py-6 px-3 gap-4">
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs font-semibold tracking-widest" style={{ color: '#9ca3af' }}>
-                {number}
-              </span>
-              <ArrowRight
-                size={14}
-                className="transition-all duration-300 ease-out"
-                style={arrowStyle}
-              />
-            </div>
-            <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-              style={{ background: s.iconBg }}
-            >
-              <s.Icon size={20} color={s.iconColor} />
-            </div>
-            <div className="flex-1 flex items-center">
-              <span
-                className="text-sm font-bold whitespace-nowrap [writing-mode:vertical-rl] rotate-180"
-                style={{ color: '#111827' }}
-              >
-                {s.label}
-              </span>
-            </div>
-          </div>
-        );
-
-        const base =
-          'relative bg-white rounded-2xl overflow-hidden transition-all duration-500 ease-out border border-[#e5e7eb] sm:min-w-0';
-        const flex = s.featured
-          ? 'sm:flex-[2.5_1_0%]'
-          : isActive
-            ? 'sm:flex-[2_1_0%]'
-            : 'sm:flex-[1_1_0%]';
-
-        if (s.featured) {
-          return (
-            <div
-              key={s.id}
-              className={`${base} ${flex}`}
-              style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}
-            >
-              <div className="hidden sm:block h-full">{expandedContent}</div>
-              <div className="sm:hidden">{expandedContent}</div>
+              <div className="mt-auto pt-6">
+                <h3 className="text-sm font-bold mb-2" style={{ color: '#111827' }}>
+                  {s.label}
+                </h3>
+                <p className="text-xs leading-relaxed" style={{ color: '#6b7280' }}>
+                  {s.desc}
+                </p>
+              </div>
             </div>
           );
-        }
 
-        return (
-          <button
-            key={s.id}
-            type="button"
-            onClick={() => setActiveId(s.id)}
-            onMouseEnter={() => setHoveredId(s.id)}
-            onMouseLeave={() => setHoveredId(null)}
-            aria-expanded={isActive}
-            aria-controls={contentId}
-            className={`${base} ${flex} text-left ${
-              isActive ? 'cursor-default' : 'cursor-pointer hover:border-[#cbd5e1]'
-            }`}
-          >
-            <div className="hidden sm:block h-full">
-              {isActive ? expandedContent : collapsedContent}
-            </div>
-            <div className="sm:hidden">{expandedContent}</div>
-            {isActive && (
+          const collapsedContent = (
+            <div className="flex flex-row items-center h-full px-6 gap-4">
               <div
-                key={barKey}
-                className="absolute bottom-0 left-0 right-0 h-[3px] origin-left"
-                style={{
-                  background: s.iconColor,
-                  animation: 'progress-countdown 12s linear forwards',
-                  animationDelay: `-${accumulatedElapsedRef.current}ms`,
-                  animationPlayState: isHoveringActive ? 'paused' : 'running',
-                }}
-              />
-            )}
-          </button>
-        );
-      })}
+                className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                style={{ background: s.iconBg }}
+              >
+                <s.Icon size={18} color={s.iconColor} />
+              </div>
+              <span className="text-sm font-bold truncate flex-1" style={{ color: '#111827' }}>
+                {s.label}
+              </span>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span
+                  className="text-xs font-semibold tracking-widest"
+                  style={{ color: '#9ca3af' }}
+                >
+                  {number}
+                </span>
+                <ArrowRight
+                  size={14}
+                  className="transition-all duration-300 ease-out"
+                  style={arrowStyle}
+                />
+              </div>
+            </div>
+          );
+
+          const flex = isActive ? 'flex-[3_1_0%]' : 'flex-[1_1_0%]';
+
+          return (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => setActiveId(s.id)}
+              onMouseEnter={() => setHoveredId(s.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              aria-expanded={isActive}
+              aria-controls={contentId}
+              className={`relative bg-white rounded-2xl overflow-hidden transition-all duration-500 ease-out border border-[#e5e7eb] text-left ${flex} ${
+                isActive ? 'cursor-default' : 'cursor-pointer hover:border-[#cbd5e1]'
+              }`}
+              style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}
+            >
+              <div className="h-full">{isActive ? expandedContent : collapsedContent}</div>
+              {isActive && (
+                <div
+                  key={barKey}
+                  className="absolute bottom-0 left-0 right-0 h-[3px] origin-left"
+                  style={{
+                    background: s.iconColor,
+                    animation: 'progress-countdown 12s linear forwards',
+                    animationDelay: `-${accumulatedElapsedRef.current}ms`,
+                    animationPlayState: isHoveringActive ? 'paused' : 'running',
+                  }}
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center justify-center w-full">
+        <VideoPlayer src="/videos/marlo-introduction.mp4" className="rounded-2xl shadow-2xl" />
+      </div>
     </div>
   );
 }

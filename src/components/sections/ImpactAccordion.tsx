@@ -105,7 +105,7 @@ export default function ImpactAccordion() {
   let interactiveIndex = 0;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-8 lg:gap-10 xl:gap-16">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_550px] gap-8 lg:gap-10 xl:gap-16">
       <div ref={containerRef} className="flex flex-col gap-3 h-[440px]">
         {stats.map((s) => {
           const isActive = activeId === s.id;

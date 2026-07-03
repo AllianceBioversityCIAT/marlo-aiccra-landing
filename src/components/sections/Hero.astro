@@ -139,12 +139,21 @@ import { ArrowRight, LogIn, Zap } from '@lucide/astro';
             <div class="text-[10px] font-semibold mb-1.5" style="color: #9ca3af;">Countries</div>
             <div class="flex gap-1">
               {
-                ['US', 'UK', 'GH', 'IN', 'MX', 'BR'].map((c) => (
+                [
+                  { code: 'ET', label: 'Ethiopia' },
+                  { code: 'GH', label: 'Ghana' },
+                  { code: 'SN', label: 'Senegal' },
+                  { code: 'ML', label: 'Mali' },
+                  { code: 'KE', label: 'Kenya' },
+                  { code: 'NG', label: 'Nigeria' },
+                ].map(({ code, label }) => (
                   <span
-                    class="w-6 h-6 rounded-full flex items-center justify-center text-white font-bold"
-                    style="font-size: 0.5rem; background: #1B4F72;"
+                    class="w-6 h-6 rounded-full flex items-center justify-center text-white font-bold overflow-hidden"
+                    style={`font-size: 0.5rem; text-shadow: 0 1px 2px rgba(0,0,0,0.8); background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(https://flagsapi.com/${code}/flat/64.png); background-size: 160% 160%; background-position: center; background-repeat: no-repeat;`}
+                    title={label}
+                    aria-label={label}
                   >
-                    {c}
+                    {code}
                   </span>
                 ))
               }

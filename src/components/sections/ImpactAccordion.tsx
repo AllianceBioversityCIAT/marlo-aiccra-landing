@@ -23,7 +23,7 @@ const stats: Stat[] = [
     iconColor: '#2563eb',
     iconBg: 'rgba(37,99,235,0.1)',
     label: 'Proven in Complex Multi-Country Programs',
-    desc: 'MARLO has been used in initiatives like AICCRA to support results management across more than 10 countries and distributed teams, ensuring consistent reporting at scale.',
+    desc: 'MARLO has been used in initiatives like AICCRA to support results management across 145+ countries and distributed teams, ensuring consistent reporting at scale.',
   },
   {
     id: 'consistency',
@@ -110,7 +110,7 @@ export default function ImpactAccordion({ videosBaseUrl }: ImpactAccordionProps)
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_550px] gap-8 lg:gap-10 xl:gap-16">
-      <div ref={containerRef} className="flex flex-col gap-3 h-[440px]">
+      <div ref={containerRef} className="flex flex-col gap-3 h-[540px]">
         {stats.map((s) => {
           const isActive = activeId === s.id;
           const contentId = `impact-card-${s.id}`;
@@ -153,10 +153,10 @@ export default function ImpactAccordion({ videosBaseUrl }: ImpactAccordionProps)
               </div>
 
               <div className="mt-auto pt-6">
-                <h3 className="text-sm font-bold mb-2" style={{ color: '#111827' }}>
+                <h3 className="text-base font-bold mb-2" style={{ color: '#111827' }}>
                   {s.label}
                 </h3>
-                <p className="text-xs leading-relaxed" style={{ color: '#6b7280' }}>
+                <p className="text-sm leading-relaxed" style={{ color: '#6b7280' }}>
                   {s.desc}
                 </p>
               </div>

@@ -39,6 +39,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(37,99,235,0.08)',
     title: 'Overall Performance Indicator Dashboard',
     desc: 'Configure the MELIA framework and monitor expected short- and long-term targets from a single performance dashboard.',
+    videos: ['overall-performance-indicator-dashboard.mp4'],
   },
   {
     Icon: ListChecks,
@@ -71,6 +72,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(8,145,178,0.08)',
     title: 'BI Module for Innovations & PDF Generation',
     desc: 'Explore aggregated system data from multiple perspectives and export insights as PDF reports for innovations and program results.',
+    videos: ['BI-module-and-PDF-Generation.mov'],
   },
   {
     Icon: Sparkles,
@@ -81,6 +83,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(219,39,119,0.08)',
     title: 'AI Narrative Generator',
     desc: 'Generate report narratives during the synthesis process, speeding up drafting while staying grounded in your data.',
+    videos: ['AI-Narrative-Generator.mp4'],
   },
   {
     Icon: ClipboardCheck,
@@ -91,6 +94,7 @@ const features: Feature[] = [
     badgeBg: 'rgba(217,119,6,0.08)',
     title: 'QA Module',
     desc: 'Let internal unit leaders — primarily PMC — review and comment on entered information so data meets project quality standards.',
+    videos: ['QA-module.mov'],
   },
 ];
 

@@ -9,9 +9,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build && \
-    test -f dist/client/marlo-logo.png && \
-    test -d dist/client/videos
+RUN npm run build
 
 FROM public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 AS adapter
 

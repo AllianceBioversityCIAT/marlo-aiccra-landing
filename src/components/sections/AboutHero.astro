@@ -7,8 +7,18 @@ import {
   BarChart3,
   Sparkles,
   Users,
-  Camera,
 } from '@lucide/astro';
+
+const team = [
+  { name: 'Héctor Tobón', image: '/team/hector-tobon.png' },
+  { name: 'Manuel Almanzar', image: '/team/manuel-almanzar.png' },
+  { name: 'Kenji Tanaka', image: '/team/kenji-tanaka.png' },
+  { name: 'Cristian Gamboa', image: '/team/cristian-gamboa.png' },
+  { name: 'Laura Chávez', image: '/team/laura-chavez.png' },
+  { name: 'Camila Giraldo', image: '/team/camila-giraldo.png' },
+  { name: 'Santiago Sánchez', image: '/team/santiago-sanchez.png' },
+  { name: 'Kevin Collazos', image: '/team/kevin-collazos.png' },
+];
 
 const expertise = [
   { icon: Code2, label: 'Software development & platform engineering' },
@@ -84,20 +94,23 @@ const expertise = [
           time on their work.
         </p>
 
-        <!-- Team photo placeholders -->
-        <div class="grid grid-cols-3 gap-3 mb-8">
+        <!-- Team photos -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
           {
-            ['aspect-[4/3]', 'aspect-[4/3]', 'aspect-[4/3]'].map((ratio) => (
-              <div
-                class:list={[
-                  ratio,
-                  'rounded-xl flex flex-col items-center justify-center gap-1.5',
-                ]}
-                style="background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.25);"
-              >
-                <Camera size={18} color="rgba(255,255,255,0.4)" />
-                <span class="text-[10px]" style="color: rgba(255,255,255,0.4);">
-                  Team photo
+            team.map(({ name, image }) => (
+              <div class="team-avatar relative group">
+                <img
+                  src={image}
+                  alt={name}
+                  loading="lazy"
+                  class="w-16 h-16 lg:w-20 lg:h-20 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  style="border: 2px solid rgba(34,211,238,0.4);"
+                />
+                <span
+                  class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-1 rounded-md text-[11px] font-medium opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100 z-10"
+                  style="background: rgba(1,46,74,0.95); border: 1px solid rgba(34,211,238,0.4); color: #ffffff;"
+                >
+                  {name}
                 </span>
               </div>
             ))

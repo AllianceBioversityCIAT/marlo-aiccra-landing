@@ -1,4 +1,13 @@
-import { Users, Globe, Building2, BookOpen, CalendarDays } from 'lucide-react';
+import {
+  Users,
+  Globe,
+  Building2,
+  BookOpen,
+  CalendarDays,
+  FileText,
+  Lightbulb,
+  Target,
+} from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface Stat {
@@ -44,6 +53,27 @@ const stats: Stat[] = [
     description:
       "Continuously supporting CGIAR's results reporting cycle since 2017, evolving with each phase of the initiative.",
   },
+  {
+    icon: FileText,
+    title: 'Deliverables',
+    value: '32,780+',
+    description:
+      'Articles, datasets, and reports capturing the tangible knowledge outputs reported through CGIAR programs worldwide.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Innovations',
+    value: '2,370+',
+    description:
+      'New or significantly improved technologies, methods, and practices emerging from CGIAR research across programs and regions.',
+  },
+  {
+    icon: Target,
+    title: 'OICRs',
+    value: '1,955+',
+    description:
+      'Documented cases where research has contributed to real changes in policy, practice, and outcomes on the ground.',
+  },
 ];
 
 export default function ImpactStats() {
@@ -75,16 +105,16 @@ export default function ImpactStats() {
           </p>
         </div>
 
-        {/* Grid — 3 top, 2 bottom centered */}
+        {/* Grid — rows of 3, last row of 2 centered */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
 
-            // First 3: span 2 of 6 cols. Last 2: span 2 cols, offset to center (cols 2–3 and 4–5)
+            // Rows of 3 (span 2 of 6 cols). Last row of 2: offset to center (cols 2–3 and 4–5)
             const colClass =
-              index < 3
+              index < stats.length - 2
                 ? 'lg:col-span-2'
-                : index === 3
+                : index === stats.length - 2
                   ? 'lg:col-span-2 lg:col-start-2'
                   : 'lg:col-span-2';
 

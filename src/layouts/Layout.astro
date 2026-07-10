@@ -1,5 +1,6 @@
 ---
 import '../styles/globals.css';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 
 interface Props {
   title?: string;
@@ -26,6 +27,7 @@ const {
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <GoogleAnalytics />
   </head>
   <body>
     <slot />

@@ -11,6 +11,7 @@
 #   AWS_REGION             defaults to us-east-1
 #   CLOUDFRONT_DISTRIBUTION_ID
 #   PUBLIC_VIDEOS_BASE_URL S3/CloudFront base URL for Core Features videos
+#   PUBLIC_GA_MEASUREMENT_ID Google Analytics measurement ID
 
 set -euo pipefail
 
@@ -25,6 +26,7 @@ IMAGE_URI="${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}"
 echo "Building image: ${IMAGE_URI}"
 docker build \
   --build-arg "PUBLIC_VIDEOS_BASE_URL=${PUBLIC_VIDEOS_BASE_URL:-}" \
+  --build-arg "PUBLIC_GA_MEASUREMENT_ID=${PUBLIC_GA_MEASUREMENT_ID:-}" \
   -t "${IMAGE_URI}" .
 
 echo "Logging in to ECR..."

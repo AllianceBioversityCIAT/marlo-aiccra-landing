@@ -4,7 +4,6 @@ import { runtimeEnv } from '../lib/env';
 /**
  * Clarity project IDs are public by design (they ship in the page HTML).
  * Env override still supported for non-prod projects.
- * Runs off the main thread via Partytown.
  */
 const projectId =
   import.meta.env.PUBLIC_CLARITY_PROJECT_ID ||
@@ -12,7 +11,7 @@ const projectId =
   'xmc6amwod9';
 ---
 
-<script type="text/partytown" is:inline define:vars={{ projectId }}>
+<script is:inline define:vars={{ projectId }}>
   (function (c, l, a, r, i, t, y) {
     c[a] =
       c[a] ||

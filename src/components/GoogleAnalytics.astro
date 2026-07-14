@@ -4,7 +4,6 @@ import { runtimeEnv } from '../lib/env';
 /**
  * GA measurement IDs are public by design (they ship in the page HTML).
  * Env override still supported for non-prod streams.
- * Runs off the main thread via Partytown.
  */
 const measurementId =
   import.meta.env.PUBLIC_GA_MEASUREMENT_ID ||
@@ -13,11 +12,11 @@ const measurementId =
 ---
 
 <script
-  type="text/partytown"
   is:inline
+  async
   src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
 ></script>
-<script type="text/partytown" is:inline define:vars={{ measurementId }}>
+<script is:inline define:vars={{ measurementId }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
     dataLayer.push(arguments);

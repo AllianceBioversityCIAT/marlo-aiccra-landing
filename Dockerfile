@@ -25,6 +25,9 @@ ENV AWS_LWA_READINESS_CHECK_PATH=/
 ENV AWS_LWA_READINESS_CHECK_TIMEOUT=30000
 ENV NODE_OPTIONS=--max-old-space-size=768
 
+ARG PUBLIC_VIDEOS_BASE_URL
+ENV PUBLIC_VIDEOS_BASE_URL=$PUBLIC_VIDEOS_BASE_URL
+
 COPY --from=adapter /lambda-adapter /opt/extensions/lambda-adapter
 
 COPY --from=build /app/package.json /app/package-lock.json ./

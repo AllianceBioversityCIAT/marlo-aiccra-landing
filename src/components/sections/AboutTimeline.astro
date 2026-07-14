@@ -1,0 +1,269 @@
+---
+import { ImagePlus } from '@lucide/astro';
+
+interface TimelineItem {
+  year: string;
+  title: string;
+  bullets: string[];
+  image?: { src: string; alt: string };
+  imagePlaceholder?: string;
+}
+
+const items: TimelineItem[] = [
+  {
+    year: '2013',
+    title: 'A tool called P&R',
+    bullets: [
+      'CCAFS built an internal online planning and reporting tool, known as P&R, to manage its own research projects.',
+      'The tool proved simple and effective enough that other CGIAR programs started to take notice.',
+      'At the time, P&R served a single program — the modest beginning of what would grow into a platform used by nine CGIAR Research Programs and more.',
+    ],
+  },
+  {
+    year: '2015–2016',
+    title: 'Four programs, one idea',
+    bullets: [
+      'In November 2015, CCAFS invited three sister programs — A4NH, PIM, and WLE — to help turn P&R into a tool they could all share; representatives began meeting in early 2016.',
+      'In August 2016, the CGIAR Research Program on Livestock joined, followed in November by CIMMYT (representing Maize and Wheat) and the Excellence in Breeding platform.',
+      'That December, the group held its first face-to-face meeting in Amsterdam, drafting a shared reporting template and reaching a common understanding of how the system should work.',
+    ],
+  },
+  {
+    year: '2017',
+    title: 'Montpellier, and a name for the family',
+    bullets: [
+      'In June, the group — by then known informally as the “MARLO family” — met in Montpellier to align on how the shared system should work for everyone involved.',
+      'MARLO became the official planning and reporting system for CGIAR Research Programs entering their second phase (2017–2022).',
+      'The Forests, Trees and Agroforestry, Rice, and Fish programs, along with ICRAF and IRRI, began exploring whether to join the family too.',
+    ],
+    image: {
+      src: '/images/montpellier-meeting.webp',
+      alt: 'Members of the MARLO family at the Montpellier meeting, June 2017',
+    },
+  },
+  {
+    year: '2018',
+    title: 'The family grows',
+    bullets: [
+      'The Forests, Trees and Agroforestry program and the Rice program formally joined the MARLO family.',
+      'The platform now served eight CGIAR Research Programs, two platforms, and two centers, all planning and reporting through one shared system.',
+      'As the family grew, so did its shared standards: every program adopted a common “impact pathway” structure linking activities to outputs and outcomes, plus a shared gender lens for planning and reporting.',
+    ],
+  },
+  {
+    year: '2019',
+    title: 'Back to Amsterdam',
+    bullets: [
+      'In May, the MARLO family gathered in Amsterdam again, this time for a stocktake meeting.',
+      "Representatives from CCAFS, PIM, A4NH, WLE, Livestock, FTA, RICE, and CIMMYT's Maize and Wheat programs took turns presenting how their teams were actually using the system.",
+      "The meeting surfaced what needed to improve next, grounding MARLO's roadmap in real, day-to-day use rather than assumptions.",
+    ],
+  },
+  {
+    year: '2021',
+    title: 'A new chapter with AICCRA',
+    bullets: [
+      'MARLO became the system of record for AICCRA (Accelerating Impacts of CGIAR Climate Research for Africa), supporting planning and reporting across eleven clusters in multiple African countries.',
+      "The platform covered AICCRA's full project cycle — planning, monitoring, reporting, and learning — in one place.",
+      'In the years since, that work has helped generate more than 1,400 knowledge products, most of them meeting strict open-access and quality standards.',
+    ],
+  },
+  {
+    year: '2023',
+    title: 'Sharper tools',
+    bullets: [
+      'The team released a new timeline management module, giving super administrators an easier way to manage system-wide activities.',
+      'A dedicated super-admin control center brought system configuration and parameters into one exclusive space.',
+      'Indicators and duplicate-deliverable detection were improved, making day-to-day reporting easier for hundreds of users across programs.',
+    ],
+  },
+  {
+    year: '2025',
+    title: 'AI enters the picture',
+    bullets: [
+      "MARLO's dashboards and innovation tracking were strengthened to give programs a clearer view of their results.",
+      'The team introduced its first AI-assisted tools, including support for generating reports submitted to the World Bank and a chat function that helps users find information faster.',
+      "These AI services were built to draw on MARLO's own data — through AWS Bedrock, Claude, and Titan — without bypassing the platform's existing governance and quality checks.",
+    ],
+  },
+  {
+    year: '2026',
+    title: 'Where we are now',
+    bullets: [
+      'MARLO completed a comprehensive security and technology modernization, strengthening the platform for the programs that rely on it.',
+      'The Knowledge and Data Sharing (KDS) team, now part of the Alliance of Bioversity International and CIAT, continues to maintain and evolve the platform day to day.',
+    ],
+    image: {
+      src: '/images/kenia-meeting.webp',
+      alt: 'The MARLO team gathered together in Kenya',
+    },
+  },
+];
+---
+
+<section id="our-story" class="py-24" style="background: #f8f9fa;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #60A5FA;">
+        Our Story
+      </p>
+      <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+        How MARLO grew, year by year
+      </h2>
+      <p class="mt-4 max-w-2xl mx-auto text-sm leading-relaxed" style="color: #6b7280;">
+        MARLO's story began inside a single CGIAR research program and grew, year by year,
+        alongside the research community it now serves. Here is a closer, year-by-year look at how
+        that happened.
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative">
+      <!-- Central line (left on mobile, centered on lg) -->
+      <div
+        class="absolute top-0 bottom-0 w-0.5 left-5 lg:left-1/2 lg:-translate-x-1/2"
+        style="background: linear-gradient(to bottom, #93c5fd, #2563eb, #0f2a47);"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="flex flex-col gap-12 lg:gap-16">
+        {
+          items.map((item, index) => {
+            const isLeft = index % 2 === 0;
+            return (
+              <div class="relative timeline-item">
+                <!-- Year marker on the line -->
+                <div
+                  class="absolute left-5 lg:left-1/2 -translate-x-1/2 top-0 z-10 flex flex-col items-center"
+                >
+                  <span
+                    class="px-3.5 py-1.5 rounded-full text-xs font-bold text-white whitespace-nowrap shadow-md"
+                    style="background: #2563eb; border: 3px solid #f8f9fa;"
+                  >
+                    {item.year}
+                  </span>
+                </div>
+
+                <!-- Card -->
+                <div
+                  class:list={[
+                    'pt-12 lg:pt-0 pl-12 lg:pl-0 lg:w-[calc(50%-3rem)]',
+                    isLeft ? 'lg:mr-auto' : 'lg:ml-auto',
+                  ]}
+                >
+                  <div
+                    class="relative rounded-2xl bg-white p-6 lg:p-7 transition-shadow hover:shadow-lg"
+                    style="border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05);"
+                  >
+                    <!-- Connector arrow toward the line (desktop only) -->
+                    <div
+                      class:list={[
+                        'hidden lg:block absolute top-6 w-3 h-3 rotate-45 bg-white',
+                        isLeft
+                          ? '-right-1.5 border-t border-r'
+                          : '-left-1.5 border-b border-l',
+                      ]}
+                      style="border-color: #e5e7eb;"
+                      aria-hidden="true"
+                    >
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-4" style="color: #111827;">
+                      {item.title}
+                    </h3>
+                    <ul class="flex flex-col gap-2.5">
+                      {item.bullets.map((bullet) => (
+                        <li class="flex items-start gap-2.5">
+                          <span
+                            class="w-1.5 h-1.5 rounded-full shrink-0 mt-[7px]"
+                            style="background: #60A5FA;"
+                          />
+                          <span class="text-sm leading-relaxed" style="color: #4b5563;">
+                            {bullet}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {item.image && (
+                      <div
+                        class="mt-5 rounded-xl overflow-hidden"
+                        style="border: 1px solid #e5e7eb;"
+                      >
+                        <img
+                          src={item.image.src}
+                          alt={item.image.alt}
+                          class="w-full h-auto block"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+
+                    {item.imagePlaceholder && (
+                      <div
+                        class="mt-5 rounded-xl flex flex-col items-center justify-center gap-2 py-10"
+                        style="background: #f3f4f6; border: 1px dashed #d1d5db;"
+                      >
+                        <ImagePlus size={22} color="#9ca3af" />
+                        <span class="text-xs" style="color: #9ca3af;">
+                          {item.imagePlaceholder}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    <!-- Closing note -->
+    <div class="mt-20 max-w-2xl mx-auto text-center">
+      <p class="text-base leading-relaxed" style="color: #4b5563;">
+        MARLO's story is really the story of the programs that shaped it, one meeting and one
+        release at a time. It started as one program's internal tool and became something
+        researchers across CGIAR helped build together — and that is still how it grows today.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+  .timeline-item.timeline-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('timeline-visible');
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('.timeline-item').forEach((el) => observer.observe(el));
+</script>

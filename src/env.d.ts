@@ -4,8 +4,6 @@ declare module '@lucide/astro';
 
 interface ImportMetaEnv {
   readonly PUBLIC_VIDEOS_BASE_URL?: string;
-  readonly PUBLIC_GA_MEASUREMENT_ID?: string;
-  readonly PUBLIC_CLARITY_PROJECT_ID?: string;
   readonly SECRET_NAME?: string;
   readonly AWS_REGION?: string;
   readonly RABBITMQ_URL?: string;

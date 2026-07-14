@@ -12,6 +12,7 @@
 #   CLOUDFRONT_DISTRIBUTION_ID
 #   PUBLIC_VIDEOS_BASE_URL S3/CloudFront base URL for Core Features videos
 #   PUBLIC_GA_MEASUREMENT_ID Google Analytics measurement ID
+#   PUBLIC_CLARITY_PROJECT_ID Microsoft Clarity project ID
 
 set -euo pipefail
 
@@ -27,6 +28,7 @@ echo "Building image: ${IMAGE_URI}"
 docker build \
   --build-arg "PUBLIC_VIDEOS_BASE_URL=${PUBLIC_VIDEOS_BASE_URL:-}" \
   --build-arg "PUBLIC_GA_MEASUREMENT_ID=${PUBLIC_GA_MEASUREMENT_ID:-}" \
+  --build-arg "PUBLIC_CLARITY_PROJECT_ID=${PUBLIC_CLARITY_PROJECT_ID:-}" \
   -t "${IMAGE_URI}" .
 
 echo "Logging in to ECR..."

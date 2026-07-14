@@ -1,6 +1,7 @@
 ---
 import '../styles/globals.css';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import MicrosoftClarity from '../components/MicrosoftClarity.astro';
 
 interface Props {
   title?: string;
@@ -28,6 +29,7 @@ const {
       rel="stylesheet"
     />
     <GoogleAnalytics />
+    <MicrosoftClarity />
   </head>
   <body>
     <slot />

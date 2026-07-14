@@ -29,6 +29,12 @@ ENV AWS_LWA_READINESS_CHECK_PATH=/
 ENV AWS_LWA_READINESS_CHECK_TIMEOUT=30000
 ENV NODE_OPTIONS=--max-old-space-size=768
 
+# Optional runtime override (SSR reads process.env via runtimeEnv)
+ARG PUBLIC_GA_MEASUREMENT_ID
+ENV PUBLIC_GA_MEASUREMENT_ID=$PUBLIC_GA_MEASUREMENT_ID
+ARG PUBLIC_VIDEOS_BASE_URL
+ENV PUBLIC_VIDEOS_BASE_URL=$PUBLIC_VIDEOS_BASE_URL
+
 COPY --from=adapter /lambda-adapter /opt/extensions/lambda-adapter
 
 COPY --from=build /app/package.json /app/package-lock.json ./

@@ -1,23 +1,26 @@
 ---
-const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+import { runtimeEnv } from '../lib/env';
+
+/**
+ * GA measurement IDs are public by design (they ship in the page HTML).
+ * Env override still supported for non-prod streams.
+ */
+const measurementId =
+  import.meta.env.PUBLIC_GA_MEASUREMENT_ID ||
+  runtimeEnv('PUBLIC_GA_MEASUREMENT_ID') ||
+  'G-LXSWPTGPDR';
 ---
 
-{
-  measurementId && (
-    <>
-      <script
-        is:inline
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
-      />
-      <script is:inline define:vars={{ measurementId }}>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', measurementId);
-      </script>
-    </>
-  )
-}
+<script
+  is:inline
+  async
+  src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
+></script>
+<script is:inline define:vars={{ measurementId }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', measurementId);
+</script>

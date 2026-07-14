@@ -1,0 +1,105 @@
+---
+import { ClipboardList, HeartHandshake, Check } from '@lucide/astro';
+
+const supports = [
+  'Annual work plans and budgets, tracked per project and per cluster.',
+  'Continuous progress monitoring throughout the year, not just at reporting time.',
+  'Annual reporting that combines narrative updates with structured indicators.',
+  'Deliverables management, including open-access and FAIR compliance.',
+  'Innovation tracking, from early ideas to documented outcome impact case reports (OICRs).',
+  'Quality assurance workflows connecting reviewers and implementing teams.',
+  'Funding and partner management, and impact-pathway planning linking activities to outcomes.',
+  'Business intelligence dashboards and, more recently, AI-assisted reporting tools.',
+];
+
+const reasons = [
+  'One shared system and one common terminology, instead of separate spreadsheets per program.',
+  'Workflows built for planning, reporting, quality assurance, and learning — not just data entry.',
+  'Interoperability: information entered once can support multiple reports and audiences.',
+  'A structure that helps programs learn from each other and share the costs of maintaining a common system.',
+];
+---
+
+<section class="py-24" style="background: #f3f4f6;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #60A5FA;">
+        The Platform
+      </p>
+      <h2 class="text-3xl lg:text-4xl font-bold" style="color: #111827;">
+        One system, many programs
+      </h2>
+      <p class="mt-3 max-w-xl mx-auto text-sm" style="color: #6b7280;">
+        What MARLO covers across the research cycle — and why programs choose to share it
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <!-- What MARLO supports -->
+      <div
+        class="rounded-2xl bg-white p-8 lg:p-10 h-full"
+        style="border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05);"
+      >
+        <div class="flex items-center gap-3 mb-6">
+          <div
+            class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+            style="background: #dbeafe;"
+          >
+            <ClipboardList size={22} color="#2563eb" />
+          </div>
+          <h3 class="text-xl font-bold" style="color: #111827;">What MARLO supports</h3>
+        </div>
+        <ul class="flex flex-col gap-3.5">
+          {
+            supports.map((item) => (
+              <li class="flex items-start gap-3">
+                <span
+                  class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                  style="background: #dbeafe;"
+                >
+                  <Check size={12} color="#2563eb" />
+                </span>
+                <span class="text-sm leading-relaxed" style="color: #4b5563;">
+                  {item}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Why programs use it -->
+      <div
+        class="rounded-2xl bg-white p-8 lg:p-10 h-full"
+        style="border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05);"
+      >
+        <div class="flex items-center gap-3 mb-6">
+          <div
+            class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+            style="background: #d1fae5;"
+          >
+            <HeartHandshake size={22} color="#059669" />
+          </div>
+          <h3 class="text-xl font-bold" style="color: #111827;">Why programs use it</h3>
+        </div>
+        <ul class="flex flex-col gap-3.5">
+          {
+            reasons.map((item) => (
+              <li class="flex items-start gap-3">
+                <span
+                  class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                  style="background: #d1fae5;"
+                >
+                  <Check size={12} color="#059669" />
+                </span>
+                <span class="text-sm leading-relaxed" style="color: #4b5563;">
+                  {item}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

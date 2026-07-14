@@ -9,9 +9,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build && \
-    test -f dist/client/marlo-logo.png && \
-    test -d dist/client/videos
+RUN npm run build
 
 FROM public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 AS adapter
 
@@ -26,6 +24,9 @@ ENV AWS_LWA_PORT=4321
 ENV AWS_LWA_READINESS_CHECK_PATH=/
 ENV AWS_LWA_READINESS_CHECK_TIMEOUT=30000
 ENV NODE_OPTIONS=--max-old-space-size=768
+
+ARG PUBLIC_VIDEOS_BASE_URL
+ENV PUBLIC_VIDEOS_BASE_URL=$PUBLIC_VIDEOS_BASE_URL
 
 COPY --from=adapter /lambda-adapter /opt/extensions/lambda-adapter
 

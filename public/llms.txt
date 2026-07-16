@@ -1,0 +1,24 @@
+# MARLO
+
+> MARLO (Managing Agricultural Research for Learning and Outcomes) is CGIAR's strategic results management and reporting platform for complex agricultural research programs.
+
+MARLO helps research initiatives and multi-country programs plan work, monitor progress, manage deliverables and innovations, run quality assurance, and produce donor-ready reports with structured workflows, BI insights, and AI-assisted narrative support.
+
+## Core pages
+
+- [Home](https://marlo.cgiar.org/): Product overview, capabilities, impact, and call to request a demo
+- [About](https://marlo.cgiar.org/about): Platform history and the Knowledge and Data Sharing (KDS) team
+- [Request a demo](https://marlo.cgiar.org/contact): Contact the MARLO team for a personalized walkthrough
+- [FAQs](https://marlo.cgiar.org/faqs): Common questions about scope, frameworks, security, and support
+- [Team & technology](https://marlo.cgiar.org/team): People and stack behind the platform
+- [What's new](https://marlo.cgiar.org/whats-new): Recent features, improvements, and fixes
+
+## Related
+
+- [MARLO platform login (AICCRA)](https://aiccra.marlo.cgiar.org): Production application environment
+- [CGIAR](https://www.cgiar.org/): Parent research partnership
+
+## Optional
+
+- [Sitemap](https://marlo.cgiar.org/sitemap.xml)
+- [Robots](https://marlo.cgiar.org/robots.txt)

@@ -12,9 +12,10 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import FAQs from '../components/sections/FAQs.astro';
 import FinalCTA from '../components/sections/FinalCTA.astro';
 import WhyMarlo from '../components/sections/WhyMarlo.astro';
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from '../lib/seo';
 ---
 
-<Layout>
+<Layout title={DEFAULT_TITLE} description={DEFAULT_DESCRIPTION}>
   <Navbar />
   <main>
     <Hero />

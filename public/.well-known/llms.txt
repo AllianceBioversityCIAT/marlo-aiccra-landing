@@ -1,0 +1,5 @@
+# MARLO
+
+> MARLO (Managing Agricultural Research for Learning and Outcomes) is CGIAR's strategic results management and reporting platform for complex agricultural research programs.
+
+See the primary file: https://marlo.cgiar.org/llms.txt

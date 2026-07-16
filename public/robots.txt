@@ -1,0 +1,30 @@
+# https://marlo.cgiar.org/robots.txt
+User-agent: *
+Allow: /
+
+# Disallow API endpoints from indexing
+Disallow: /api/
+
+# Generative / AI crawlers (GEO) — allow public content
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://marlo.cgiar.org/sitemap.xml

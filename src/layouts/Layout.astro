@@ -2,26 +2,102 @@
 import '../styles/globals.css';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import MicrosoftClarity from '../components/MicrosoftClarity.astro';
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_TITLE,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_URL,
+  absoluteUrl,
+  buildJsonLdGraph,
+  organizationSchema,
+  softwareApplicationSchema,
+  webPageSchema,
+  websiteSchema,
+} from '../lib/seo';
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  /** Open Graph type — usually website */
+  ogType?: 'website' | 'article';
+  /** Extra Schema.org nodes merged into @graph */
+  jsonLd?: Record<string, unknown>[];
+  /** When true, exclude from search indexes */
+  noindex?: boolean;
 }
 
 const {
-  title = 'MARLO | Research Management Platform',
-  description = 'MARLO is a strategic results management platform designed to plan, track, and scale innovation-driven research portfolios across Africa.',
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  image = DEFAULT_OG_IMAGE,
+  ogType = 'website',
+  jsonLd = [],
+  noindex = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_URL);
+const canonical = canonicalURL.href;
+const ogImage = absoluteUrl(image);
+const robots = noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+
+const structuredData = buildJsonLdGraph([
+  organizationSchema(),
+  websiteSchema(),
+  softwareApplicationSchema(),
+  webPageSchema({
+    title,
+    description,
+    path: Astro.url.pathname,
+  }),
+  ...jsonLd,
+]);
 ---
 
 <html lang="en" style="background: #012E4A;">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="/marlo-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={SITE_KEYWORDS} />
+    <meta name="author" content="CGIAR — Knowledge and Data Sharing (KDS)" />
+    <meta name="robots" content={robots} />
+    <meta name="googlebot" content={robots} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#012E4A" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/marlo-logo.png" />
+    <link rel="apple-touch-icon" href="/marlo-logo.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MARLO research management platform dashboard" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="MARLO research management platform dashboard" />
+
+    <!-- GEO: discovery for generative engines -->
+    <link rel="alternate" type="text/plain" title="llms.txt" href={absoluteUrl('/llms.txt')} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

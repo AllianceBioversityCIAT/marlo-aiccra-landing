@@ -1,42 +1,24 @@
 ---
 import { Quote } from '@lucide/astro';
 
-const featured = {
-  quote:
-    'They are incredibly talented in data management and visualization, and so friendly and easy to work with! We spent many hours debating on the new innovation catalogue, in terms of data fields in MARLO and output options, and they made that a very comfortable process. MARLO is a simple reporting management system that is easy to navigate, and allows for reflection in data platforms. It collects both quantitative and qualitative data, and can be organized across multiple sections, as is done within the AICCRA program.',
-  name: 'Hanna Ewell',
-  image: '/testimonials/hanna-ewell.webp',
-  color: '#2563eb',
-  bg: 'rgba(37,99,235,0.05)',
-  border: 'rgba(37,99,235,0.1)',
-};
-
-const testimonials = [
+const featured = [
   {
     quote:
-      'MARLO helped us standardize reporting across multiple countries and significantly improve data quality.',
-    role: 'Program Manager',
-    org: 'International Research Program',
-    color: '#0d9488',
-    bg: 'rgba(13,148,136,0.05)',
-    border: 'rgba(13,148,136,0.1)',
-  },
-  {
-    quote:
-      'The platform reduced our reporting time and gave us real-time visibility we never had before.',
-    role: 'Monitoring & Evaluation Lead',
-    org: 'Multi-Country Initiative',
-    color: '#7c3aed',
-    bg: 'rgba(124,58,237,0.05)',
-    border: 'rgba(124,58,237,0.1)',
-  },
-  {
-    quote: 'MARLO bridges the gap between data collection and decision-making.',
-    role: 'Data Analyst',
-    org: 'Regional Development Program',
+      'They are incredibly talented in data management and visualization, and so friendly and easy to work with! We spent many hours debating on the new innovation catalogue, in terms of data fields in MARLO and output options, and they made that a very comfortable process. MARLO is a simple reporting management system that is easy to navigate, and allows for reflection in data platforms. It collects both quantitative and qualitative data, and can be organized across multiple sections, as is done within the AICCRA program.',
+    name: 'Hanna Ewell',
+    image: '/testimonials/hanna-ewell.webp',
     color: '#2563eb',
     bg: 'rgba(37,99,235,0.05)',
     border: 'rgba(37,99,235,0.1)',
+  },
+  {
+    quote:
+      "MARLO has fundamentally transformed the way our team collaborates and delivers on AICCRA's mission. More than a data management tool, it fosters transparency, accountability, and cohesion across our clusters. By centralizing data and aligning reporting systems, it empowers us to make evidence-based decisions and track progress toward our climate-smart agriculture goals. Its intuitive design and adaptability have made it an essential tool for planning, monitoring, and reporting — and its success is a testament to the commitment and creativity of the people behind it.",
+    name: 'Robert Zougmore',
+    image: '/testimonials/robert-zougmore.webp',
+    color: '#0d9488',
+    bg: 'rgba(13,148,136,0.05)',
+    border: 'rgba(13,148,136,0.1)',
   },
 ];
 ---
@@ -53,55 +35,33 @@ const testimonials = [
       </h2>
     </div>
 
-    <!-- Featured testimonial -->
-    <div
-      class="rounded-2xl p-8 lg:p-10 mb-6 flex flex-col gap-6"
-      style={`background: ${featured.bg}; border: 1px solid ${featured.border};`}
-    >
-      <Quote size={32} color={featured.color} style="opacity: 0.25;" />
-      <p class="text-base lg:text-lg leading-relaxed font-medium" style="color: #111827;">
-        "{featured.quote}"
-      </p>
-      <div class="flex items-center gap-3">
-        <img
-          src={featured.image}
-          alt={featured.name}
-          class="w-12 h-12 rounded-full object-cover shrink-0"
-          width="48"
-          height="48"
-        />
-        <div class="text-sm font-semibold" style="color: #374151;">{featured.name}</div>
-      </div>
-    </div>
-
-    <!-- Testimonial cards -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {testimonials.map(({ quote, role, org, color, bg, border }) => (
-        <div
-          class="rounded-2xl p-8 flex flex-col gap-6"
-          style={`background: ${bg}; border: 1px solid ${border};`}
-        >
-          <Quote size={32} color={color} style="opacity: 0.25;" />
-
-          <p class="text-base leading-relaxed font-medium flex-1" style="color: #111827;">
-            "{quote}"
-          </p>
-
-          <!-- Attribution -->
-          <div class="flex items-center gap-3">
-            <div
-              class="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-              style={`background: ${color};`}
-            >
-              {role.charAt(0)}
-            </div>
-            <div>
-              <div class="text-xs font-semibold" style="color: #374151;">{role}</div>
-              <div class="text-xs" style="color: #9ca3af;">{org}</div>
+    <!-- Featured testimonials -->
+    <div class="flex flex-col gap-6">
+      {
+        featured.map(({ quote, name, image, color, bg, border }) => (
+          <div
+            class="rounded-2xl p-8 lg:p-10 flex flex-col gap-6"
+            style={`background: ${bg}; border: 1px solid ${border};`}
+          >
+            <Quote size={32} color={color} style="opacity: 0.25;" />
+            <p class="text-base lg:text-lg leading-relaxed font-medium" style="color: #111827;">
+              "{quote}"
+            </p>
+            <div class="flex items-center gap-3">
+              <img
+                src={image}
+                alt={name}
+                class="w-12 h-12 rounded-full object-cover shrink-0"
+                width="48"
+                height="48"
+              />
+              <div class="text-sm font-semibold" style="color: #374151;">
+                {name}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>

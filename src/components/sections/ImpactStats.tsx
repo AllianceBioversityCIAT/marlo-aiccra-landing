@@ -1,7 +1,5 @@
 import {
   Users,
-  Globe,
-  Building2,
   BookOpen,
   CalendarDays,
   FileText,
@@ -24,20 +22,6 @@ const stats: Stat[] = [
     value: '1,380+',
     description:
       'Registered users who have engaged with and made use of the platform, from researchers to policymakers and agricultural specialists.',
-  },
-  {
-    icon: Globe,
-    title: 'Countries',
-    value: '145+',
-    description:
-      'Countries where results reported through the platform have had a presence and impact.',
-  },
-  {
-    icon: Building2,
-    title: 'Organizations',
-    value: '2,035+',
-    description:
-      'Number of organizations MARLO has supported in reporting their results and outcomes.',
   },
   {
     icon: BookOpen,
@@ -105,23 +89,15 @@ export default function ImpactStats() {
           </p>
         </div>
 
-        {/* Grid — rows of 3, last row of 2 centered */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+        {/* Grid — 3 columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
-
-            // Rows of 3 (span 2 of 6 cols). Last row of 2: offset to center (cols 2–3 and 4–5)
-            const colClass =
-              index < stats.length - 2
-                ? 'lg:col-span-2'
-                : index === stats.length - 2
-                  ? 'lg:col-span-2 lg:col-start-2'
-                  : 'lg:col-span-2';
 
             return (
               <div
                 key={index}
-                className={`rounded-2xl p-6 bg-white ${colClass}`}
+                className="rounded-2xl p-6 bg-white"
                 style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
               >
                 {/* Top row: icon + title + value */}

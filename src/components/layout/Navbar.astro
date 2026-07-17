@@ -39,15 +39,6 @@ import { Menu } from '@lucide/astro';
     <!-- Right Actions -->
     <div class="flex items-center gap-4">
       <a
-        href="https://aiccra.marlo.cgiar.org"
-        target="_blank"
-        rel="noopener noreferrer"
-        id="docs-link"
-        class="hidden md:block text-sm font-medium text-white hover:text-[#22D3EE] transition-colors duration-300"
-      >
-        Log in
-      </a>
-      <a
         href="/contact"
         class="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
         style="background-color: #2563eb;"
@@ -83,11 +74,6 @@ import { Menu } from '@lucide/astro';
           </li>
         ))
       }
-      <li>
-        <a href="#" class="mobile-nav-link text-sm font-medium text-white hover:text-[#22D3EE]"
-          >Log in</a
-        >
-      </li>
     </ul>
   </div>
 </header>
@@ -101,7 +87,6 @@ import { Menu } from '@lucide/astro';
   const logoMarlo = document.getElementById('logo-marlo');
   const logoSub = document.getElementById('logo-sub');
   const navLinks = document.querySelectorAll('.nav-link');
-  const docsLink = document.getElementById('docs-link');
   const mobileBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
 
@@ -122,9 +107,6 @@ import { Menu } from '@lucide/astro';
         link.classList.remove('text-white', 'hover:text-[#22D3EE]');
         link.classList.add('text-gray-600', 'hover:text-[#1a3a5c]');
       });
-
-      docsLink?.classList.remove('text-white', 'hover:text-[#22D3EE]');
-      docsLink?.classList.add('text-gray-600', 'hover:text-[#1a3a5c]');
 
       mobileBtn?.classList.remove('text-white', 'hover:bg-white/10');
       mobileBtn?.classList.add('text-gray-600', 'hover:bg-gray-100');
@@ -151,9 +133,6 @@ import { Menu } from '@lucide/astro';
         link.classList.add('text-white', 'hover:text-[#22D3EE]');
         link.classList.remove('text-gray-600', 'hover:text-[#1a3a5c]');
       });
-
-      docsLink?.classList.add('text-white', 'hover:text-[#22D3EE]');
-      docsLink?.classList.remove('text-gray-600', 'hover:text-[#1a3a5c]');
 
       mobileBtn?.classList.add('text-white', 'hover:bg-white/10');
       mobileBtn?.classList.remove('text-gray-600', 'hover:bg-gray-100');

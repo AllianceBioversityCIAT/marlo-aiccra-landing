@@ -1,12 +1,22 @@
 ---
 const partners = [
   { name: 'Alliance of Bioversity & CIAT', src: '/logos/alliance.png' },
-  { name: 'CGIAR', src: '/logos/cgiar.svg' },
   { name: 'World Bank', src: '/logos/world-bank.png' },
   { name: 'IFPRI', src: '/logos/ifpri.svg' },
   { name: 'ILRI', src: '/logos/ilri.svg', width: '80px' },
   { name: 'CIMMYT', src: '/logos/cimmyt.png', width: '200px' },
   { name: 'IITA', src: '/logos/iita.png' },
+  { name: 'Columbia University', src: '/logos/columbia-university.png', width: '180px' },
+  { name: 'University of Vermont', src: '/logos/university-of-vermont.png', width: '160px' },
+  { name: 'CCAFS', src: '/logos/ccafs.png', width: '80px' },
+  {
+    name: 'Wageningen University & Research',
+    src: '/logos/wageningen-university.png',
+    width: '180px',
+  },
+  { name: 'Utrecht University', src: '/logos/utrecht-university.png', width: '150px' },
+  { name: 'University of Oxford', src: '/logos/university-of-oxford.png', width: '180px' },
+  { name: 'University of Leeds', src: '/logos/university-of-leeds.png', width: '160px' },
 ];
 // Duplicate for seamless infinite loop
 const loopItems = [...partners, ...partners];
@@ -40,11 +50,11 @@ const loopItems = [...partners, ...partners];
         <div class="marquee-track flex items-center">
           {
             loopItems.map(({ name, src, width = 'auto' }) => (
-              <div class="shrink-0 flex items-center justify-center pr-14">
+              <div class="partner-logo-item shrink-0 flex items-center justify-center pr-14">
                 <img
                   src={src}
                   alt={name}
-                  class="object-contain grayscale opacity-60"
+                  class="partner-logo object-contain"
                   style={`height: 50px; width: ${width};`}
                 />
               </div>
@@ -63,22 +73,51 @@ const loopItems = [...partners, ...partners];
 </section>
 
 <style>
+  .carousel-wrapper {
+    cursor: default;
+  }
+
   .marquee-track {
     will-change: transform;
+  }
+
+  .partner-logo {
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition:
+      filter 0.35s ease,
+      opacity 0.35s ease;
+  }
+
+  .partner-logo-item:hover .partner-logo {
+    filter: grayscale(0%);
+    opacity: 1;
   }
 </style>
 
 <script>
+  const wrapper = document.querySelector('.carousel-wrapper') as HTMLElement;
   const track = document.querySelector('.marquee-track') as HTMLElement;
-  if (track) {
-    const SPEED = 60; // px/s
+
+  if (wrapper && track) {
+    const BASE_SPEED = 60; // px/s
+    const HOVER_SPEED = 18; // px/s — noticeably slower on hover
+    let speed = BASE_SPEED;
     let x = 0;
     let halfWidth = 0;
     let lastTime: number | null = null;
 
+    wrapper.addEventListener('mouseenter', () => {
+      speed = HOVER_SPEED;
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      speed = BASE_SPEED;
+    });
+
     const tick = (timestamp: number) => {
       if (!lastTime) lastTime = timestamp;
-      x -= (SPEED * (timestamp - lastTime)) / 1000;
+      x -= (speed * (timestamp - lastTime)) / 1000;
       lastTime = timestamp;
 
       // Seamless reset: position -halfWidth is visually identical to 0

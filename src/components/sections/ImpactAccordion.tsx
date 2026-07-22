@@ -31,14 +31,14 @@ const stats: Stat[] = [
     iconColor: '#0d9488',
     iconBg: 'rgba(13,148,136,0.1)',
     label: 'End-to-End Results Visibility',
-    desc: 'The platform supports tracking of thousands of deliverables, innovations, and impact reports, providing clear traceability from activities to results.',
+    desc: 'The platform supports tracking of thousands of deliverables, innovations, and impact reports, providing clear traceability from indicators to results.',
   },
   {
     id: 'realtime',
     Icon: Zap,
     iconColor: '#059669',
     iconBg: 'rgba(5,150,105,0.1)',
-    label: 'Faster Reporting with AI Support',
+    label: 'Faster Synthesis with AI Support',
     desc: 'Using AI powered by structured data, teams can move from hours of manual writing to draft reports in minutes, while maintaining consistency and quality.',
   },
   {

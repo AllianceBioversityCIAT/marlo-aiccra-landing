@@ -1,0 +1,67 @@
+---
+const contributors: { name: string; github?: string }[] = [
+  { name: 'Kenji Tanaka', github: 'kenjitm' },
+  { name: 'Sebastian Amariles Garcia', github: 'sebas932' },
+  { name: 'Hermes Jimenez Rivera', github: 'HermesJim' },
+  { name: 'Andres Felipe Valencia', github: 'AndresFVR' },
+  { name: 'Christian Garcia', github: 'cgarcia9106' },
+  { name: 'Jhon Sebastian Garcia Izquierdo', github: 'MetalPrime' },
+  { name: 'jhanzuroc', github: 'jhanzuroc' },
+  { name: 'Carlos Rios', github: 'carios1usb' },
+  { name: 'Ana Pantoja', github: 'anamp07' },
+  { name: 'Yecksin Mauricio', github: 'yecksin' },
+  { name: 'cristianpizociat', github: 'cristianpizociat' },
+  { name: 'Grant', github: 'Grant-Lay' },
+  { name: 'Cristian Gamboa', github: 'Cristian45' },
+  { name: 'BrahianSalazar', github: 'BrahianSalazar' },
+  { name: 'Manuel Ricardo Almanzar', github: 'mralmanzar' },
+  { name: 'Valentina Viveros', github: 'valviveros' },
+  { name: 'Julian Rodriguez', github: 'jurodca' },
+  { name: 'felipelvira', github: 'felipelvira' },
+  { name: 'Kevin Collazos', github: 'xKeCo' },
+  { name: 'OviLuis', github: 'OviLuis' },
+  { name: 'Cristian Pizo', github: 'pizocristian' },
+  { name: 'Hector Tobon', github: 'htobon' },
+  { name: 'Daniel Amariles', github: 'danipilze' },
+  { name: 'JuanCode', github: 'JuankCadavid' },
+  { name: 'Laura Chaves' },
+  { name: 'Claudia Castiblanco' },
+  { name: 'Margarita Ramirez' },
+  { name: 'Manuel Luna' },
+];
+---
+
+<section class="py-16" style="background: #f8f9fa;">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <p class="text-xs font-semibold tracking-widest uppercase mb-3" style="color: #9ca3af;">
+      Acknowledgments
+    </p>
+    <h2 class="text-xl font-bold mb-3" style="color: #111827;">Contributors</h2>
+    <p class="text-sm leading-relaxed mb-8 max-w-xl mx-auto" style="color: #6b7280;">
+      MARLO is the product of many hands over the years. Thank you to everyone who has contributed
+      code, design, and ideas to the platform.
+    </p>
+    <ul class="flex flex-wrap justify-center gap-x-2 gap-y-2 text-sm" style="color: #4b5563;">
+      {
+        contributors.map((person, index) => (
+          <li class="inline-flex items-center">
+            {person.github ? (
+              <a
+                href={`https://github.com/${person.github}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:underline"
+                style="color: #4b5563;"
+              >
+                {person.name}
+              </a>
+            ) : (
+              <span>{person.name}</span>
+            )}
+            {index < contributors.length - 1 && <span class="ml-2" style="color: #d1d5db;">·</span>}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

@@ -4,13 +4,19 @@ import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import FAQsExtended from '../components/sections/FAQsExtended.astro';
 import { extendedFaqs } from '../data/faqs';
-import { faqPageSchema } from '../lib/seo';
+import { breadcrumbListSchema, faqPageSchema } from '../lib/seo';
 ---
 
 <Layout
   title="FAQs | MARLO Research Management & Reporting"
   description="Answers about MARLO for CGIAR and research programs — frameworks, multi-country reporting, integrations, security, scaling, and support."
-  jsonLd={[faqPageSchema(extendedFaqs)]}
+  jsonLd={[
+    faqPageSchema(extendedFaqs),
+    breadcrumbListSchema([
+      { name: 'Home', path: '/' },
+      { name: 'FAQs', path: '/faqs' },
+    ]),
+  ]}
 >
   <Navbar />
   <main>

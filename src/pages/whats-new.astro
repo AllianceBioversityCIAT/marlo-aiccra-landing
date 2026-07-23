@@ -3,15 +3,50 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import WhatsNewSection from '../components/sections/WhatsNew';
+import { fetchReleaseNotes } from '../lib/release-notes';
+import { breadcrumbListSchema, collectionPageSchema, itemListSchema } from '../lib/seo';
+
+// Fetched server-side so the initial HTML already contains the release notes —
+// crawlers that don't execute JS (GPTBot, ClaudeBot, PerplexityBot, etc.) would
+// otherwise only ever see a loading skeleton on this page.
+let initialReleases: Awaited<ReturnType<typeof fetchReleaseNotes>> = [];
+let initialError = false;
+try {
+  initialReleases = await fetchReleaseNotes();
+} catch {
+  initialError = true;
+}
+
+const pageTitle = "What's New | MARLO Platform Updates";
+const pageDescription =
+  'Latest MARLO features, improvements, and fixes for research planning, monitoring, reporting, and results management.';
 ---
 
 <Layout
-  title="What's New | MARLO Platform Updates"
-  description="Latest MARLO features, improvements, and fixes for research planning, monitoring, reporting, and results management."
+  title={pageTitle}
+  description={pageDescription}
+  jsonLd={[
+    collectionPageSchema({ path: '/whats-new', name: pageTitle, description: pageDescription }),
+    breadcrumbListSchema([
+      { name: 'Home', path: '/' },
+      { name: "What's New", path: '/whats-new' },
+    ]),
+    ...(initialReleases.length > 0
+      ? [
+          itemListSchema(
+            initialReleases.slice(0, 20).map((r) => ({
+              name: r.title,
+              url: r.notionUrl ?? r.evidenceLink ?? undefined,
+              description: r.description || undefined,
+            })),
+          ),
+        ]
+      : []),
+  ]}
 >
   <Navbar />
   <main>
-    <WhatsNewSection client:load />
+    <WhatsNewSection client:load initialReleases={initialReleases} initialError={initialError} />
   </main>
   <Footer />
 </Layout>

@@ -26,7 +26,7 @@ const stats: Stat[] = [
   },
   {
     icon: BookOpen,
-    title: 'Programs',
+    title: 'Scope',
     value: 'CGIAR, CRP & AICCRA',
     description:
       'CGIAR research programs and initiatives managed and monitored within MARLO throughout their lifecycle.',

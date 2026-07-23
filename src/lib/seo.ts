@@ -84,8 +84,8 @@ export function softwareApplicationSchema() {
     offers: {
       '@type': 'Offer',
       url: absoluteUrl('/contact'),
-      category: 'Demo request',
-      description: 'Request a personalized demo of MARLO',
+      category: '1:1 request',
+      description: 'Book a 1:1 with the MARLO technical team',
     },
     provider: { '@id': `${SITE_URL}/#organization` },
   };

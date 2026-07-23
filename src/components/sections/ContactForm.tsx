@@ -112,13 +112,13 @@ export default function ContactForm() {
               Book a 1:1 with our
               <br />
               <em className="not-italic" style={{ color: '#22D3EE' }}>
-                program experts
+                technical team
               </em>
             </h1>
 
             <p className="text-base lg:text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
-              Request a personalized demo to explore how MARLO can support your program. Our team
-              will walk you through the platform and answer your questions.
+              Book a 1:1 with the team building MARLO to see how it can support your program. We'll
+              walk you through the platform and answer your questions.
             </p>
 
             <ul className="flex flex-col gap-4">
@@ -148,7 +148,7 @@ export default function ContactForm() {
                   </h2>
                   <p className="text-sm" style={{ color: '#6b7280' }}>
                     Thanks for reaching out. Our team will get back to you shortly to schedule your
-                    personalized demo.
+                    1:1 call.
                   </p>
                 </div>
               ) : (
@@ -158,7 +158,7 @@ export default function ContactForm() {
                       Get a personalized walkthrough
                     </h2>
                     <p className="text-sm" style={{ color: '#6b7280' }}>
-                      Fill in your details so we can tailor the demo to your requirements.
+                      Fill in your details so we can tailor the 1:1 to your requirements.
                     </p>
                   </div>
 
@@ -264,7 +264,7 @@ export default function ContactForm() {
                         </>
                       ) : (
                         <>
-                          Request a Demo
+                          Book a 1:1
                           <ArrowRight size={16} />
                         </>
                       )}

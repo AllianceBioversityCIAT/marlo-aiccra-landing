@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   ExternalLink,
   Calendar,
   RefreshCw,
   Sparkles,
 } from 'lucide-react';
+import { parseReleases, type ReleaseNote, type Developer } from '../../lib/release-notes';
 
 const API_URL = '/api/release-notes';
 
@@ -31,108 +32,6 @@ const STATUS_BG: Record<string, string> = {
   pink: 'rgba(219,39,119,0.1)',
   brown: 'rgba(146,64,14,0.1)',
 };
-
-interface Developer {
-  id: string;
-  name: string;
-  avatar_url?: string;
-}
-
-interface ReleaseNote {
-  id: string;
-  title: string;
-  description: string;
-  date: string | null;
-  status: { name: string; color: string } | null;
-  tag: string | null;
-  projects: string[];
-  developers: Developer[];
-  evidenceLink: string | null;
-  notionUrl: string | null;
-  lastEdited: string;
-  coverImage: string | null;
-}
-
-interface NotionRichText {
-  plain_text: string;
-}
-interface NotionSelectOption {
-  name: string;
-}
-interface NotionPerson {
-  id: string;
-  name?: string;
-  avatar_url?: string;
-}
-interface NotionPageProperties {
-  Name?: { title: NotionRichText[] };
-  'Brief description'?: { rich_text: NotionRichText[] };
-  'Released date'?: { date: { start: string } | null };
-  Status?: { status: { name: string; color: string } | null };
-  Tags?: { select: NotionSelectOption | null };
-  Projects?: { multi_select: NotionSelectOption[] };
-  Developers?: { people: NotionPerson[] };
-  'Evidence link'?: { url: string | null };
-}
-interface NotionPage {
-  id: string;
-  cover?:
-    | { type: 'external'; external: { url: string } }
-    | { type: 'file'; file: { url: string; expiry_time: string } }
-    | null;
-  properties: NotionPageProperties;
-  public_url: string | null;
-  last_edited_time: string;
-}
-
-function parseReleases(results: NotionPage[]): ReleaseNote[] {
-  return results
-    .map((result) => {
-      const props = result.properties;
-
-      const title = (props.Name?.title ?? []).map((t) => t.plain_text).join('') || 'Untitled';
-      const description = (props['Brief description']?.rich_text ?? [])
-        .map((t) => t.plain_text)
-        .join('');
-      const date = props['Released date']?.date?.start ?? null;
-      const statusRaw = props.Status?.status;
-      const status = statusRaw ? { name: statusRaw.name, color: statusRaw.color } : null;
-      const tag = props.Tags?.select?.name ?? null;
-      const projects = (props.Projects?.multi_select ?? []).map((p) => p.name);
-      const developers = (props.Developers?.people ?? []).map((p) => ({
-        id: p.id,
-        name: p.name ?? 'Unknown',
-        avatar_url: p.avatar_url,
-      }));
-      const evidenceLink = props['Evidence link']?.url ?? null;
-      const coverImage =
-        result.cover?.type === 'external'
-          ? result.cover.external.url
-          : result.cover?.type === 'file'
-            ? result.cover.file.url
-            : null;
-
-      return {
-        id: result.id,
-        title,
-        description,
-        date,
-        status,
-        tag,
-        projects,
-        developers,
-        evidenceLink,
-        notionUrl: result.public_url ?? null,
-        lastEdited: result.last_edited_time,
-        coverImage,
-      };
-    })
-    .sort((a, b) => {
-      const da = a.date ? new Date(a.date).getTime() : 0;
-      const db = b.date ? new Date(b.date).getTime() : 0;
-      return db - da;
-    });
-}
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr + 'T00:00:00');
@@ -359,10 +258,18 @@ function SkeletonListItem() {
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export default function WhatsNew() {
-  const [releases, setReleases] = useState<ReleaseNote[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface WhatsNewProps {
+  /** Pre-fetched server-side so crawlers without JS see real content on first load. */
+  initialReleases?: ReleaseNote[];
+  initialError?: boolean;
+}
+
+export default function WhatsNew({ initialReleases = [], initialError = false }: WhatsNewProps) {
+  const [releases, setReleases] = useState<ReleaseNote[]>(initialReleases);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(
+    initialError ? 'Failed to load release notes. Please try again.' : null,
+  );
 
   async function fetchReleases() {
     setLoading(true);
@@ -378,10 +285,6 @@ export default function WhatsNew() {
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    fetchReleases();
-  }, []);
 
   const featured = releases.slice(0, 5);
   const rest = releases.slice(5);

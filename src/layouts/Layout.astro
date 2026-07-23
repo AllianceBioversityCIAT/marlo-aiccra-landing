@@ -70,9 +70,12 @@ const structuredData = buildJsonLdGraph([
     <meta name="theme-color" content="#012E4A" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" href="/marlo-logo.png" />
-    <link rel="apple-touch-icon" href="/marlo-logo.png" />
+    <!-- Favicons (MARLO mark — public/favicon.svg is the unused Astro starter
+         placeholder, kept out of this list on purpose) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />

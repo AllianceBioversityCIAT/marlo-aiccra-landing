@@ -25,14 +25,20 @@ export const SITE_KEYWORDS = [
   'FAIR data',
 ].join(', ');
 
-/** Indexable marketing routes (excludes API endpoints). */
+/**
+ * Indexable marketing routes (excludes API endpoints).
+ * `lastmod` is maintained by hand — bump it when a route's content meaningfully
+ * changes. Search engines discount sitemaps whose lastmod is always "today".
+ * `/whats-new` is the exception: its lastmod is computed at request time from
+ * the newest release note (see sitemap.xml.ts).
+ */
 export const SITEMAP_ROUTES = [
-  { path: '/', changefreq: 'weekly', priority: 1.0 },
-  { path: '/about', changefreq: 'monthly', priority: 0.8 },
-  { path: '/contact', changefreq: 'monthly', priority: 0.9 },
-  { path: '/faqs', changefreq: 'monthly', priority: 0.8 },
-  { path: '/team', changefreq: 'monthly', priority: 0.7 },
-  { path: '/whats-new', changefreq: 'weekly', priority: 0.7 },
+  { path: '/', changefreq: 'weekly', priority: 1.0, lastmod: '2026-07-16' },
+  { path: '/about', changefreq: 'monthly', priority: 0.8, lastmod: '2026-07-22' },
+  { path: '/contact', changefreq: 'monthly', priority: 0.9, lastmod: '2026-07-22' },
+  { path: '/faqs', changefreq: 'monthly', priority: 0.8, lastmod: '2026-07-16' },
+  { path: '/team', changefreq: 'monthly', priority: 0.7, lastmod: '2026-07-16' },
+  { path: '/whats-new', changefreq: 'weekly', priority: 0.7, lastmod: null },
 ] as const;
 
 export function absoluteUrl(path = '/'): string {
@@ -122,6 +128,63 @@ export function faqPageSchema(
         '@type': 'Answer',
         text: answer,
       },
+    })),
+  };
+}
+
+export function breadcrumbListSchema(items: ReadonlyArray<{ name: string; path: string }>) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function aboutPageSchema(opts: { path: string }) {
+  return {
+    '@type': 'AboutPage',
+    '@id': `${absoluteUrl(opts.path)}#aboutpage`,
+    url: absoluteUrl(opts.path),
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    about: { '@id': `${SITE_URL}/#organization` },
+  };
+}
+
+export function contactPageSchema(opts: { path: string }) {
+  return {
+    '@type': 'ContactPage',
+    '@id': `${absoluteUrl(opts.path)}#contactpage`,
+    url: absoluteUrl(opts.path),
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+  };
+}
+
+export function collectionPageSchema(opts: { path: string; name: string; description: string }) {
+  return {
+    '@type': 'CollectionPage',
+    '@id': `${absoluteUrl(opts.path)}#collectionpage`,
+    url: absoluteUrl(opts.path),
+    name: opts.name,
+    description: opts.description,
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+  };
+}
+
+export function itemListSchema(
+  items: ReadonlyArray<{ name: string; url?: string; description?: string }>,
+) {
+  return {
+    '@type': 'ItemList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      ...(item.url ? { url: item.url } : {}),
+      ...(item.description ? { description: item.description } : {}),
     })),
   };
 }

@@ -3,11 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import ContactForm from '../components/sections/ContactForm';
+import { breadcrumbListSchema, contactPageSchema } from '../lib/seo';
 ---
 
 <Layout
   title="Book a 1:1 | MARLO Research Management Platform"
   description="Book a 1:1 with our technical team to see structured reporting, MEL workflows, and results dashboards for multi-country research programs."
+  jsonLd={[
+    contactPageSchema({ path: '/contact' }),
+    breadcrumbListSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Contact', path: '/contact' },
+    ]),
+  ]}
 >
   <Navbar />
   <main>

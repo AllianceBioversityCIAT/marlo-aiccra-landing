@@ -2,6 +2,7 @@ import {
   Users,
   BookOpen,
   CalendarDays,
+  DollarSign,
   FileText,
   Lightbulb,
   Target,
@@ -25,10 +26,17 @@ const stats: Stat[] = [
   },
   {
     icon: BookOpen,
-    title: 'Programs',
+    title: 'Scope',
     value: 'CGIAR, CRP & AICCRA',
     description:
       'CGIAR research programs and initiatives managed and monitored within MARLO throughout their lifecycle.',
+  },
+  {
+    icon: DollarSign,
+    title: 'Project Investment',
+    value: 'US$100M',
+    description:
+      'MARLO supported results management for AICCRA, a flagship CGIAR initiative backed by an additional US$100 million in World Bank (IDA) financing to scale climate-smart agriculture across Africa.',
   },
   {
     icon: CalendarDays,

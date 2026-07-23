@@ -7,11 +7,19 @@ import AboutPlatform from '../components/sections/AboutPlatform.astro';
 import AboutTimeline from '../components/sections/AboutTimeline.astro';
 import AboutContributors from '../components/sections/AboutContributors.astro';
 import FinalCTA from '../components/sections/FinalCTA.astro';
+import { aboutPageSchema, breadcrumbListSchema } from '../lib/seo';
 ---
 
 <Layout
   title="About MARLO | CGIAR Research Management Platform"
   description="Learn how MARLO helps CGIAR programs plan, monitor, and report agricultural research results — and meet the Innovation & Business Development (IBD) team behind the platform."
+  jsonLd={[
+    aboutPageSchema({ path: '/about' }),
+    breadcrumbListSchema([
+      { name: 'Home', path: '/' },
+      { name: 'About', path: '/about' },
+    ]),
+  ]}
 >
   <Navbar />
   <main>

@@ -3,11 +3,18 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import TeamTechnology from '../components/sections/TeamTechnology.astro';
+import { breadcrumbListSchema } from '../lib/seo';
 ---
 
 <Layout
   title="Team & Technology | MARLO"
   description="Meet the multidisciplinary team building MARLO and the technology approach powering CGIAR research reporting and results management."
+  jsonLd={[
+    breadcrumbListSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Team & Technology', path: '/team' },
+    ]),
+  ]}
 >
   <Navbar />
   <main>

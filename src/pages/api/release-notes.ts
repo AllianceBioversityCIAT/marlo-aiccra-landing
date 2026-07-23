@@ -1,13 +1,11 @@
 import type { APIRoute } from 'astro';
-
-const API_URL =
-  'https://release-notes.prms.cgiar.org/api/notion/databases/035e13d090ff4251acb12f8e5e2171f4/query?projects=AICCRA, MARLO-CRP';
+import { RELEASE_NOTES_API_URL } from '../../lib/release-notes';
 
 export const prerender = false;
 
 export const GET: APIRoute = async () => {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(RELEASE_NOTES_API_URL, {
       headers: { 'Content-Type': 'application/json' },
     });
 

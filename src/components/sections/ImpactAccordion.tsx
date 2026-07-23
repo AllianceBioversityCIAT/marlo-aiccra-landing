@@ -18,20 +18,21 @@ type ImpactAccordionProps = {
 
 const stats: Stat[] = [
   {
-    id: 'faster',
+    id: 'proven',
     Icon: Globe,
     iconColor: '#2563eb',
     iconBg: 'rgba(37,99,235,0.1)',
-    label: 'Proven in Complex Multi-Country Programs',
-    desc: 'MARLO has been used in initiatives like AICCRA to support results management across 145+ countries and distributed teams, ensuring consistent reporting at scale.',
+    label: 'Proven, Mature Platform Across CGIAR',
+    desc: "With years of production use and dozens of programs behind it — including AICCRA's work across 145+ countries and distributed teams — MARLO is a battle-tested platform, not an unproven prototype.",
   },
+
   {
     id: 'consistency',
     Icon: Eye,
     iconColor: '#0d9488',
     iconBg: 'rgba(13,148,136,0.1)',
-    label: 'End-to-End Results Visibility',
-    desc: 'The platform supports tracking of thousands of deliverables, innovations, and impact reports, providing clear traceability from indicators to results.',
+    label: 'Adaptable Tracking, End-to-End Visibility',
+    desc: 'Projects can customize their own results frameworks while MARLO tracks thousands of deliverables, innovations, and impact reports — giving clear traceability from indicators to results, aligned with how CGIAR runs M&E system-wide.',
   },
   {
     id: 'realtime',

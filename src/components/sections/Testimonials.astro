@@ -20,7 +20,23 @@ const featured = [
     bg: 'rgba(13,148,136,0.05)',
     border: 'rgba(13,148,136,0.1)',
   },
+  {
+    quote:
+      'I appreciate the products and platforms developed by the IBD team because they have made my work easier, particularly in program management. The tools help us organize and access information more effectively, while also supporting new areas of work and collaboration. As our programs evolve, having platforms that can adapt to different needs and provide useful insights has been extremely valuable for both planning and implementation.',
+    name: 'Angelica Barlis',
+    image: '/testimonials/angelica-barlis.webp',
+    color: '#7c3aed',
+    bg: 'rgba(124,58,237,0.05)',
+    border: 'rgba(124,58,237,0.1)',
+  },
 ];
+
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
 ---
 
 <section id="testimonials" class="bg-white py-24">
@@ -48,13 +64,22 @@ const featured = [
               "{quote}"
             </p>
             <div class="flex items-center gap-3">
-              <img
-                src={image}
-                alt={name}
-                class="w-12 h-12 rounded-full object-cover shrink-0"
-                width="48"
-                height="48"
-              />
+              {image ? (
+                <img
+                  src={image}
+                  alt={name}
+                  class="w-12 h-12 rounded-full object-cover shrink-0"
+                  width="48"
+                  height="48"
+                />
+              ) : (
+                <div
+                  class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-sm font-semibold"
+                  style={`background: ${color}; color: white;`}
+                >
+                  {initials(name)}
+                </div>
+              )}
               <div class="text-sm font-semibold" style="color: #374151;">
                 {name}
               </div>

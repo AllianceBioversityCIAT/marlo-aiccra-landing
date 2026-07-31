@@ -70,12 +70,15 @@ const structuredData = buildJsonLdGraph([
     <meta name="theme-color" content="#012E4A" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Favicons (MARLO mark — public/favicon.svg is the unused Astro starter
-         placeholder, kept out of this list on purpose) -->
+    <!-- Favicons — every entry is the MARLO mark. /favicon.ico stays last so it
+         also answers the bare root request browsers make on their own. -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-title" content="MARLO" />
+    <meta name="application-name" content="MARLO" />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />

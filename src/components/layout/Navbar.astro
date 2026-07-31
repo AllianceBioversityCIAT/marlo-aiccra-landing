@@ -8,7 +8,7 @@ import { Menu } from '@lucide/astro';
   class="sticky top-0 z-50 transition-[background-color,box-shadow,color] duration-300"
   style="background-color: #012E4A;"
 >
-  <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+  <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-3">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 shrink-0">
       <img src="/marlo-logo.png" alt="MARLO logo" class="w-8 h-8 object-contain" />
@@ -37,10 +37,10 @@ import { Menu } from '@lucide/astro';
     </ul>
 
     <!-- Right Actions -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2 sm:gap-4">
       <a
         href="/contact"
-        class="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white transition-colors"
         style="background-color: #2563eb;"
         onmouseover="this.style.backgroundColor='#1d4ed8'"
         onmouseout="this.style.backgroundColor='#2563eb'"

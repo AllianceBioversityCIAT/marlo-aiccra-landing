@@ -77,11 +77,19 @@
     box-sizing: border-box;
   }
 
+  /* Safety net so one oversized element can never hand the whole page a
+     horizontal scrollbar. `clip` rather than `hidden` on purpose: it leaves the
+     vertical axis `visible`, so the sticky navbar keeps sticking. */
+  html {
+    overflow-x: clip;
+  }
+
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: var(--font-sans);
     margin: 0;
+    overflow-x: clip;
   }
 }
 

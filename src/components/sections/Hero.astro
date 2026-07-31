@@ -121,9 +121,11 @@ import { ArrowRight, Zap } from '@lucide/astro';
             </div>
           </div>
 
-          <!-- Floating card 3: Country badges (left-middle) -->
+          <!-- Floating card 3: Country badges (left-middle). Hidden under `sm`:
+               its six flag badges need ~190px, nearly the entire width of the
+               mockup on a phone, so it piled up on the two cards above. -->
           <div
-            class="absolute top-1/2 -left-4 rounded-xl px-3 py-2 shadow-lg hero-float-card-3"
+            class="hidden sm:block absolute top-1/2 -left-4 rounded-xl px-3 py-2 shadow-lg hero-float-card-3"
             style="background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.8);"
           >
             <div class="text-[10px] font-semibold mb-1.5" style="color: #9ca3af;">Countries</div>

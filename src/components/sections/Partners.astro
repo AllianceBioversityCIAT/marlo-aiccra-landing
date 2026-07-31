@@ -33,29 +33,23 @@ const loopItems = [...partners, ...partners];
         Partners That Have Trusted MARLO*
       </p>
 
-      <!-- Carousel -->
-      <div class="carousel-wrapper flex-1 overflow-hidden relative">
+      <!-- Carousel. w-full + min-w-0 are required: the parent is `flex-col
+           items-center` below `lg`, so without them this item is sized to the
+           track's max-content width and pushes the page into horizontal scroll. -->
+      <div class="carousel-wrapper w-full min-w-0 flex-1 overflow-hidden relative">
         <!-- Fade edges -->
-        <div
-          class="fade-left pointer-events-none absolute inset-y-0 left-0 z-10"
-          style="width: 80px; background: linear-gradient(to right, white, transparent);"
-        >
-        </div>
-        <div
-          class="fade-right pointer-events-none absolute inset-y-0 right-0 z-10"
-          style="width: 80px; background: linear-gradient(to left, white, transparent);"
-        >
-        </div>
+        <div class="fade-edge fade-left pointer-events-none absolute inset-y-0 left-0 z-10"></div>
+        <div class="fade-edge fade-right pointer-events-none absolute inset-y-0 right-0 z-10"></div>
 
         <div class="marquee-track flex items-center">
           {
             loopItems.map(({ name, src, width = 'auto' }) => (
-              <div class="partner-logo-item shrink-0 flex items-center justify-center pr-14">
+              <div class="partner-logo-item shrink-0 flex items-center justify-center pr-8 sm:pr-14">
                 <img
                   src={src}
                   alt={name}
                   class="partner-logo object-contain"
-                  style={`height: 50px; width: ${width};`}
+                  style={`width: ${width};`}
                 />
               </div>
             ))
@@ -81,7 +75,27 @@ const loopItems = [...partners, ...partners];
     will-change: transform;
   }
 
+  /* Narrow viewports: 80px fades would eat almost half of a 360px screen. */
+  .fade-edge {
+    width: 40px;
+  }
+
+  .fade-left {
+    background: linear-gradient(to right, white, transparent);
+  }
+
+  .fade-right {
+    background: linear-gradient(to left, white, transparent);
+  }
+
+  @media (min-width: 640px) {
+    .fade-edge {
+      width: 80px;
+    }
+  }
+
   .partner-logo {
+    height: 50px;
     filter: grayscale(100%);
     opacity: 0.6;
     transition:
@@ -96,16 +110,20 @@ const loopItems = [...partners, ...partners];
 </style>
 
 <script>
-  const wrapper = document.querySelector('.carousel-wrapper') as HTMLElement;
-  const track = document.querySelector('.marquee-track') as HTMLElement;
+  const wrapper = document.querySelector<HTMLElement>('.carousel-wrapper');
+  const track = document.querySelector<HTMLElement>('.marquee-track');
 
   if (wrapper && track) {
     const BASE_SPEED = 60; // px/s
     const HOVER_SPEED = 18; // px/s — noticeably slower on hover
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
     let speed = BASE_SPEED;
     let x = 0;
     let halfWidth = 0;
     let lastTime: number | null = null;
+    let frame: number | null = null;
+    let onScreen = true;
 
     wrapper.addEventListener('mouseenter', () => {
       speed = HOVER_SPEED;
@@ -115,21 +133,68 @@ const loopItems = [...partners, ...partners];
       speed = BASE_SPEED;
     });
 
+    // The track holds the partner list twice, so translating by exactly half of
+    // it lands on a visually identical frame. Remeasure on every layout change
+    // (late-loading logos, viewport resize, orientation change) — a stale
+    // halfWidth makes the loop jump or drift off-screen.
+    const measure = () => {
+      halfWidth = track.scrollWidth / 2;
+      if (halfWidth > 0) x = x % halfWidth;
+    };
+
     const tick = (timestamp: number) => {
-      if (!lastTime) lastTime = timestamp;
+      if (lastTime === null) lastTime = timestamp;
       x -= (speed * (timestamp - lastTime)) / 1000;
       lastTime = timestamp;
 
-      // Seamless reset: position -halfWidth is visually identical to 0
-      if (halfWidth > 0 && x <= -halfWidth) x += halfWidth;
+      if (x <= -halfWidth) x += halfWidth;
 
       track.style.transform = `translateX(${x}px)`;
-      requestAnimationFrame(tick);
+      frame = requestAnimationFrame(tick);
     };
 
-    window.addEventListener('load', () => {
-      halfWidth = track.scrollWidth / 2;
-      requestAnimationFrame(tick);
-    });
+    const stop = () => {
+      if (frame !== null) cancelAnimationFrame(frame);
+      frame = null;
+      lastTime = null;
+    };
+
+    const sync = () => {
+      stop();
+      measure();
+
+      if (reduceMotion.matches) {
+        x = 0;
+        track.style.transform = 'translateX(0px)';
+        return;
+      }
+
+      // No point animating a zero-width track or an off-screen section.
+      if (halfWidth > 0 && onScreen) frame = requestAnimationFrame(tick);
+    };
+
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', sync);
+    } else {
+      let firstCallback = true;
+      new ResizeObserver(() => {
+        // ResizeObserver fires once on observe(); the initial sync below covers it.
+        if (firstCallback) firstCallback = false;
+        else sync();
+      }).observe(track);
+    }
+
+    reduceMotion.addEventListener('change', sync);
+
+    new IntersectionObserver(
+      ([entry]) => {
+        onScreen = entry.isIntersecting;
+        sync();
+      },
+      { threshold: 0 }
+    ).observe(wrapper);
+
+    if (document.readyState === 'complete') sync();
+    else window.addEventListener('load', sync);
   }
 </script>

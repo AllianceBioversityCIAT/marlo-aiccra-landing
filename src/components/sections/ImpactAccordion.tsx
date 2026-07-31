@@ -110,8 +110,13 @@ export default function ImpactAccordion({ videosBaseUrl }: ImpactAccordionProps)
   let interactiveIndex = 0;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_550px] gap-8 lg:gap-10 xl:gap-16">
-      <div ref={containerRef} className="flex flex-col gap-3 h-[540px]">
+    // `minmax(0, ...)` on both tracks: a bare `1fr` floors at the cards'
+    // min-content width and a bare `550px` cannot shrink, which together
+    // overflowed the container between 1024px and ~1160px. The video column is
+    // also held narrower until `xl`, otherwise it starves the card column badly
+    // enough that the expanded card clips its own copy.
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] xl:grid-cols-[minmax(0,1fr)_550px] gap-8 lg:gap-10 xl:gap-16">
+      <div ref={containerRef} className="flex flex-col gap-3 lg:h-[540px]">
         {stats.map((s) => {
           const isActive = activeId === s.id;
           const contentId = `impact-card-${s.id}`;
@@ -165,14 +170,19 @@ export default function ImpactAccordion({ videosBaseUrl }: ImpactAccordionProps)
           );
 
           const collapsedContent = (
-            <div className="flex flex-row items-center h-full px-6 gap-4">
+            <div className="flex flex-row items-center h-full px-6 py-4 lg:py-0 gap-4">
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
                 style={{ background: s.iconBg }}
               >
                 <s.Icon size={18} color={s.iconColor} />
               </div>
-              <span className="text-sm font-bold truncate flex-1" style={{ color: '#111827' }}>
+              {/* Mobile has room for two lines; single-line truncation there cut
+                  most labels down to two or three words. */}
+              <span
+                className="text-sm font-bold flex-1 min-w-0 line-clamp-2 lg:line-clamp-none lg:truncate"
+                style={{ color: '#111827' }}
+              >
                 {s.label}
               </span>
               <div className="flex items-center gap-1.5 shrink-0">
@@ -191,7 +201,9 @@ export default function ImpactAccordion({ videosBaseUrl }: ImpactAccordionProps)
             </div>
           );
 
-          const flex = isActive ? 'flex-[3_1_0%]' : 'flex-[1_1_0%]';
+          // Below `lg` the column is auto-height, so cards size to their own
+          // content; the 3:1 split only applies once the 540px cap kicks in.
+          const flex = isActive ? 'lg:flex-[3_1_0%]' : 'lg:flex-[1_1_0%]';
 
           return (
             <button

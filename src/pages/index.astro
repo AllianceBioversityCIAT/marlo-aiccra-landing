@@ -12,10 +12,15 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import FAQs from '../components/sections/FAQs.astro';
 import FinalCTA from '../components/sections/FinalCTA.astro';
 import WhyMarlo from '../components/sections/WhyMarlo.astro';
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from '../lib/seo';
+import { homeFaqs } from '../data/faqs';
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, faqPageSchema } from '../lib/seo';
 ---
 
-<Layout title={DEFAULT_TITLE} description={DEFAULT_DESCRIPTION}>
+<Layout
+  title={DEFAULT_TITLE}
+  description={DEFAULT_DESCRIPTION}
+  jsonLd={[faqPageSchema(homeFaqs, '/')]}
+>
   <Navbar />
   <main>
     <Hero />

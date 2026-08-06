@@ -3,6 +3,29 @@ export type FaqItem = {
   answer: string;
 };
 
+/**
+ * Short FAQ set rendered on the home page. Shared with the home `FAQPage`
+ * structured data so the markup and the schema can never drift apart —
+ * Google discards FAQ rich results whose answers are not visible on the page.
+ */
+export const homeFaqs: FaqItem[] = [
+  {
+    question: 'What type of organizations is MARLO designed for?',
+    answer:
+      'MARLO is designed for international programs, research initiatives, NGOs, and organizations managing complex, multi-stakeholder reporting processes.',
+  },
+  {
+    question: 'Can MARLO be adapted to different frameworks?',
+    answer:
+      'Yes, MARLO is flexible and can be aligned with frameworks such as PRMS, donor requirements, and custom reporting structures.',
+  },
+  {
+    question: 'Does MARLO integrate with other systems?',
+    answer:
+      'Yes, MARLO can integrate with existing tools and data sources depending on project needs.',
+  },
+];
+
 /** Full FAQ set used on `/faqs` and FAQPage structured data. */
 export const extendedFaqs: FaqItem[] = [
   {

@@ -10,5 +10,5 @@ export const navLinks = [
 export const footerLinks = [
   { label: 'Team & Technology', href: '/team' },
   { label: 'Contact', href: '/contact' },
-  { label: 'Legal', href: 'https://github.com/CCAFS/MARLO/blob/AICCRA/LICENSE' },
+  { label: 'Legal', href: 'https://aiccra.marlo.cgiar.org/legalInformation.do' },
 ];

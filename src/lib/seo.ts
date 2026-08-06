@@ -53,7 +53,16 @@ export function organizationSchema() {
     '@id': `${SITE_URL}/#organization`,
     name: SITE_NAME,
     legalName: 'Managing Agricultural Research for Learning and Outcomes',
+    // The acronym and the expanded name are both used in the wild; declaring
+    // them lets search engines resolve either spelling to the same entity.
+    alternateName: [
+      'Managing Agricultural Research for Learning and Outcomes',
+      'MARLO CGIAR',
+    ],
     url: SITE_URL,
+    // Pins the brand entity to the home page rather than to whichever URL a
+    // crawler happens to like best — the whole point of the exercise.
+    mainEntityOfPage: { '@id': `${SITE_URL}/#webpage` },
     logo: absoluteUrl('/marlo-logo.png'),
     description: DEFAULT_DESCRIPTION,
     parentOrganization: {
@@ -61,7 +70,10 @@ export function organizationSchema() {
       name: 'CGIAR',
       url: 'https://www.cgiar.org/',
     },
-    sameAs: ['https://aiccra.marlo.cgiar.org'],
+    // `sameAs` is for other profiles of this same entity. The AICCRA host is a
+    // deployment of the product, not another profile of the organization — it
+    // is declared as `installUrl` on the SoftwareApplication node instead.
+    sameAs: ['https://github.com/CCAFS/MARLO'],
   };
 }
 
@@ -86,6 +98,7 @@ export function softwareApplicationSchema() {
     applicationSubCategory: 'Research management and MEL platform',
     operatingSystem: 'Web',
     url: SITE_URL,
+    installUrl: 'https://aiccra.marlo.cgiar.org',
     description: DEFAULT_DESCRIPTION,
     offers: {
       '@type': 'Offer',
@@ -116,11 +129,12 @@ export function webPageSchema(opts: {
 
 export function faqPageSchema(
   faqs: ReadonlyArray<{ question: string; answer: string }>,
+  path = '/faqs',
 ) {
   return {
     '@type': 'FAQPage',
-    '@id': `${absoluteUrl('/faqs')}#faqpage`,
-    url: absoluteUrl('/faqs'),
+    '@id': `${absoluteUrl(path)}#faqpage`,
+    url: absoluteUrl(path),
     mainEntity: faqs.map(({ question, answer }) => ({
       '@type': 'Question',
       name: question,

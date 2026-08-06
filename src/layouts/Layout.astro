@@ -41,7 +41,9 @@ const {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_URL);
 const canonical = canonicalURL.href;
 const ogImage = absoluteUrl(image);
-const robots = noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+// `follow` even when noindexed: excluded pages (e.g. 404) still link back into
+// the site, and nofollow would waste those internal signals.
+const robots = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large';
 
 const structuredData = buildJsonLdGraph([
   organizationSchema(),
